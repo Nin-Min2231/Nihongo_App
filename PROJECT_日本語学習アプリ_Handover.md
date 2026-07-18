@@ -41,7 +41,7 @@ Kokoro_Nihongo.apk  ← app Android thật, cài trực tiếp lên điện tho�
 │   ├── _app_build/
 │   │   ├── build_app.py                    ← Script build: xlsx + transcript → JSON → inject template + copy audio
 │   │   └── app_template.html                ← TOÀN BỘ CSS+JS của app (~1800+ dòng, sửa file này để thêm tính năng)
-│   └── _feature_requests/                  ← FR_001 (mẫu) .. FR_005 (đã xong) — lịch sử yêu cầu tính năng
+│   └── _feature_requests/                  ← TEMPLATE.md (viết FR mới) + done/ (FR_002..FR_005, đã xong)
 │
 ├── 02_IT_Gyoumuhen/                         ← Nguồn dữ liệu module IT業務編 (hội thoại công việc IT)
 │   ├── IT_Gyoumuhen.pdf                     ← Sách gốc scan, chỉ tham khảo
@@ -283,7 +283,7 @@ Máy chạy Claude **không có thiết bị/emulator Android kết nối** — 
 
 ## 8. Feature Request — cách yêu cầu thêm/sửa chức năng
 
-Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên `FR_<số>_<tên>.md`. Lịch sử: FR_002 (đổi màu + fix Kaiwa + mic reading), FR_003 (multi-theme + IT業務編 — Part 1+2 UI/menu đã có sẵn từ trước, Part 3 audio làm ở FR_004), FR_004 (IT業務編 Luyện nghe/Luyện đọc), FR_005 (fix TTS Android bằng plugin native — **đã test thật, PM xác nhận nghe được**; redesign Flashcard/IT専門/main menu; thêm app icon từ `04_Image/Logo_Tanpopo.png`) — tất cả **đã xong**. Không cần viết file FR nếu không muốn — mô tả trong chat theo cấu trúc (làm gì → hành vi cụ thể → ràng buộc) là đủ.
+Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên `FR_<số>_<tên>.md`, viết xong đặt ngay tại `_feature_requests/` (khi hoàn thành sẽ chuyển vào `done/`). Lịch sử (`done/`): FR_002 (đổi màu + fix Kaiwa + mic reading), FR_003 (multi-theme + IT業務編 — Part 1+2 UI/menu đã có sẵn từ trước, Part 3 audio làm ở FR_004), FR_004 (IT業務編 Luyện nghe/Luyện đọc), FR_005 (fix TTS Android bằng plugin native — **đã test thật, PM xác nhận nghe được**; redesign Flashcard/IT専門/main menu; thêm app icon từ `04_Image/Logo_Tanpopo.png`) — tất cả **đã xong**. **Hiện không có FR nào pending** — sẵn sàng cho Phase 2. Không cần viết file FR nếu không muốn — mô tả trong chat theo cấu trúc (làm gì → hành vi cụ thể → ràng buộc) là đủ.
 
 ---
 

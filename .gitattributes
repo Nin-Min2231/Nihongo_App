@@ -1,0 +1,15 @@
+# Chuẩn hóa line-ending: lưu trong git luôn là LF, checkout ra theo core.autocrlf của máy
+* text=auto eol=lf
+
+# File nhị phân — không cho git tự động chuyển đổi line-ending (tránh hỏng file)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.apk binary
+*.mp3 binary
+*.pdf binary
+*.xlsx binary
+*.ico binary
+*.ttf binary
+*.woff binary
+*.woff2 binary

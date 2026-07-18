@@ -29,7 +29,7 @@ Kokoro_Nihongo.apk  (app Android thật — cài trực tiếp lên điện tho�
 │   ├── _app_build/
 │   │   ├── build_app.py                   ← Script build: xlsx → JSON → inject vào template
 │   │   └── app_template.html              ← Toàn bộ CSS + JS của app (sửa file này để thêm tính năng)
-│   └── _feature_requests/                 ← Lịch sử các yêu cầu tính năng (FR_001, FR_002...)
+│   └── _feature_requests/                 ← TEMPLATE.md (viết FR mới) + done/ (lịch sử FR đã hoàn thành)
 │
 ├── 02_IT_Gyoumuhen/                        ← Nguồn dữ liệu module IT業務編 (hội thoại công việc)
 │   ├── IT_Gyoumuhen.pdf                    ← Sách gốc (scan, chỉ để tham khảo)
