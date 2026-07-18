@@ -1,0 +1,34 @@
+# ─── Claude Code session state (không phải source code) ───
+.claude/settings.local.json
+.claude/*.lock
+
+# ─── Node / npm ───
+node_modules/
+package-lock.json.bak
+
+# ─── Bản build/copy trùng lặp — regenerate bằng script, không cần commit ───
+# Nguồn audio gốc duy nhất: 02_IT_Gyoumuhen/AudioCD/
+# build_app.py tự copy vào 01_Build_App/audio/ ; npx cap sync tự copy vào 03_Android_App/www/
+01_Build_App/audio/
+03_Android_App/www/
+
+# ─── APK build ra — build lại bằng gradlew, không cần commit (~70MB) ───
+03_Android_App/*.apk
+03_Android_App/android/**/*.apk
+
+# ─── Android/Gradle build artifacts (project Capacitor đã có sẵn 03_Android_App/android/.gitignore
+#      chi tiết hơn, đây chỉ là lớp phòng hờ ở gốc repo) ───
+03_Android_App/android/.gradle/
+03_Android_App/android/build/
+03_Android_App/android/app/build/
+03_Android_App/android/capacitor-cordova-android-plugins/build/
+03_Android_App/android/local.properties
+
+# ─── Python ───
+__pycache__/
+*.pyc
+
+# ─── OS / Editor noise ───
+.DS_Store
+Thumbs.db
+desktop.ini

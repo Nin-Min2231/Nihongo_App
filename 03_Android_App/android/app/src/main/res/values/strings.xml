@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Kokoro Nihongo</string>
+    <string name="title_activity_main">Kokoro Nihongo</string>
+    <string name="package_name">com.kokoronihongo.app</string>
+    <string name="custom_url_scheme">com.kokoronihongo.app</string>
+</resources>
