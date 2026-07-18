@@ -3,7 +3,7 @@
 > **Mục đích tài liệu:** Ghi lại toàn bộ bản chất vấn đề & quy trình — từ **từ điển Excel** → **build app HTML** → **đóng gói APK Android** → **push GitHub**. Đọc file này là 1 chat Claude mới hiểu ngay context, không cần giải thích lại.
 > **Đối tượng đọc:** Claude (chat mới) hoặc chính người dùng.
 > **Người dùng:** NguyenNC — PM/BrSE ngành IT (cầu nối VN ⇄ Nhật).
-> **Cập nhật lần cuối:** 2026-07-18 — sau khi hoàn thành FR_004 (IT業務編), đóng gói APK Capacitor, hệ thống Bộ học/Yêu thích/Đã nhớ, và push code lên GitHub.
+> **Cập nhật lần cuối:** 2026-07-18 — sau khi hoàn thành FR_005 (fix TTS Android bằng plugin native, redesign Flashcard/IT専門/main menu, thêm app icon), đã test thật trên điện thoại và **xác nhận nghe được**.
 
 ---
 
@@ -41,18 +41,22 @@ Kokoro_Nihongo.apk  ← app Android thật, cài trực tiếp lên điện tho�
 │   ├── _app_build/
 │   │   ├── build_app.py                    ← Script build: xlsx + transcript → JSON → inject template + copy audio
 │   │   └── app_template.html                ← TOÀN BỘ CSS+JS của app (~1800+ dòng, sửa file này để thêm tính năng)
-│   └── _feature_requests/                  ← FR_001 (mẫu) .. FR_004 (đã xong) — lịch sử yêu cầu tính năng
+│   └── _feature_requests/                  ← FR_001 (mẫu) .. FR_005 (đã xong) — lịch sử yêu cầu tính năng
 │
 ├── 02_IT_Gyoumuhen/                         ← Nguồn dữ liệu module IT業務編 (hội thoại công việc IT)
 │   ├── IT_Gyoumuhen.pdf                     ← Sách gốc scan, chỉ tham khảo
 │   ├── IT_Gyoumuhen_AudioCD_Transcript.xlsx ← Transcript 38 track (Track|Chương|Unit|...|Nội dung hội thoại|Ghi chú)
 │   └── AudioCD/                              ← 38 file mp3 — NGUỒN AUDIO DUY NHẤT của cả dự án
 │
+├── 04_Image/                                 ← Logo/asset nguồn (không phải code)
+│   └── Logo_Tanpopo.png                      ← Logo gốc 1024x1024, dùng làm app icon + favicon
+│
 └── 03_Android_App/                          ← Project Capacitor — đóng gói HTML thành APK Android
     ├── package.json, capacitor.config.json  ← appId com.kokoronihongo.app, appName "Kokoro Nihongo"
+    ├── assets/icon.png                       ← Copy của Logo_Tanpopo.png, nguồn cho `npx capacitor-assets generate`
     ├── www/                                  ← (gitignore) copy Kokoro_Nihongo.html + audio, sync thủ công trước khi build
     ├── android/                              ← Project Android native (Gradle) — mở bằng Android Studio được
-    └── Kokoro_Nihongo.apk                     ← (gitignore) APK build sẵn mới nhất, ~73MB
+    └── Kokoro_Nihongo.apk                     ← (gitignore) APK build sẵn mới nhất, ~76MB
 ```
 
 **Toolchain Android cài NGOÀI project** (không nằm trong repo, đã cài sẵn trên máy này):
@@ -123,6 +127,8 @@ const MENU_MODULES = [
 
 Đã bỏ 3 card placeholder cũ (日常生活/N2/面接). Luyện đọc + Kaiwa **không còn nằm trong lưới "Chế độ học" của IT専門** — giờ là mục riêng ở menu chính, mỗi mục có màn chọn "bộ" riêng (`readingLibrary()`/`kaiwaLibrary()`, nguồn `splitDecks(allWithEx())` — toàn bộ từ có câu ví dụ, không lọc category).
 
+**Đã thêm ở FR_005:** `home()` giờ hiện 1 khối thống kê tổng hợp toàn hệ thống ngay trên đầu (tái dùng CSS `.stats`/`.stat` sẵn có) trước khi tới danh sách chủ đề: **Streak** (`store.stats.streak`), **Từ đã thuộc** (`learnedCount()` của IT専門), **Track đã nghe** (`Object.keys(gyStore.listened).length` của IT業務編) — mục đích thay cho khối thống kê đã bỏ khỏi riêng từng module con (mục 4.3).
+
 Luồng đầy đủ:
 ```
 home() → IT専門 → homeDashboard() → [Flashcard/Quiz/Nghe/Nói/⭐Yêu thích] → mode screen
@@ -133,19 +139,23 @@ home() → Kaiwa → kaiwaLibrary() → kaiwaMode(deckList, deckIdx)
 
 ### 4.3. Hệ thống "Bộ học" (deck) — quan trọng, ảnh hưởng nhiều logic
 
-Với 596 từ, IT専門 chia thành các **"bộ"** ~20-30 từ (`splitDecks(pool(), 25)` — chia đều số dư, không dồn vào bộ cuối). UI: lưới 4 thẻ/trang (`deckGridHTML()` — component dùng chung cho IT専門/Luyện đọc/Kaiwa), phân trang bằng `‹`/`›`.
+**Đã đổi ở FR_005 (2026-07-18):** IT専門 **không còn chip lọc "Chủ đề"** (漢字/外来語/その他 đã bỏ khỏi UI — biến `curCat` vẫn còn trong code nhưng luôn cố định `'ALL'`, chỉ dùng làm namespace key cho `deckDone`, không có UI đổi nữa). Toàn bộ 596 từ được chia **CỐ ĐỊNH đúng 25 từ/bộ, bắt đầu từ #1** bằng hàm riêng `splitDecksStrict(arr, target)` (bộ cuối = phần dư, KHÔNG san đều số dư như trước) → 596 từ = 23 bộ×25 + 1 bộ 21 từ cuối. Hàm `splitDecks()` cũ (san đều số dư) **vẫn giữ nguyên, chỉ dùng cho Luyện đọc/Kaiwa** (`allWithEx()`) — 2 hàm này KHÔNG dùng chung, đừng nhầm lẫn khi sửa.
+
+UI: lưới 4 thẻ/trang (`deckGridHTML()` — component dùng chung cho IT専門/Luyện đọc/Kaiwa), phân trang bằng `‹`/`›`. Bộ đang chọn (`.deck-card.on`) đổi nền **xanh dương nhạt** (`#dbeafe`) để phân biệt rõ với bộ chưa chọn (xanh dương đậm mặc định).
 
 - `curDeck` (global, 'ALL' hoặc index string) — khi chọn 1 bộ cụ thể, 4 mode Flashcard/Quiz/Nghe/Nói dùng **TRỌN VẸN** danh sách bộ đó (không random-sample như khi chọn "Tất cả") → hoàn thành 1 phiên = hoàn thành cả bộ.
-- **Hoàn thành bộ** lưu ở `store.deckDone[category][deckIndex][mode] = true`, đánh dấu tập trung trong `finish()` (điểm chung của cả 4 mode). Thẻ bộ hiện icon nhỏ (🗂️✍️🎧🎤) cho mode đã hoàn thành, và **chuyển màu xanh lá** khi đủ cả 4 mode.
-- ⚠️ **Đổi category → reset `curDeck='ALL'`** (ranh giới bộ phụ thuộc category đang lọc).
+- **Hoàn thành bộ** lưu ở `store.deckDone[category][deckIndex][mode] = true`, đánh dấu tập trung trong `finish()` (điểm chung của cả 4 mode). Thẻ bộ hiện icon nhỏ (🗂️✍️🎧🎤) cho mode đã hoàn thành, và **chuyển màu xanh lá** khi đủ cả 4 mode (màu selected `.on` ưu tiên hiển thị trước màu `.done` nếu cả 2 cùng áp dụng).
 - Reading/Kaiwa dùng namespace riêng `store.deckDone['_reading']`/`['_kaiwa']` (chỉ 1 "mode" mỗi cái), không đụng tracking của IT専門.
+- IT専門 dashboard (`homeDashboard()`) đã bỏ khối thống kê (Tổng từ/Đã thuộc/Streak + progress bar) — số liệu tổng hợp này giờ chuyển sang hiện ở **main menu** (`home()`, mục 4.2), không lặp lại ở từng module con nữa.
 
 ### 4.4. Yêu thích & Đã nhớ (mới, trên màn Flashcard)
 
 `store.favorites = {id:true}`, `store.cards[id].mastered = true/false` — **CỜ RIÊNG, không dùng chung với `box` SRS tự nhiên** (tránh từ tự nhiên đạt box cao qua chấm điểm bị loại ngoài ý muốn). Helper: `toggleFavorite/isFavorite/toggleMastered/isMastered`.
 
-- Màn Flashcard có 4 nút: **Xem chi tiết/Ẩn chi tiết** (toggle 2 chiều, đồng bộ với chạm thẻ), **Yêu thích**, **Đã nhớ**, **Từ tiếp theo** (không auto-advance khi yêu thích/đã nhớ — user tự bấm next).
+- Màn Flashcard có 4 nút, mỗi nút 1 màu cố định để dễ phân biệt (đổi ở FR_005, thay cho việc gộp cùng 1 màu xám trước đó): **Chi tiết/Ẩn** (`.detail-btn`, nền xanh lá nhạt — toggle 2 chiều, đồng bộ với chạm thẻ), **Yêu thích** (`.fav-btn`, nền vàng nhạt), **Đã nhớ** (`.master-btn`, nền cam nhạt), **Tiếp theo →** (`.next-btn`, nền xanh dương đậm — nút hành động chính). Cả 4 nút đều có border màu đậm hơn nền tương ứng. Text rút gọn ("Chi tiết"/"Tiếp theo", không phải "Xem chi tiết"/"Từ tiếp theo") để không xuống dòng ở màn hình hẹp.
+- **Hàng nút chấm điểm SRS cũ (また Quên/難しい Khó/できた Được/簡単 Dễ, gọi `reviewCard(id, quality 0-3)`) đã BỎ HẲN ở FR_005** — lý do: 2 hàng nút chồng nhau gây rối UI. Thay vào đó: bấm **"Đã nhớ"** (chuyển từ chưa-đánh-dấu → đã-đánh-dấu) đồng thời gọi `reviewCard(id, 2)` (tương đương mức "Được" cũ) — chỉ tính 1 lần lúc chuyển trạng thái, bỏ đánh dấu lại KHÔNG gọi lại. Bấm **"Tiếp theo"** mà chưa đánh dấu "Đã nhớ" thì KHÔNG đụng SRS (giữ nguyên `box`/`due`). ⚠️ Nghĩa là trong Flashcard, SRS giờ chỉ có 1 tín hiệu duy nhất ("Được") thay vì 4 mức — Quiz/Luyện nghe vẫn giữ nguyên cơ chế 2 mức (đúng/sai → quality 2/0) như cũ, không đổi.
 - Từ "Đã nhớ" bị lọc khỏi **CẢ 4 mode** (Flashcard/Quiz/Nghe/Nói) ngay tại bước build `queue` trong từng hàm mode — **KHÔNG lọc ở `pool()`** (nếu lọc ở đó, ranh giới "Bộ N (x-y)" sẽ dịch chuyển liên tục, phá vỡ `deckDone` tracking đang khóa theo index cố định).
+- Header Flashcard hiện thêm tên Bộ khi học theo 1 Bộ cụ thể: `"Bộ 2 (26-50) · 3 / 20"` (hàm `curDeckRangeLabel()`, mục 4.3) — học "Tất cả" thì giữ format cũ không hiện tên Bộ.
 - `learnedCount()` ("Đã thuộc") tính cả `box>=3 || mastered`.
 - Màn Flashcard có link "✅ N từ đã thuộc trong bộ này" → `masteredListScreen()`.
 - **⭐ Yêu thích** là 1 mode-card riêng trong `homeDashboard()` (5 ô), mở `favoritesMode()` — **KHÔNG dùng chung `flashMode()`** vì phải tránh kích hoạt `markDeckDone` (favorites không phải 1 "bộ").
@@ -163,7 +173,7 @@ function cancelRecognition(){ /* native: nativeSR().stop(); web: activeWebRec.st
 function hasSR(){ return !!SR || (isNativeApp() && !!nativeSR()); }
 ```
 
-Cả 4 nơi dùng mic (`speakMode`, `setupReadingMic` IT専門 Reading, `setupPracticeMic` Kaiwa, `setupMic` IT業務編 Reading) đều gọi qua lớp này — **toàn bộ logic chấm điểm (`similarity()`, ngưỡng 80/55, `reviewCard()`) giữ nguyên, chỉ khác cách lấy `alts`**.
+Cả 4 nơi dùng mic (`speakMode`, `setupReadingMic` IT専門 Reading, `setupPracticeMic` Kaiwa, `setupMic` IT業務編 Reading) đều gọi qua lớp này — **toàn bộ logic chấm điểm (`similarity()`, ngưỡng 90/51 — xem mục 4.7, `reviewCard()`) giữ nguyên, chỉ khác cách lấy `alts`**.
 
 ⚠️ **Bug đã gặp & fix:** `await ensureMicReady()` PHẢI nằm trong try/catch cùng với `recognizeOnce()` — nếu để ngoài, exception từ native plugin (unhandled promise rejection) làm nút mic "chết" im lặng không phản hồi, không có thông báo lỗi. Đã fix cả 4 nơi.
 
@@ -175,11 +185,28 @@ Dữ liệu: 38 track mp3 + transcript xlsx (2 chương, 15 unit, xem `02_IT_Gyo
 
 Player nghe dùng **1 thẻ `<audio>` thật** trong DOM (không sửa `playAudioUrl()` cũ — hàm đó dành riêng cho TTS, sửa sẽ rủi ro). Progress bar bằng `<input type=range>`. `stopSpeech()` (điểm dừng-audio chung) đã mở rộng để pause luôn audio local này khi back ra khỏi màn.
 
-### 4.7. Speech API & lỗi thường gặp (giữ từ bản cũ, vẫn đúng)
+### 4.7. TTS (đọc giọng) — kiến trúc mới sau FR_005, ĐÃ TEST THẬT VÀ XÁC NHẬN HOẠT ĐỘNG
 
-- TTS: Google Translate endpoint (`translate_tts?client=gtx`) → fallback `speechSynthesis` khi lỗi/offline.
-- Chấm điểm: `normJa()` bỏ dấu câu → `similarity()` LCS ratio → % (≥80 tuyệt, ≥55 khá).
+**Lịch sử vấn đề:** ban đầu TTS chỉ dùng Google Translate endpoint (`translate_tts?client=gtx`) → fallback `speechSynthesis` khi lỗi. Trên Android WebView (APK), `speechSynthesis` **không tồn tại** (mục 4.5 cũng nhắc — giới hạn nền tảng vĩnh viễn), nên fallback không bao giờ chạy được. Khi test thật trên điện thoại, phát hiện Google TTS **cũng lỗi luôn trong APK** (toast báo `error:media4` = `MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED` — endpoint không chính thức của Google trả về nội dung không phải audio hợp lệ khi gọi từ WebView đóng gói, khác context so với trình duyệt thật). Tức là **TTS chưa từng hoạt động thật trên APK** cho tới khi fix dưới đây.
+
+**Fix triệt để (đã verify hoạt động — PM xác nhận "Đã nghe được"):** thêm plugin Capacitor chính thức **`@capacitor-community/text-to-speech@8.0.2`** — dùng thẳng engine `TextToSpeech` của hệ điều hành Android (giống hệt cách `@capgo/capacitor-speech-recognition` đã dùng cho mic, mục 4.5). Kiến trúc:
+
+```js
+function nativeTTS(){ return window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.TextToSpeech; }
+async function nativeSpeak(text, rateOverride){
+  var tts = nativeTTS();
+  if(!tts || !text) return false;
+  try{ await tts.speak({text, lang:'ja-JP', rate:rateOverride||ttsSettings.speed||0.9, pitch:ttsSettings.pitch||1.0, volume:1.0}); return true; }
+  catch(e){ return false; }
+}
+```
+
+`speak()`/`speakAsync()` giờ kiểm tra `isNativeApp() && nativeTTS()` **ĐẦU TIÊN**: nếu true → gọi thẳng `nativeSpeak()`, hoàn toàn KHÔNG qua mạng/Google TTS nữa (nếu plugin lỗi, VD máy thiếu gói giọng tiếng Nhật, hiện toast hướng dẫn vào Cài đặt Android bật giọng đọc). Đường Google TTS (`playTTSChunk()`, tự thử 2 endpoint `client=gtx`/`client=tw-ob`) + `deviceSpeak()` (`speechSynthesis`) **CHỈ còn áp dụng cho môi trường web/Chrome** (mở file HTML trực tiếp, không qua APK) — không đổi gì ở nhánh đó. `stopSpeech()` cũng gọi `nativeTTS().stop()` khi native để dừng đúng lượt đọc trước đó.
+
+- Toast lỗi (`showToast()`) hiện khi TTS thất bại (cả 2 nhánh native/web) thay vì im lặng như trước — có mã lỗi cụ thể ở nhánh web (VD `error:timeout`/`error:media2`) để chẩn đoán nếu tái phát.
+- Chấm điểm phát âm: `normJa()` bỏ dấu câu → `similarity()` LCS ratio → %. **Ngưỡng đã đổi ở FR_005: ≥90 xuất sắc · ≥51 khá · <51 luyện lại** (trước là ≥80/≥55) — áp dụng đồng bộ ở cả 4 nơi chấm điểm (`speakMode`, `setupReadingMic` IT専門, `setupMic` IT業務編, `setupPracticeMic` Kaiwa). Mỗi lần chấm điểm giờ có thêm **âm thanh phản hồi** qua Web Audio API thuần (`playScoreSound(score)`, hàm `beep()` tự tạo tần số, không cần file âm thanh — 3 mức tương ứng 3 ngưỡng điểm).
 - **Verify sau mỗi build:** `node --check` trên phần `<script>` tách ra; `json.loads` JSON vocab/gyoumu đủ số lượng; không còn placeholder `__GEN_DATE__`/`__COUNT__`.
+- **Verify riêng cho plugin TTS native (không có device thật):** kiểm tra `TextToSpeechPlugin` có compile vào bytecode APK (`unzip classes*.dex` rồi tìm chuỗi `TextToSpeechPlugin`/`community/tts`) + `npx cap sync` log phải liệt kê đủ 2 plugin (`@capacitor-community/text-to-speech` và `@capgo/capacitor-speech-recognition`) — KHÔNG thay thế test thật, nhưng đủ để verify plugin thực sự được đóng gói.
 
 ---
 
@@ -224,7 +251,10 @@ org.gradle.java.home=D:\\Android\\jdk21
 APK hiện tại vẫn là bản **test**, `versionCode=1`/`versionName="1.0"` trong `android/app/build.gradle` — **CHƯA bump lên "0.1" chính thức** (theo thỏa thuận trước: chỉ bump sau khi người dùng xác nhận đã test ổn trên điện thoại thật). Nếu người dùng xác nhận, sửa 2 dòng đó rồi build lại là xong, không cần đổi gì khác.
 
 ### 5.5. Giới hạn môi trường build hiện tại
-Máy chạy Claude **không có thiết bị/emulator Android kết nối** — không thể tự cài & bấm thử trên máy thật. Mọi lần build chỉ verify được: build thành công (`gradlew assembleDebug` exit 0), cấu trúc APK đúng (`aapt dump badging`/`unzip -l` kiểm tra permission, assets, plugin registration), và test logic JS bằng cách **mock `window.Capacitor`** trong Chrome preview (giả lập plugin trả kết quả, xác nhận luồng gọi/xử lý lỗi đúng) — KHÔNG thay thế được test thật trên điện thoại (đặc biệt phần mic native).
+Máy chạy Claude **không có thiết bị/emulator Android kết nối** — không thể tự cài & bấm thử trên máy thật. Mọi lần build chỉ verify được: build thành công (`gradlew assembleDebug` exit 0), cấu trúc APK đúng (`aapt dump badging`/`unzip -l` kiểm tra permission, assets, plugin registration), và test logic JS bằng cách **mock `window.Capacitor`** trong Chrome preview (giả lập plugin trả kết quả, xác nhận luồng gọi/xử lý lỗi đúng) — KHÔNG thay thế được test thật trên điện thoại (đặc biệt phần mic/TTS native). **Quy trình thực tế đang dùng:** Claude build + verify tối đa có thể → PM tự cài APK lên điện thoại thật để test → báo lại kết quả (kèm ảnh chụp/toast lỗi cụ thể nếu có) → Claude sửa tiếp dựa trên phản hồi đó. Cách này đã từng cần 2-3 vòng lặp cho 1 bug (VD TTS ở FR_005: vòng 1 chỉ thêm timeout/toast — chưa sửa được gốc; vòng 2 mới thêm plugin native TTS và fix thật, nhờ có mã lỗi cụ thể PM báo lại ở vòng 1).
+
+### 5.6. Công cụ tạo app icon
+`@capacitor/assets` (devDependency, `npx capacitor-assets generate --android`) — sinh toàn bộ icon launcher (mọi mật độ, adaptive icon foreground/background) + splash screen sáng/tối từ 1 ảnh nguồn vuông duy nhất `03_Android_App/assets/icon.png` (copy từ `04_Image/Logo_Tanpopo.png`, 1024x1024). Muốn đổi logo: thay file `assets/icon.png` rồi chạy lại lệnh trên, sau đó `npx cap sync android` + build lại APK như quy trình mục 5.2.
 
 ---
 
@@ -253,7 +283,7 @@ Máy chạy Claude **không có thiết bị/emulator Android kết nối** — 
 
 ## 8. Feature Request — cách yêu cầu thêm/sửa chức năng
 
-Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên `FR_<số>_<tên>.md`. Lịch sử: FR_002 (đổi màu + fix Kaiwa + mic reading), FR_003 (multi-theme + IT業務編 — Part 1+2 UI/menu đã có sẵn từ trước, Part 3 audio làm ở FR_004), FR_004 (IT業務編 Luyện nghe/Luyện đọc, đã hoàn thành) — tất cả **đã xong**. Không cần viết file FR nếu không muốn — mô tả trong chat theo cấu trúc (làm gì → hành vi cụ thể → ràng buộc) là đủ.
+Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên `FR_<số>_<tên>.md`. Lịch sử: FR_002 (đổi màu + fix Kaiwa + mic reading), FR_003 (multi-theme + IT業務編 — Part 1+2 UI/menu đã có sẵn từ trước, Part 3 audio làm ở FR_004), FR_004 (IT業務編 Luyện nghe/Luyện đọc), FR_005 (fix TTS Android bằng plugin native — **đã test thật, PM xác nhận nghe được**; redesign Flashcard/IT専門/main menu; thêm app icon từ `04_Image/Logo_Tanpopo.png`) — tất cả **đã xong**. Không cần viết file FR nếu không muốn — mô tả trong chat theo cấu trúc (làm gì → hành vi cụ thể → ràng buộc) là đủ.
 
 ---
 
