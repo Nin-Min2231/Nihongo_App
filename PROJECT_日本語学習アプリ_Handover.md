@@ -3,14 +3,14 @@
 > **Mục đích tài liệu:** Ghi lại toàn bộ bản chất vấn đề & quy trình — từ **từ điển Excel** → **build app HTML** → **đóng gói APK Android** → **push GitHub**. Đọc file này là 1 chat Claude mới hiểu ngay context, không cần giải thích lại.
 > **Đối tượng đọc:** Claude (chat mới) hoặc chính người dùng.
 > **Người dùng:** NguyenNC — PM/BrSE ngành IT (cầu nối VN ⇄ Nhật).
-> **Cập nhật lần cuối:** 2026-09-12 (cuối ngày) — sau khi hoàn thành FR_006 (IT専門 auto-focus Bộ), FR_007 (IT業務編 màn hình Unit gộp, bản rút gọn không cắt audio) và gộp thêm bản **redesign dashboard** (bảng màu "giấy washi" + trang chủ hero, PM đã duyệt áp dụng toàn app) từ 1 worktree khác vào worktree này — xem mục 4.10. Trước đó cùng ngày: gói Phase 2 (FR_008→FR_012: gỡ Kaiwa/Luyện đọc, xuất-nhập tiến độ + cỡ chữ + thời gian phản xạ, mode Điền từ, mode Phản xạ, màn hình Thống kê + fix bug streak). Đã test qua trình duyệt desktop, **CHƯA build APK cho gói này**. Trước đó nữa, dự án đã trải qua "Phase 1" (2026-09-11, không phải phiên này thực hiện): viết lại tầng đọc `build_app.py` (v2, hỗ trợ cả 3 kiểu ô OOXML) sau khi từ điển đổi cách lưu làm build chết, thêm sổ khóa `_id_lock.json`, và từ điển tăng từ 596 → **667 từ**. Đọc kỹ mục 4.8 và `CLAUDE.md` quy tắc #6 nếu thấy nhắc `_id_lock.json`.
+> **Cập nhật lần cuối:** 2026-09-12 (khuya) — **mọi thứ đã commit vào `main`, push lên GitHub, và build xong 1 bản APK debug mới**, xem mục 4.11 + 4.12. Trạng thái hiện tại: từ điển **663 từ** (PM tự dọn lại trong Excel — bỏ 1 mục nháp + gọn 4 chú thích ngoặc, xem mục 4.11), đủ Phase 2 (FR_008→FR_012) + FR_006 (auto-focus Bộ) + FR_007 (Unit gộp, bản rút gọn) + redesign dashboard (bảng màu "giấy washi", PM đã duyệt toàn app) — xem mục 4.10. Repo git giờ chỉ còn **1 nguồn duy nhất** (`main` trong chính thư mục project, không còn worktree/nhánh nào khác chứa việc chưa merge, xem mục 4.13) — xem mục 6. Trước đó nữa, dự án đã trải qua "Phase 1" (2026-09-11): viết lại tầng đọc `build_app.py` (v2, hỗ trợ cả 3 kiểu ô OOXML) sau khi từ điển đổi cách lưu làm build chết, thêm sổ khóa `_id_lock.json`. Đọc kỹ mục 4.9 và `CLAUDE.md` quy tắc #6 nếu thấy nhắc `_id_lock.json`.
 
 ---
 
 ## 1. Tổng quan mục tiêu (Big picture)
 
 ```
-日本語の辞書.xlsx  (từ điển gốc, 596 từ)
+日本語の辞書.xlsx  (từ điển gốc, 663 từ)
         │  build_app.py
         ▼
 Kokoro_Nihongo.html  ← app học, mở trực tiếp bằng trình duyệt (máy tính/điện thoại), KHÔNG cần cài đặt
@@ -21,7 +21,7 @@ Kokoro_Nihongo.apk  ← app Android thật, cài trực tiếp lên điện tho�
 
 **Môi trường làm việc hiện tại:** Windows, chạy trực tiếp qua Bash/PowerShell (KHÔNG phải Cowork sandbox kiểu `/sessions/<tên>/mnt/` như tài liệu handover bản cũ từng mô tả — nếu thấy nhắc tới path đó, đó là thông tin CŨ, bỏ qua). Path project cố định: `D:\01_NguyenNC\10_Claude\100_日本語\`.
 
-**Repo GitHub:** https://github.com/Nin-Min2231/Lading_page-VS (đã push, nhánh `main`, commit gốc `70e1fab`). ⚠️ Tên repo không khớp tên dự án (đặt từ trước cho việc khác) — người dùng đã xác nhận dùng tạm repo này, không phải nhầm lẫn.
+**Repo GitHub:** https://github.com/Nin-Min2231/Nihongo_App (đổi tên 2026-09-12 từ `Lading_page-VS` cũ — khớp đúng tên dự án, xem mục 4.12; URL cũ vẫn redirect được). Nhánh `main`, commit gốc `70e1fab`, mới nhất `c69b48b`, đã push đầy đủ.
 
 ---
 
@@ -29,25 +29,30 @@ Kokoro_Nihongo.apk  ← app Android thật, cài trực tiếp lên điện tho�
 
 ```
 100_日本語/
-├── 日本語の辞書.xlsx                      ← Từ điển gốc (667 từ) — KHÔNG dùng openpyxl.save()
+├── 日本語の辞書.xlsx                      ← Từ điển gốc (663 từ, PM dọn lại 2026-09-12 — mục 4.11) — KHÔNG dùng openpyxl.save()
 ├── CLAUDE.md                               ← Quy tắc/kiến trúc dự án
 ├── PROJECT_日本語学習アプリ_Handover.md    ← File này
 ├── README.md                               ← Hướng dẫn build/chạy/push GitHub (tiếng Việt, ngắn gọn hơn file này)
-├── .gitignore                              ← Loại trừ node_modules/, audio trùng lặp, APK, build artifacts
+├── .gitignore                              ← Loại trừ node_modules/, audio trùng lặp, APK, build artifacts, 05_json/
+├── _KHAO_SAT/                               ← Khảo sát hiện trạng + kế hoạch gộp app (2026-09-11), tài liệu tham khảo — đã commit (mục 4.11)
+├── 05_json/                                 ← (gitignore) Bản xuất tiến độ (FR_011) PM lưu thủ công ra máy — dữ liệu cá nhân, không phải source
+├── Ban_dich_*.md                             ← 2 file dịch KHÔNG liên quan tới Kokoro, nằm lạc chỗ — không đụng, không commit
 │
 ├── 01_Build_App/                           ← App IT専門 (từ vựng) — build từ xlsx
 │   ├── Kokoro_Nihongo.html                 ← App đã build (commit vào git, mở trực tiếp được)
 │   ├── audio/                              ← (gitignore) copy từ 02_IT_Gyoumuhen/AudioCD, build_app.py tự sync
 │   ├── _app_build/
 │   │   ├── build_app.py                    ← Script build v2: xlsx + transcript → JSON → inject template + copy audio
-│   │   ├── app_template.html                ← TOÀN BỘ CSS+JS của app (~2300+ dòng, sửa file này để thêm tính năng)
-│   │   └── _id_lock.json                    ← ⚠ Sổ khóa từ vựng → id cố định (Phase 1). KHÔNG xóa/sửa tay, PHẢI commit.
-│   └── _feature_requests/                  ← TEMPLATE.md (viết FR mới) + done/ (FR_002..FR_005, FR_008..FR_012, đã xong)
+│   │   ├── app_template.html                ← TOÀN BỘ CSS+JS của app (~2400+ dòng, sửa file này để thêm tính năng)
+│   │   ├── _id_lock.json                    ← ⚠ Sổ khóa từ vựng → id cố định (Phase 1). KHÔNG xóa/sửa tay, PHẢI commit.
+│   │   └── segment_reading_audio.py          ← Script cắt audio theo lượt thoại (FR_007 bản gốc) — có dữ liệu (mục 4.10/4.11) nhưng CHƯA nối vào app, giữ cho lần sau
+│   └── _feature_requests/                  ← TEMPLATE.md (viết FR mới) + done/ (FR_002..FR_012, tất cả đã xong — không còn FR nào pending)
 │
 ├── 02_IT_Gyoumuhen/                         ← Nguồn dữ liệu module IT業務編 (hội thoại công việc IT)
 │   ├── IT_Gyoumuhen.pdf                     ← Sách gốc scan, chỉ tham khảo
 │   ├── IT_Gyoumuhen_AudioCD_Transcript.xlsx ← Transcript 38 track (Track|Chương|Unit|...|Nội dung hội thoại|Ghi chú)
-│   └── AudioCD/                              ← 38 file mp3 — NGUỒN AUDIO DUY NHẤT của cả dự án
+│   ├── AudioCD/                              ← 38 file mp3 — NGUỒN AUDIO DUY NHẤT của cả dự án
+│   └── reading_segments/                     ← segments_data.json (commit) + audio/ (gitignore, ~37MB) — dữ liệu FR_007 bản gốc, xem mục 4.10
 │
 ├── 04_Image/                                 ← Logo/asset nguồn (không phải code)
 │   └── Logo_Tanpopo.png                      ← Logo gốc 1024x1024, dùng làm app icon + favicon
@@ -57,7 +62,7 @@ Kokoro_Nihongo.apk  ← app Android thật, cài trực tiếp lên điện tho�
     ├── assets/icon.png                       ← Copy của Logo_Tanpopo.png, nguồn cho `npx capacitor-assets generate`
     ├── www/                                  ← (gitignore) copy Kokoro_Nihongo.html + audio, sync thủ công trước khi build
     ├── android/                              ← Project Android native (Gradle) — mở bằng Android Studio được
-    └── Kokoro_Nihongo.apk                     ← (gitignore) APK build sẵn mới nhất, ~76MB
+    └── Kokoro_Nihongo.apk                     ← (gitignore) APK build sẵn mới nhất, ~78MB, xem mục 4.12
 ```
 
 **Toolchain Android cài NGOÀI project** (không nằm trong repo, đã cài sẵn trên máy này):
@@ -94,7 +99,7 @@ import zipfile, shutil, re, html
 # ghi lại: chỉ writestr() 2 file đã sửa, các file khác giữ nguyên bytes gốc
 ```
 
-Hiện tại: **667 từ** (tăng từ 596 sau Phase 1, 2026-09-11 — xem mục 4.9 về `_id_lock.json`). `id` mỗi từ **không còn khớp STT cột B** kể từ Phase 1 — xem `CLAUDE.md` quy tắc #7.
+Hiện tại: **663 từ** (596 → 667 sau Phase 1, 2026-09-11 — xem mục 4.9 về `_id_lock.json`; PM dọn lại còn 663 ngày 2026-09-12 — mục 4.11). `id` mỗi từ **không còn khớp STT cột B** kể từ Phase 1 — xem `CLAUDE.md` quy tắc #7.
 
 ### 3.3. Quy tắc dịch từ mới
 Dùng skill `translator-ja-vi-en`. Ưu tiên Hán-Việt, katakana → cột EN ghi từ gốc (セキュリティ→Security), câu ví dụ N3+ thuần Nhật. Chỉ thêm từ **chưa có** (check trùng qua sharedStrings).
@@ -129,7 +134,7 @@ const MENU_MODULES = [
 Luồng đầy đủ hiện tại:
 ```
 home() → IT専門 → homeDashboard() → [Flashcard/Quiz/Điền từ/Nghe/Nói/⚡Phản xạ/⭐Yêu thích] → mode screen
-home() → IT業務編 → gyoumuDashboard() → gyoumuTrackList() → gyoumuTrackDetail() → gyoumuReadingMode()
+home() → IT業務編 → gyoumuDashboard() → gyoumuUnitScreen(chapter,unit) → [🎧 Luyện nghe / 🎤 Luyện đọc câu, cùng 1 màn hình — FR_007, mục 4.10]
 home() → (khối thống kê, bấm được) → statsScreen()
 ```
 
@@ -137,7 +142,7 @@ home() → (khối thống kê, bấm được) → statsScreen()
 
 ### 4.3. Hệ thống "Bộ học" (deck) — quan trọng, ảnh hưởng nhiều logic
 
-**Đã đổi ở FR_005 (2026-07-18):** IT専門 **không còn chip lọc "Chủ đề"** (漢字/外来語/その他 đã bỏ khỏi UI — biến `curCat` vẫn còn trong code nhưng luôn cố định `'ALL'`, chỉ dùng làm namespace key cho `deckDone`, không có UI đổi nữa). Toàn bộ từ vựng (667 từ kể từ Phase 1, xem mục 4.9) được chia **CỐ ĐỊNH đúng 25 từ/bộ, bắt đầu từ #1** bằng hàm riêng `splitDecksStrict(arr, target)` (bộ cuối = phần dư, KHÔNG san đều số dư như trước) → 667 từ = 26 bộ×25 + 1 bộ 17 từ cuối. Hàm `splitDecks()` cũ (san đều số dư) trước kia dùng riêng cho Luyện đọc/Kaiwa — **2 module đó đã bị gỡ ở FR_008 (Phase 2)**, nên `splitDecks()` hiện là hàm không còn ai gọi, giữ lại có chủ đích (xem mục 4.2).
+**Đã đổi ở FR_005 (2026-07-18):** IT専門 **không còn chip lọc "Chủ đề"** (漢字/外来語/その他 đã bỏ khỏi UI — biến `curCat` vẫn còn trong code nhưng luôn cố định `'ALL'`, chỉ dùng làm namespace key cho `deckDone`, không có UI đổi nữa). Toàn bộ từ vựng (663 từ — 667 sau Phase 1, PM dọn lại còn 663 ngày 2026-09-12, xem mục 4.11) được chia **CỐ ĐỊNH đúng 25 từ/bộ, bắt đầu từ #1** bằng hàm riêng `splitDecksStrict(arr, target)` (bộ cuối = phần dư, KHÔNG san đều số dư như trước) → 663 từ = 26 bộ×25 + 1 bộ 13 từ cuối (27 bộ). Hàm `splitDecks()` cũ (san đều số dư) trước kia dùng riêng cho Luyện đọc/Kaiwa — **2 module đó đã bị gỡ ở FR_008 (Phase 2)**, nên `splitDecks()` hiện là hàm không còn ai gọi, giữ lại có chủ đích (xem mục 4.2).
 
 UI: lưới 4 thẻ/trang (`deckGridHTML()` — component dùng chung cho IT専門/Luyện đọc/Kaiwa), phân trang bằng `‹`/`›`. Bộ đang chọn (`.deck-card.on`) đổi nền **xanh dương nhạt** (`#dbeafe`) để phân biệt rõ với bộ chưa chọn (xanh dương đậm mặc định).
 
@@ -184,6 +189,8 @@ Dữ liệu: 38 track mp3 + transcript xlsx (2 chương, 15 unit, xem `02_IT_Gyo
 
 Player nghe dùng **1 thẻ `<audio>` thật** trong DOM (không sửa `playAudioUrl()` cũ — hàm đó dành riêng cho TTS, sửa sẽ rủi ro). Progress bar bằng `<input type=range>`. `stopSpeech()` (điểm dừng-audio chung) đã mở rộng để pause luôn audio local này khi back ra khỏi màn.
 
+⚠️ **Mục này mô tả kiến trúc GỐC (FR_004).** FR_007 (mục 4.10) đã thay hẳn luồng điều hướng List→Detail bằng 1 màn hình gộp `gyoumuUnitScreen()` — thuật toán tách transcript/Track 9,21 vẫn y nguyên, chỉ đổi cách render (accordion + tab thay vì 2 trang riêng).
+
 ### 4.7. TTS (đọc giọng) — kiến trúc mới sau FR_005, ĐÃ TEST THẬT VÀ XÁC NHẬN HOẠT ĐỘNG
 
 **Lịch sử vấn đề:** ban đầu TTS chỉ dùng Google Translate endpoint (`translate_tts?client=gtx`) → fallback `speechSynthesis` khi lỗi. Trên Android WebView (APK), `speechSynthesis` **không tồn tại** (mục 4.5 cũng nhắc — giới hạn nền tảng vĩnh viễn), nên fallback không bao giờ chạy được. Khi test thật trên điện thoại, phát hiện Google TTS **cũng lỗi luôn trong APK** (toast báo `error:media4` = `MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED` — endpoint không chính thức của Google trả về nội dung không phải audio hợp lệ khi gọi từ WebView đóng gói, khác context so với trình duyệt thật). Tức là **TTS chưa từng hoạt động thật trên APK** cho tới khi fix dưới đây.
@@ -213,7 +220,7 @@ Cả gói làm theo đúng thứ tự FR_008 → FR_011 → FR_009 → FR_010 �
 
 - **FR_008** — gỡ Kaiwa/Luyện đọc, xem mục 4.2.
 - **FR_011 — `uiSettings` (`kokoro_ui_settings`)**: `{fontScale, reflexSec}`, áp `--fs-scale` lên `<html>` ngay lúc script chạy (trước `home()`) để không nháy cỡ chữ. Thêm mục "💾 Tiến độ học" trong `openSettings()`, xuất/nhập **nguyên văn chuỗi** 4 key localStorage (không parse-rồi-dựng-lại, để bản backup cũ vẫn nhập được dù schema đổi sau này), nhập **bắt buộc** hiện bảng so sánh Máy này/File nhập vào + cảnh báo đỏ trước khi ghi đè. **Đường xuất/nhập cho native đã đổi lại ngày 2026-09-12** sau khi PM cài bản APK đầu và thấy copy/dán thủ công tốn công — xem `CLAUDE.md` quy tắc #6 và FR_011 mục 0/4.1/4.2 để biết chi tiết (ghi file thật bằng `@capacitor/filesystem` + mở share sheet bằng `@capacitor/share`, nhập bằng `<input type="file">` cho cả 2 nền tảng, textarea+clipboard chỉ còn là đường lùi).
-- **FR_009 — mode `cloze` (Điền từ vào câu, 🧩)**: `findCloze(v)`/`clozeCandidates(w)` (đặt cạnh `allWithEx()`) dò vị trí che trong `v.ex` bằng cách thử nhiều biến thể của `v.w` (bỏ chú thích ngoặc, tách `/`, bỏ đuôi chia động từ する/です/ます/な/い, lấy gốc Hán tự) rồi rơi về so khớp theo `v.r`. **Đo được trên 667 từ: phủ 629 từ (94,3%)** — đã verify lại bằng script Node độc lập khớp đúng số liệu FR nêu, đừng sửa lại logic nếu không đo lại. Ô trống hiển thị cố định `＿＿＿` (không theo đúng độ dài thật, tránh lộ manh mối). Gợi ý 3 bậc không thu lại được. Tính vào `deckDone` nhưng **không thêm icon** (quy tắc #8).
+- **FR_009 — mode `cloze` (Điền từ vào câu, 🧩)**: `findCloze(v)`/`clozeCandidates(w)` (đặt cạnh `allWithEx()`) dò vị trí che trong `v.ex` bằng cách thử nhiều biến thể của `v.w` (bỏ chú thích ngoặc, tách `/`, bỏ đuôi chia động từ する/です/ます/な/い, lấy gốc Hán tự) rồi rơi về so khớp theo `v.r`. **Đo được trên 667 từ (lúc code FR_009): phủ 629 từ (94,3%)** — đã verify lại bằng script Node độc lập khớp đúng số liệu FR nêu. **Đo lại sau khi từ điển còn 663 từ (mục 4.11, 2026-09-12): phủ 627/663 (94,6%)** — logic `findCloze`/`clozeCandidates` không đổi, tỉ lệ chỉ xê dịch nhẹ theo nội dung từ điển mới. Ô trống hiển thị cố định `＿＿＿` (không theo đúng độ dài thật, tránh lộ manh mối). Gợi ý 3 bậc không thu lại được. Tính vào `deckDone` nhưng **không thêm icon** (quy tắc #8).
 - **FR_010 — mode `reflex` (Phản xạ Ns, ⚡)**: hiện `v.vi`, vòng đếm ngược vẽ bằng SVG tay (`stroke-dasharray`/`stroke-dashoffset`, cập nhật `setInterval` 60ms), hết giờ hoặc bấm "Xem đáp án ngay" thì sang pha 2 hiện `v.w`/`v.r` để **người học tự chấm** 2 mức (không dùng mic — nhận giọng mất 1-2s khởi động sẽ phá phép đo phản xạ). Đọc `uiSettings.reflexSec` (mặc định 3, chỉnh 3/5/8s ở FR_011). `clearInterval` ở mọi lối thoát, mỗi nhịp tự kiểm tra phần tử SVG còn trong DOM không (tự dọn khi user bấm Back giữa chừng). Tính vào `deckDone` nhưng **không thêm icon**.
 - **FR_012 — `statsScreen()`**: thêm `store.stats.history` (`{"YYYY-MM-DD":số_lượt}`, migrate an toàn cho user cũ, **không dựng lại lịch sử quá khứ**). Tách `bumpStudied()` (streak + history + `stats.studied`, gọi từ `reviewCard()`) khỏi `bumpStreak()` (chỉ streak + history) — IT業務編 (nghe xong 1 track lần đầu / hoàn thành 1 lượt luyện đọc theo thoại) chỉ gọi `bumpStreak()`, **fix đúng bug streak không tính khi học IT業務編**. Màn hình gồm 4 khối: streak, lịch nhiệt 12 tuần (CSS grid, không thư viện), phân bố trạng thái (Đã thuộc/Đang học/Từ khó/Chưa học — mỗi từ tính đúng 1 nhóm, tổng = `VOCAB.length`), dự báo tải ôn 7 ngày (`store.cards[*].due`, quá hạn gộp vào "Hôm nay"). Mở từ khối thống kê ở `home()` (mục 4.2).
 
@@ -238,7 +245,36 @@ Không thuộc phiên làm Phase 2, nhưng ảnh hưởng trực tiếp tới `b
 
 **Việc thêm sau khi PM xem thử redesign (cùng ngày)**: PM chỉ ra 4 chỗ bản redesign bỏ sót — `.backbtn`/`.settings-btn` (2 nút xuất hiện ở mọi màn hình), `.mic-banner`, `.tts-ok`+`.tc-badge` — vẫn dùng hex cứng của tông xanh dương cũ do không đi qua biến `:root`. Đã sửa cả 4 sang tái dùng đúng token đã có (`var(--soft)`/`var(--brand)`/`var(--warn)`/`var(--good)`), không bịa hex mới. PM cũng yêu cầu đồng bộ 2 chi tiết ở **mọi mode học IT専門** (trước đây chỉ Flashcard/Yêu thích có): nhãn "Bộ N (start-end) · vị trí/tổng" ở header (`curDeckRangeLabel()`) và tag "category · #id" trên mỗi từ — đã thêm cho Quiz/Cloze/Luyện nghe/Luyện nói/Phản xạ (Phản xạ chỉ hiện tag ở pha hiện đáp án, không hiện ở pha đoán để khỏi lộ gợi ý). Xem đủ ở `CLAUDE.md` mục UI + mục "7 Mode học".
 
-Cả 3 việc trên (FR_006, FR_007, redesign + 2 phần bổ sung) **đã build + verify (`node --check`, đếm 667 từ/38 track) + test tay qua Browser pane, CHƯA commit, CHƯA build APK**.
+Cả 3 việc trên (FR_006, FR_007, redesign + 2 phần bổ sung) **đã build + verify (`node --check`, đếm 667 từ/38 track) + test tay qua Browser pane, sau đó đã commit + push + build APK** — xem mục 4.11/4.12.
+
+### 4.11. Rà soát thư mục project chính + cập nhật từ điển 663 từ (2026-09-12, khuya)
+
+Trước khi merge nhánh worktree vào `main`, kiểm tra `git status` tại chính thư mục project (`100_日本語/`, không phải worktree) thì phát hiện **nó KHÔNG sạch** — có việc dở dang từ nhiều tuần trước, chưa từng commit bởi bất kỳ phiên nào:
+
+- Bản sửa nhỏ, cũ của `app_template.html`/`CLAUDE.md`/`.gitignore`/2 file gradle — đã kiểm tra kỹ (`git diff` so với nhánh worktree `a6711ad`), xác nhận **hoàn toàn trùng hoặc cũ hơn**, an toàn để bỏ (`git checkout --`).
+- Nhiều file/thư mục **có giá trị thật, chưa ai lưu lại**: `02_IT_Gyoumuhen/reading_segments/` (217 mp3 + `segments_data.json` — **chính là dữ liệu audio cắt sẵn của FR_007** mà trước đó tưởng "không có trong repo"! Hóa ra nó nằm sẵn ở đây, chỉ chưa commit nên không worktree nào thấy được), `01_Build_App/_app_build/segment_reading_audio.py` (script tạo ra dữ liệu trên), `_KHAO_SAT/` (tài liệu khảo sát + kế hoạch gộp app, 2026-09-11), `05_json/` (2 bản xuất tiến độ thật của PM sáng cùng ngày). Cộng thêm 3 file `.tmp` rác cũ (tháng 7) và các file FR trùng lặp ở gốc `_feature_requests/` (đã có bản chính thức trong `done/`) — dọn bỏ.
+
+**Quan trọng nhất: `日本語の辞書.xlsx` trong thư mục chính có 1 chỉnh sửa thật, rất gần đây của PM** — phát hiện nhờ thấy file khóa tạm `~$日本語の辞書.xlsx` (đang mở trong Excel). Đợi PM lưu file, đọc lại 2 lần vì số từ đổi liên tục (666 → 663) tới khi PM xác nhận lưu xong. Nội dung sửa: xóa 1 mục nháp (`N✙用`) + gọn chú thích ngoặc của 4 từ (VD `（に）書き込む`→`書き込む`, `紐づく（紐づける）`→`紐づく`). Đã sao lưu file này ra ngoài **trước khi** đụng vào bất cứ thứ gì khác trong thư mục chính — nguyên tắc chung: không bao giờ ghi đè/loại bỏ 1 file đang có sửa đổi thật của PM mà chưa sao lưu trước.
+
+Trình tự xử lý an toàn: sao lưu xlsx thật → bỏ các bản sửa cũ/trùng đã xác nhận dư thừa → fast-forward `main` lên đúng bản đầy đủ (`a6711ad`) → đưa xlsx thật trở lại → `build_app.py` chạy lại, đọc kỹ báo cáo sổ khóa: **659 từ giữ nguyên id, 3 từ đổi tên được nhận diện đúng giữ nguyên id, 1 từ** (`（お）気軽（な）`→`お気軽`, xóa cả 2 ngoặc cùng lúc nên thuật toán nhận-diện-đổi-tên không khớp được) **nhận id mới, id cũ bị khóa vĩnh viễn** — đúng theo thiết kế an toàn của `_id_lock.json` (`CLAUDE.md` quy tắc #7), không phải lỗi. Verify `node --check` + đếm đúng 663 từ, rồi commit toàn bộ (từ điển, HTML build lại, `_id_lock.json`, dữ liệu FR_007, `_KHAO_SAT/`) — commit `0c2cf0f`. Thêm `05_json/` vào `.gitignore` (dữ liệu cá nhân, không phải source code) thay vì commit.
+
+2 file `Ban_dich_Mail_Request_Spec.md`/`Ban_dich_WRS2_System_Concept.md` ở gốc thư mục **không liên quan tới Kokoro** — để nguyên, không commit, không xóa.
+
+### 4.12. Push GitHub + build APK debug mới (2026-09-12, khuya)
+
+Push `main` lên GitHub thành công — commit `0c2cf0f` rồi `c69b48b`. **Repo đã đổi tên**: `Nin-Min2231/Lading_page-VS` → `Nin-Min2231/Nihongo_App` (khớp đúng backlog cũ "đổi tên repo cho khớp tên dự án" — có vẻ đã đổi từ phía GitHub, không phải phiên này làm). Push vẫn qua được nhờ GitHub tự redirect; chưa cập nhật lại URL remote local (lệnh `git remote set-url` bị hệ thống an toàn của Claude Code chặn, không quan trọng — chỉ là cosmetic).
+
+Chạy đủ 6 bước nghiệm thu trong `done/_PHASE2_GOI_CAI_MOT_LAN.md` qua Browser pane + `python3 -m http.server` cục bộ (không dùng `file://` trần vì tắt `localStorage`, che mất lỗi thật — xem mục 4.10): build sạch 663 từ, `node --check` pass, 0 lỗi console, chạy hết cả 7 mode tới màn Hoàn thành (dùng JS gọi thẳng hàm mode để nhanh, không cần click tay từng bước), lưới Bộ đúng 4 icon + xanh lá khi xong, xuất/nhập tiến độ so sánh khớp số liệu (Từ đã thuộc/Tổng lượt ôn/Streak), khổ 375px không tràn ngang ở 4 màn hình (home/dashboard/quiz/gyoumu-unit).
+
+**Phát hiện + fix 1 lỗi thật lúc build APK**: `03_Android_App/package.json` đã khai `@capacitor/filesystem` + `@capacitor/share` (dùng cho xuất/nhập tiến độ FR_011) từ lâu, nhưng **`npm install` chưa từng chạy lại thật** sau đó — `node_modules/@capacitor/` thiếu hẳn 2 gói này. `npx cap sync` chỉ báo đúng 2/4 plugin, không cảnh báo gì thêm. Nghĩa là **mọi bản APK build trước phiên này đều thiếu tính năng xuất/nhập tiến độ ra file thật**, âm thầm rơi về đường lùi textarea, không có dấu hiệu lỗi nào trong log build. Đã `npm install` lại (thêm 3 gói), sync lại xác nhận đủ 4 plugin, build lại và verify bằng cách quét bytecode `.dex` trong APK: cả 4 class plugin (`FilesystemPlugin`, `SharePlugin`, `TextToSpeechPlugin`, speech-recognition) đều có mặt. Verify thêm: quyền `RECORD_AUDIO` có trong manifest đã merge, 38 file audio IT業務編 đóng gói đủ, `VOCAB` trong `index.html` nhúng đúng 663 từ.
+
+APK copy ra `03_Android_App/Kokoro_Nihongo.apk`, gửi PM. Vẫn `versionCode 1`/`versionName "1.0"` (chưa bump — theo mục 5.4). **Bài học cho lần sau: mỗi khi thêm plugin Capacitor mới vào `package.json`, luôn đối chiếu số lượng plugin `npx cap sync` báo với số dòng dependency Capacitor trong `package.json` — lệch số là phải `npm install` lại trước khi build, `cap sync` không tự cảnh báo thiếu.**
+
+### 4.13. Dọn dẹp git worktree/nhánh thừa (2026-09-12, khuya)
+
+Dự án từng có tới 3 worktree cùng lúc (`read-handover-file-d24408`, `japanese-learning-app-handover-e2f2a1`, `khao-sat-app-request-...`) do nhiều phiên Claude làm việc song song không biết tới nhau — đây chính là nguyên nhân của vài lần hiểu nhầm "code bị mất"/"màn hình không giống" trong ngày 2026-09-12 (xem mục 4.10, 4.11). Sau khi mọi việc đã gộp hết vào `main`, đã xác nhận **từng nhánh/worktree không còn commit riêng nào chưa nằm trong `main`** (dùng `git merge-base --is-ancestor`) rồi mới xóa: 4 nhánh git thừa (`fr-008-012-phase2-7244b9`, `japanese-learning-app-handover-e2f2a1`, `khao-sat-app-request-0bd6bf`, `read-handover-file-d7c3c0` — 2 nhánh cuối trùng y hệt nội dung đã có trong `main`, khác chỉ ở hash commit, verify bằng `git diff` rỗng) và 1 thư mục worktree vật lý (folder kia ban đầu bị khóa bởi 1 phiên Claude khác đang mở — PM đóng phiên đó xong mới xóa được thật). **Còn đúng 1 worktree** (`read-handover-file-d7c3c0`, nơi phiên chat tạo/sửa tài liệu này chạy) — PM tự xóa tay sau khi phiên kết thúc.
+
+**Bài học ghi lại rõ để tránh lặp lại:** trước khi tin bất kỳ mô tả "trạng thái hiện tại" nào (kể cả ảnh chụp màn hình, hay tài liệu handover khác), luôn chạy `git worktree list` — dự án này đã 3 lần trong 1 ngày có việc thật, có giá trị (dữ liệu FR_007, bản redesign PM duyệt, bản sửa từ điển) nằm âm thầm ở 1 nơi không phải chỗ đang được kiểm tra.
 
 ---
 
@@ -258,7 +294,13 @@ cp ../Kokoro_Nihongo.html ../../03_Android_App/www/index.html
 cp ../audio/*.mp3 ../../03_Android_App/www/audio/
 
 # 3. Sync vào project Android native (tự đăng ký plugin, không cần sửa code Java/Kotlin)
-cd ../../03_Android_App && npx cap sync android
+cd ../../03_Android_App
+npx cap sync android
+# ⚠ BẮT BUỘC đối chiếu: log trên phải liệt kê ĐỦ số plugin bằng số dòng Capacitor
+# trong package.json (hiện là 4: text-to-speech, filesystem, share, speech-recognition).
+# Thiếu plugin nào = npm install chưa cài nó thật (đã xảy ra thật 2026-09-12, mục 4.12
+# — package.json khai đủ nhưng node_modules thiếu, cap sync KHÔNG tự báo lỗi).
+# Nếu thiếu: chạy `npm install` rồi `npx cap sync android` lại trước khi build.
 
 # 4. Build APK debug (cần JAVA_HOME + GRADLE_USER_HOME trỏ đúng, xem mục 2)
 export JAVA_HOME="D:/Android/jdk21"
@@ -292,40 +334,41 @@ Máy chạy Claude **không có thiết bị/emulator Android kết nối** — 
 
 ## 6. GIAI ĐOẠN ④ — Git & GitHub
 
-- Repo local đã `git init` tại `100_日本語/` (không phải trong `03_Android_App/` hay thư mục con nào).
+- Repo local đã `git init` tại `100_日本語/` (không phải trong `03_Android_App/` hay thư mục con nào) — đây là nơi git thật nằm, `.claude/worktrees/<tên>/` chỉ là bản checkout tạm của 1 phiên chat, share chung `.git` với thư mục này.
 - Git identity **local-only** (không phải global): `user.name=NguyenNC`, `user.email=nguyennc@vi-mash.com`.
-- Remote: `origin` → https://github.com/Nin-Min2231/Lading_page-VS.git, nhánh `main`, đã push (commit `70e1fab` trở đi).
-- `.gitignore` loại trừ: `node_modules/`, audio trùng lặp (chỉ giữ `02_IT_Gyoumuhen/AudioCD/` làm nguồn duy nhất, bỏ 2 bản copy ở `01_Build_App/audio/` và `03_Android_App/www/`), APK (~73MB), Gradle/Android build artifacts, `local.properties` (machine-specific), `.claude/settings.local.json`.
+- Remote: `origin` → https://github.com/Nin-Min2231/Nihongo_App.git (đổi tên 2026-09-12, xem mục 4.12 — URL cũ `Lading_page-VS` vẫn redirect được), nhánh `main`, đã push đầy đủ tới `c69b48b`.
+- `.gitignore` loại trừ: `node_modules/`, audio trùng lặp (chỉ giữ `02_IT_Gyoumuhen/AudioCD/` làm nguồn duy nhất, bỏ 2 bản copy ở `01_Build_App/audio/` và `03_Android_App/www/`), `02_IT_Gyoumuhen/reading_segments/audio/` (~37MB, giữ `segments_data.json`), `05_json/` (bản xuất tiến độ cá nhân), APK, Gradle/Android build artifacts, `local.properties` (machine-specific), `.claude/settings.local.json`.
 - Muốn commit thay đổi mới: `git add -A && git commit -m "..."` rồi `git push` như bình thường — không có gì đặc biệt cần nhớ ngoài việc **không commit các thư mục đã gitignore** (nếu thấy chúng xuất hiện trong `git status`, kiểm tra lại `.gitignore` trước khi add).
+- **Chỉ còn `main` + đúng 1 nhánh/worktree đang hoạt động** (nhánh của phiên chat hiện tại, nếu có) kể từ 2026-09-12 — mọi nhánh/worktree cũ đã dọn sạch (mục 4.13). **Trước khi tin bất kỳ mô tả "trạng thái hiện tại" nào, chạy `git worktree list` và `git branch -a -v`** — dự án này từng có nhiều phiên làm việc song song không biết tới nhau, gây hiểu nhầm thật nhiều lần trong 1 ngày.
 
 ---
 
 ## 7. Checklist cho session mới tiếp tục project
 
 - [ ] Đọc file này (đủ context, không cần đọc lại toàn bộ lịch sử chat cũ).
-- [ ] Xác nhận `git status` sạch (`nothing to commit`) trước khi bắt đầu — nếu có thay đổi dở dang từ trước, hỏi người dùng trước khi động vào.
+- [ ] Chạy `git worktree list` + `git branch -a -v` trước — xác nhận đang đứng đúng nơi có `main` mới nhất, không phải 1 worktree/nhánh cũ còn sót (mục 4.13, đã xảy ra thật nhiều lần).
+- [ ] Xác nhận `git status` sạch (`nothing to commit`) trước khi bắt đầu — nếu có thay đổi dở dang từ trước, hỏi người dùng trước khi động vào (kể cả khi đang đứng ở thư mục project chính, không chỉ worktree — mục 4.11 đã có bài học thật).
 - [ ] Muốn sửa app HTML/logic: sửa `01_Build_App/_app_build/app_template.html`, KHÔNG sửa `Kokoro_Nihongo.html` (bị build đè).
-- [ ] Muốn thêm từ mới: skill `translator-ja-vi-en` → ghi bằng raw ZIP/XML (mục 3.2), KHÔNG `openpyxl.save()`.
+- [ ] Muốn thêm từ mới: skill `translator-ja-vi-en` → ghi bằng raw ZIP/XML (mục 3.2), KHÔNG `openpyxl.save()`. Kiểm tra file có đang mở trong Excel không (`~$日本語の辞書.xlsx`) trước khi đọc/sửa.
 - [ ] Sau khi sửa: `python3 build_app.py` → verify (`node --check`, đếm JSON) → **test kỹ trong Chrome preview trước khi build APK** (thói quen làm việc người dùng đã yêu cầu rõ — đừng build APK ngay khi chưa được xác nhận).
-- [ ] Muốn build APK: theo đúng quy trình mục 5.2, nhớ `export JAVA_HOME`/`GRADLE_USER_HOME` trước khi `gradlew`.
-- [ ] Đọc `01_Build_App/_feature_requests/` nếu có FR mới người dùng viết sẵn.
+- [ ] Muốn build APK: theo đúng quy trình mục 5.2 (có bước đối chiếu số plugin `npx cap sync`, xem cảnh báo trong đó), nhớ `export JAVA_HOME`/`GRADLE_USER_HOME` trước khi `gradlew`.
+- [ ] Đọc `01_Build_App/_feature_requests/` nếu có FR mới người dùng viết sẵn (hiện không có FR nào pending).
 - [ ] Commit + push theo mục 6 nếu người dùng yêu cầu (mặc định KHÔNG tự ý commit/push nếu không được nhắc).
 
 ---
 
 ## 8. Feature Request — cách yêu cầu thêm/sửa chức năng
 
-Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên `FR_<số>_<tên>.md`, viết xong đặt ngay tại `_feature_requests/` (khi hoàn thành sẽ chuyển vào `done/`). Lịch sử (`done/`): FR_002 (đổi màu + fix Kaiwa + mic reading), FR_003 (multi-theme + IT業務編 — Part 1+2 UI/menu đã có sẵn từ trước, Part 3 audio làm ở FR_004), FR_004 (IT業務編 Luyện nghe/Luyện đọc), FR_005 (fix TTS Android bằng plugin native — **đã test thật, PM xác nhận nghe được**; redesign Flashcard/IT専門/main menu; thêm app icon), FR_008..FR_012 (gói Phase 2, xem mục 4.8 — **đã code + test qua trình duyệt, CHƯA build APK**) — tất cả **đã xong về code**. Còn pending: **FR_006** (tự focus Bộ nhỏ nhất chưa hoàn thành) và **FR_007** (luyện đọc bằng 213 đoạn audio thật) — đã chốt yêu cầu từ 2026-07-26, PM quyết để lại đợt sau Phase 2. Không cần viết file FR nếu không muốn — mô tả trong chat theo cấu trúc (làm gì → hành vi cụ thể → ràng buộc) là đủ.
+Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên `FR_<số>_<tên>.md`, viết xong đặt ngay tại `_feature_requests/` (khi hoàn thành sẽ chuyển vào `done/`). **Không còn FR nào pending** — tất cả từ FR_002 tới FR_012 đều đã xong, nằm trong `done/`: FR_002 (đổi màu + fix Kaiwa + mic reading), FR_003 (multi-theme + IT業務編 — Part 1+2 UI/menu đã có sẵn từ trước, Part 3 audio làm ở FR_004), FR_004 (IT業務編 Luyện nghe/Luyện đọc), FR_005 (fix TTS Android bằng plugin native — **đã test thật, PM xác nhận nghe được**; redesign Flashcard/IT専門/main menu; thêm app icon), FR_006 (IT専門 auto-focus Bộ, mục 4.10), FR_007 (IT業務編 Unit gộp, bản rút gọn — mục 4.10), FR_008..FR_012 (gói Phase 2, mục 4.8). Tất cả **đã code + test + build APK thật** (mục 4.12). Không cần viết file FR nếu không muốn — mô tả trong chat theo cấu trúc (làm gì → hành vi cụ thể → ràng buộc) là đủ.
 
 ---
 
 ## 9. Backlog / ý tưởng nâng cấp tiếp
 
-- Bump version APK lên "0.1" chính thức (chờ người dùng xác nhận test ổn trên điện thoại thật).
+- Bump version APK lên "0.1" chính thức (chờ người dùng xác nhận test ổn trên điện thoại thật — bản 2026-09-12 vẫn `versionCode 1`/`"1.0"`).
 - Quiz nội dung + trích từ vựng riêng cho IT業務編 (đã note rõ ngoài phạm vi FR_004, để FR riêng).
 - Đồng bộ tiến độ đa thiết bị **kiểu gộp thông minh** (FR_011 mới làm ghi đè một chiều, chưa gộp theo nguyên tắc "bậc cao hơn thắng" — PM đã đồng ý tạm thời, mở FR mới nếu cần).
 - Chế độ viết kanji, ghép câu, nghe chép chính tả.
 - Thêm lại nút "Khó" cho SRS (`reviewCard` mức 1/3 hiện là code chết, xem mục "SRS — điểm cần biết" trong `CLAUDE.md`).
-- FR_006 (tự focus Bộ nhỏ nhất chưa hoàn thành) và FR_007 (luyện đọc bằng 213 đoạn audio thật) — đã chốt yêu cầu, để lại sau gói Phase 2.
+- FR_007 bản đầy đủ: nối `02_IT_Gyoumuhen/reading_segments/` (217 mp3 cắt sẵn theo lượt thoại, đã có data — mục 4.10/4.11) vào `gyoumuUnitScreen()` thay cho bản rút gọn hiện dùng nguyên track — PM nói để test bản hiện tại trước, báo lại nếu muốn làm tiếp.
 - Bản release APK đã ký (hiện chỉ có debug build).
-- Đổi tên GitHub repo cho khớp tên dự án (hiện đang dùng tạm `Lading_page-VS`).
