@@ -10,6 +10,7 @@
 | Ngày | Nội dung | Người tạo |
 |---|---|---|
 | 2026-09-11 | Tạo FR_011. PM chọn cách đồng bộ bằng file xuất nhập thay vì cloud, để giữ nguyên tính offline của bản APK. | NguyenNC (qua Claude Cowork) |
+| 2026-09-12 | **Sửa sau khi PM test bản APK đầu tiên**: bản gốc dùng textarea + nút Sao chép cho native (đúng như mục 4.1 mô tả), nhưng PM thấy copy/dán thủ công tốn công. Đổi sang **ghi file `.json` thật + mở hộp thoại Chia sẻ hệ thống** (thêm 2 plugin `@capacitor/filesystem` + `@capacitor/share` — phá vỡ ràng buộc "không thêm plugin" ở mục 6 bản gốc, đã được PM chấp thuận qua yêu cầu trực tiếp). Nhập tiến độ cũng đổi sang `<input type="file">` cho cả web lẫn native (trước đó chỉ web mới có). Xem mục 4.1/4.2/4.6/9 đã cập nhật bên dưới. | NguyenNC (qua Claude Cowork) |
 
 ## 1. Loại thay đổi
 
@@ -46,22 +47,22 @@ var payload = {
 };
 ```
 
-- **Hai đường xuất khác nhau tùy môi trường**, dùng `isNativeApp()` để phân nhánh:
+- **Hai đường xuất khác nhau tùy môi trường**, dùng `isNativeApp()` để phân nhánh (đã sửa 2026-09-12 — xem 0. 変更履歴):
 
 | Môi trường | Cách xuất |
 |---|---|
 | **Web / Chrome** | Tạo `Blob`, gắn vào thẻ `<a download="kokoro_tien_do_YYYY-MM-DD.json">` rồi tự bấm. Tải file bình thường. |
-| **APK Android** | `<a download>` **không hoạt động** trong WebView đóng gói. Thay bằng: hiện một `<textarea>` chứa sẵn chuỗi JSON, đã bôi đen sẵn, kèm nút **📋 Sao chép**. Người học dán vào Zalo, Mail hay ghi chú của mình. |
+| **APK Android** | `<a download>` **không hoạt động** trong WebView đóng gói. Dùng `@capacitor/filesystem` ghi file vào `Directory.Cache` (không cần xin quyền lưu trữ — scoped storage từ Android 10+ chặn ghi trực tiếp ra thư mục công khai), rồi gọi `@capacitor/share` mở hộp thoại Chia sẻ hệ thống để người học chọn "Lưu vào thiết bị"/Drive/Zalo/Mail. Nếu 2 plugin lỗi hoặc không có sẵn → rơi về `textarea` + nút Sao chép như bản cũ (không bao giờ kẹt cứng). |
 
-- Nút Sao chép: thử `navigator.clipboard.writeText()` trước; lỗi thì rơi về `textarea.select()` cộng `document.execCommand('copy')`. Báo bằng toast khi xong.
+- Nút Sao chép (chỉ còn dùng khi rơi vào nhánh dự phòng): thử `navigator.clipboard.writeText()` trước; lỗi thì rơi về `textarea.select()` cộng `document.execCommand('copy')`. Báo bằng toast khi xong.
 - Hiện kèm dòng tóm tắt để người học biết mình vừa sao lưu cái gì:
   `Đã xuất: <N> từ có tiến độ · <M> từ đã thuộc · streak <S> ngày`
 
 ### 4.2 Nhập tiến độ
 
-- Nút **📥 Nhập tiến độ**. Bấm vào thì mở ô dán:
-  - Một `<textarea>` để dán chuỗi JSON.
-  - Trên web thêm cả `<input type="file" accept=".json">` cho tiện.
+- Nút **📥 Nhập tiến độ**. Bấm vào thì mở ô chọn:
+  - **`<input type="file" accept=".json">` cho cả web lẫn native** (sửa 2026-09-12 — Capacitor Android hỗ trợ sẵn `<input type="file">` mở trình chọn file gốc của hệ điều hành, không cần plugin riêng, nên không còn lý do giới hạn chỉ web).
+  - Vẫn giữ `<textarea>` để dán chuỗi JSON thủ công, phòng khi không mở được file (ví dụ file bị mất/hỏng, hoặc máy không hỗ trợ trình chọn file).
 - Sau khi nhận được chuỗi, **kiểm tra trước khi ghi**:
   1. `JSON.parse` được không. Lỗi → báo `Chuỗi không hợp lệ, hãy copy lại đầy đủ từ đầu đến cuối.`
   2. Có đúng `payload.app === 'kokoro_nihongo'` không. Sai → báo `File này không phải bản sao lưu của Kokoro Nihongo.`
@@ -124,7 +125,7 @@ Gọi áp dụng `fontScale` **ngay lúc app khởi động**, trước khi rend
 
 ## 6. Ràng buộc kỹ thuật
 
-- **Không thêm plugin Capacitor mới.** Đường xuất cho native dùng textarea cộng clipboard, không dùng `@capacitor/filesystem` hay `@capacitor/share`.
+- ~~Không thêm plugin Capacitor mới~~ **(đã đổi 2026-09-12)**: PM test bản đầu thấy copy/dán thủ công tốn công, yêu cầu xuất/nhập bằng file thật. Đã thêm `@capacitor/filesystem` + `@capacitor/share` (FileProvider dùng lại cấu hình sẵn có của project, không cần sửa `AndroidManifest.xml`/`file_paths.xml`). Textarea + clipboard giữ lại làm đường lùi khi 2 plugin lỗi/không có sẵn.
 - Không server, không tài khoản, không cần mạng. Toàn bộ chạy offline.
 - **Không đổi tên hay cấu trúc 3 key localStorage đang có.** Xuất và nhập nguyên văn chuỗi, không parse rồi dựng lại — như vậy về sau schema có đổi thì bản sao lưu cũ vẫn nhập được.
 - Nhập phải có bước xác nhận, tuyệt đối không ghi đè im lặng.
@@ -153,7 +154,7 @@ Ghi chú thêm về bản web: app mở bằng `file://` nên mỗi đường d�
 
 | # | Nội dung | Mức | Quyết định |
 |---|---|---|---|
-| 1 | `<a download>` không hoạt động trong WebView của APK — đây chính là môi trường PM dùng chính. | **Cao** | Phân nhánh bằng `isNativeApp()`. Native dùng textarea cộng nút Sao chép. Bắt buộc test thật trên APK, không chỉ test trên Chrome. |
+| 1 | `<a download>` không hoạt động trong WebView của APK — đây chính là môi trường PM dùng chính. | **Cao** | Phân nhánh bằng `isNativeApp()`. Native ghi file bằng `@capacitor/filesystem` rồi mở share sheet bằng `@capacitor/share` (đổi 2026-09-12, xem 0. 変更履歴); textarea+Sao chép chỉ còn là đường lùi. Bắt buộc test thật trên APK — cả luồng ghi file/share sheet lẫn `<input type="file">` phía nhập đều chưa test được trên thiết bị thật (máy dev không có Android thật), chỉ verify được bằng mock `window.Capacitor` trong Chrome. |
 | 2 | Nhập nhầm file của thiết bị khác rồi ghi đè mất tiến độ đang có nhiều hơn. | **Cao** | Bắt buộc hiện bảng so sánh, cảnh báo đỏ khi máy này nhiều hơn, mặc định con trỏ ở nút Hủy. |
 | 3 | Chuỗi JSON rất dài, dán vào Zalo có thể bị cắt. | Trung bình | Hiện độ dài chuỗi kèm lời nhắc kiểm tra ký tự cuối là `}`. Khi nhập, kiểm tra `JSON.parse` sẽ bắt được nếu bị cắt. |
 | 4 | `navigator.clipboard` cần ngữ cảnh bảo mật, có thể lỗi trên `file://`. | Trung bình | Rơi về `execCommand('copy')`. Vẫn lỗi thì để nguyên textarea cho người học tự bôi đen copy tay. |

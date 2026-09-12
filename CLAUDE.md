@@ -69,7 +69,7 @@ Build script (path tự suy từ vị trí file, chạy được ở bất kỳ 
 1. Đọc `日本語の辞書.xlsx` + `02_IT_Gyoumuhen/IT_Gyoumuhen_AudioCD_Transcript.xlsx` (parse ZIP/XML trực tiếp, KHÔNG dùng openpyxl)
 2. Tìm cột **theo tên tiêu đề** ở dòng 4, không hardcode B/C/D/E/F/G
 3. In **báo cáo chất lượng dữ liệu**: ô thiếu, từ trùng, STT trùng/hụt, câu ví dụ không có ký tự tiếng Nhật
-4. Gán `id` **theo sổ khóa `_id_lock.json`**, không theo STT (xem quy tắc #6)
+4. Gán `id` **theo sổ khóa `_id_lock.json`**, không theo STT (xem quy tắc #7)
 5. Trích vocab → JSON array `[{id, w, r, vi, en, ex, c}, ...]` (c = category tự động: 外来語/漢字/その他), trích 38 track IT業務編 → JSON `GYOUMU_DATA`
 6. Replace placeholder trong `app_template.html`: `/*__VOCAB__*/[]`, `/*__GYOUMU__*/[]`, `__GEN_DATE__`, `__COUNT__`
 7. Tự copy audio từ `02_IT_Gyoumuhen/AudioCD/` → `01_Build_App/audio/`
@@ -126,7 +126,10 @@ Android WebView (nơi Capacitor chạy) **không hề implement Web Speech API**
 ### 5. Mic cũng dùng plugin native tương tự
 `@capgo/capacitor-speech-recognition` cho native (Android WebView không có Web Speech Recognition API), fallback `SpeechRecognition`/`webkitSpeechRecognition` cho web. Xem `isNativeApp()`/`nativeSR()`/`nativeTTS()` trong `app_template.html`.
 
-### 6. `_id_lock.json` — KHÔNG xóa, KHÔNG sửa tay
+### 6. Xuất tiến độ trên native dùng `@capacitor/filesystem` + `@capacitor/share`, KHÔNG dùng `<a download>`
+`<a download>`/`Blob` không hoạt động trong WebView đóng gói (giống lý do TTS/mic ở quy tắc #4/#5). Native: `Filesystem.writeFile()` ghi ra `Directory.Cache` (không cần xin quyền lưu trữ) rồi `Share.share()` mở hộp thoại Chia sẻ hệ thống để người dùng chọn nơi lưu. Web vẫn dùng `Blob`+`<a download>` như cũ. Xem `nativeFilesystem()`/`nativeShare()` trong `app_template.html` và FR_011 mục 0/4.1 (đổi 2026-09-12 sau khi PM test bản đầu thấy copy/dán thủ công tốn công — bản đầu KHÔNG dùng 2 plugin này, chỉ textarea+clipboard). Nhập tiến độ dùng `<input type="file">` cho cả web lẫn native (Capacitor Android hỗ trợ sẵn, không cần plugin riêng); textarea dán tay vẫn giữ làm đường lùi cho cả xuất lẫn nhập.
+
+### 7. `_id_lock.json` — KHÔNG xóa, KHÔNG sửa tay
 Tiến độ học trong `localStorage` khóa theo `id` (`store.cards[id]`, `store.favorites[id]`).
 
 Bản build cũ lấy `id` = STT cột B. Xóa hoặc chèn một dòng giữa file Excel là mọi `id` phía sau dịch theo, và tiến độ của từ A lặng lẽ gắn sang từ B, không báo gì. **Đã xảy ra thật**: so bản APK 2026-07-18 (596 từ) với từ điển 2026-09-11 (667 từ), có **47 trong 596 id trỏ sang từ khác** do 3 dòng bị xóa ở giữa.
@@ -141,7 +144,7 @@ Hệ quả: **số `#id` hiển thị trên thẻ không còn khớp STT trong E
 
 Xóa `_id_lock.json` = mất ánh xạ = build lại sẽ đánh số từ đầu = tiến độ trong app gắn sai hết. File này **phải commit vào git**.
 
-### 7. Lưới chọn Bộ giữ đúng 4 icon
+### 8. Lưới chọn Bộ giữ đúng 4 icon
 `deckGridHTML()` tô thẻ Bộ thành xanh lá khi **tất cả** icon truyền vào đều đã xong. Hiện có 4 icon 🗂️✍️🎧🎤 ứng với 4 mode `flash`/`quiz`/`listen`/`speak`.
 
 Thêm icon thứ 5 cho mode mới sẽ làm **mọi Bộ người dùng đã hoàn thành lập tức mất màu xanh**, nhìn như mất tiến độ. Mode mới vẫn được ghi cờ vào `deckDone` để dành sau này, nhưng **không hiển thị icon và không tính vào điều kiện Bộ đã xong**. Điều kiện "hoàn thành 1 Bộ" của FR_006 cũng giữ nguyên đúng 4 mode cũ.

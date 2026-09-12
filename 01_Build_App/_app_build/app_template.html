@@ -837,54 +837,72 @@ function fallbackCopyFromArea(cb){
     cb(document.execCommand('copy'));
   }catch(e){ cb(false); }
 }
-function renderExportBox(){
+async function renderExportBox(){
   var payload=buildExportPayload();
   var json=JSON.stringify(payload);
   var box=document.getElementById('pmBox');
+  var d=new Date().toISOString().slice(0,10);
+  var filename='kokoro_tien_do_'+d+'.json';
   if(isNativeApp()){
-    box.innerHTML=
-      '<div class="export-summary">'+exportSummaryLine()+'</div>'+
-      '<textarea class="export-area" id="exportArea" readonly>'+esc(json)+'</textarea>'+
-      '<button class="btn btn-primary" id="copyExport" style="width:100%;margin-bottom:8px">📋 Sao chép</button>'+
-      '<div class="hint">Dán chuỗi này vào Zalo, Mail hay ghi chú của bạn để lưu lại. Kiểm tra ký tự cuối cùng phải là <b>}</b>.</div>';
-    var ta=document.getElementById('exportArea');
-    ta.focus(); ta.select();
-    document.getElementById('copyExport').onclick=function(){
-      copyToClipboard(json, function(ok){
-        showToast(ok?'Đã sao chép vào bộ nhớ tạm':'Không sao chép được, hãy chạm giữ để bôi đen và copy thủ công');
-      });
-    };
+    var fs=nativeFilesystem(), sh=nativeShare();
+    if(fs && sh){
+      box.innerHTML='<div class="export-summary">'+exportSummaryLine()+'</div><div class="hint">Đang tạo file...</div>';
+      try{
+        var res=await fs.writeFile({path:filename, data:json, directory:'CACHE', encoding:'utf8'});
+        await sh.share({title:'Xuất tiến độ Kokoro Nihongo', text:'File tiến độ học '+filename, url:res.uri, dialogTitle:'Lưu file tiến độ vào đâu?'});
+        box.innerHTML=
+          '<div class="export-summary">'+exportSummaryLine()+'</div>'+
+          '<div class="hint">Đã mở hộp thoại lưu/chia sẻ file <b>'+filename+'</b>. Chọn "Lưu vào thiết bị", Drive, Zalo hay Mail để giữ lại bản sao lưu.</div>';
+      }catch(e){
+        exportFallbackTextarea(box, json, filename, 'Không tạo được file ('+e+'), dùng cách dán thủ công:');
+      }
+    } else {
+      exportFallbackTextarea(box, json, filename, 'Thiếu plugin lưu file, dùng cách dán thủ công:');
+    }
   } else {
     var blob=new Blob([json], {type:'application/json'});
     var url=URL.createObjectURL(blob);
-    var d=new Date().toISOString().slice(0,10);
     var a=document.createElement('a');
-    a.href=url; a.download='kokoro_tien_do_'+d+'.json';
+    a.href=url; a.download=filename;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function(){URL.revokeObjectURL(url);}, 3000);
     box.innerHTML=
       '<div class="export-summary">'+exportSummaryLine()+'</div>'+
-      '<div class="hint">Đã tải file <b>kokoro_tien_do_'+d+'.json</b> về máy.</div>';
+      '<div class="hint">Đã tải file <b>'+filename+'</b> về máy.</div>';
     showToast('Đã xuất tiến độ');
   }
 }
+/* Đường lùi nếu Filesystem/Share lỗi hoặc không có sẵn — vẫn giữ cách dán thủ công cũ để không bao giờ kẹt cứng */
+function exportFallbackTextarea(box, json, filename, note){
+  box.innerHTML=
+    '<div class="export-summary">'+exportSummaryLine()+'</div>'+
+    '<div class="hint">'+note+'</div>'+
+    '<textarea class="export-area" id="exportArea" readonly>'+esc(json)+'</textarea>'+
+    '<button class="btn btn-primary" id="copyExport" style="width:100%;margin-bottom:8px">📋 Sao chép</button>'+
+    '<div class="hint">Dán chuỗi này vào Zalo, Mail hay ghi chú của bạn để lưu lại. Kiểm tra ký tự cuối cùng phải là <b>}</b>.</div>';
+  var ta=document.getElementById('exportArea');
+  ta.focus(); ta.select();
+  document.getElementById('copyExport').onclick=function(){
+    copyToClipboard(json, function(ok){
+      showToast(ok?'Đã sao chép vào bộ nhớ tạm':'Không sao chép được, hãy chạm giữ để bôi đen và copy thủ công');
+    });
+  };
+}
 function renderImportBox(){
   var box=document.getElementById('pmBox');
-  var html='<textarea class="export-area" id="importArea" placeholder="Dán chuỗi JSON đã xuất trước đó vào đây"></textarea>';
-  if(!isNativeApp()){
-    html+='<input type="file" accept=".json" id="importFile" style="margin-bottom:10px;font-size:12px">';
-  }
-  html+='<button class="btn btn-primary" id="btnParseImport" style="width:100%">Kiểm tra & so sánh</button>'+
+  var html=
+    '<input type="file" accept=".json,application/json" id="importFile" style="margin-bottom:10px;font-size:12px">'+
+    '<div class="hint">Chọn file .json đã xuất trước đó — hoặc dán chuỗi vào ô dưới nếu không mở được file.</div>'+
+    '<textarea class="export-area" id="importArea" placeholder="Dán chuỗi JSON đã xuất trước đó vào đây"></textarea>'+
+    '<button class="btn btn-primary" id="btnParseImport" style="width:100%">Kiểm tra & so sánh</button>'+
     '<div id="importResult"></div>';
   box.innerHTML=html;
-  if(!isNativeApp()){
-    document.getElementById('importFile').onchange=function(e){
-      var f=e.target.files[0]; if(!f) return;
-      var reader=new FileReader();
-      reader.onload=function(ev){ document.getElementById('importArea').value=ev.target.result; };
-      reader.readAsText(f);
-    };
-  }
+  document.getElementById('importFile').onchange=function(e){
+    var f=e.target.files[0]; if(!f) return;
+    var reader=new FileReader();
+    reader.onload=function(ev){ document.getElementById('importArea').value=ev.target.result; };
+    reader.readAsText(f);
+  };
   document.getElementById('btnParseImport').onclick=function(){
     var raw=document.getElementById('importArea').value.trim();
     var parsed;
@@ -990,6 +1008,11 @@ async function requestMicPermission(){
    fallback Web Speech API khi chạy trên trình duyệt (desktop/Android Chrome/iOS Safari) */
 function isNativeApp(){ return !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()); }
 function nativeSR(){ return window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.SpeechRecognition; }
+/* Xuất tiến độ ra file thật (FR_011, bản sửa 2026-09-12): ghi vào bộ nhớ đệm riêng của app rồi
+   mở hộp thoại Chia sẻ hệ thống để người dùng chọn nơi lưu (Files/Drive/Zalo/Mail...) —
+   tránh phải xin quyền lưu trữ ngoài (Android scoped storage từ API 29+ hạn chế việc này). */
+function nativeFilesystem(){ return window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem; }
+function nativeShare(){ return window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Share; }
 /* TTS native (Android APK) — dùng thẳng engine TextToSpeech của hệ điều hành, không qua mạng/Google Translate
    endpoint. Thay thế hoàn toàn đường Google TTS (vốn không đáng tin cậy trong WebView đóng gói) khi chạy native. */
 function nativeTTS(){ return window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.TextToSpeech; }
