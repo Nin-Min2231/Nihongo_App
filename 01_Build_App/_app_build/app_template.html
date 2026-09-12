@@ -15,6 +15,7 @@
   --warn:#f59e0b; --bad:#dc2626; --good:#16a34a; --soft:#eff6ff;
   --shadow:0 2px 12px rgba(15,30,60,.07);
   --grad:linear-gradient(135deg,#1e40af,#3b82f6);
+  --fs-scale:1;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
@@ -22,6 +23,7 @@ body{
   font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP","Segoe UI",Roboto,sans-serif;
   background:var(--bg); color:var(--ink); line-height:1.5;
   padding-bottom:env(safe-area-inset-bottom);
+  font-size:calc(15px * var(--fs-scale,1));
 }
 .app{max-width:560px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
 header{
@@ -35,14 +37,36 @@ header h1{font-size:17px;margin:0;font-weight:700;letter-spacing:.3px;white-spac
 header .sub{font-size:11.5px;opacity:.85;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .backbtn{background:#d6e1fa;border:none;color:#1e40af;border-radius:10px;
   padding:7px 12px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.header-logo{width:36px;height:36px;border-radius:50%;flex-shrink:0;object-fit:cover;
+  box-shadow:0 0 0 2px rgba(255,255,255,.5)}
 main{flex:1;padding:16px;overflow-y:auto}
 .hidden{display:none!important}
 
 /* dashboard */
+.stats-block{position:relative;cursor:pointer}
+.stats-block:active{opacity:.85}
+.stats-arrow{position:absolute;top:6px;right:0;font-size:20px;color:var(--sub);font-weight:700}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;box-shadow:var(--shadow)}
 .stat .n{font-size:22px;font-weight:800;color:var(--brand)}
 .stat .l{font-size:11px;color:var(--sub);margin-top:2px}
+
+/* màn hình Thống kê (FR_012) */
+.stats-hero{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow);text-align:center}
+.stats-hero .n{font-size:44px;font-weight:800;color:var(--brand)}
+.stats-hero .l{font-size:13px;color:var(--sub);margin-top:4px}
+.heatmap-grid{display:inline-grid;grid-template-rows:repeat(7,12px);grid-auto-flow:column;gap:3px}
+.heatmap-cell{width:12px;height:12px;border-radius:3px;background:var(--line)}
+.heatmap-cell.future{background:transparent}
+.heatmap-cell.l1{background:#bbf7d0}
+.heatmap-cell.l2{background:#4ade80}
+.heatmap-cell.l3{background:#15803d}
+.forecast-chart{display:flex;align-items:flex-end;gap:8px;margin:14px 0 4px}
+.forecast-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center}
+.forecast-bar{width:100%;border-radius:6px 6px 0 0;background:var(--brand2);min-height:4px}
+.forecast-bar.today{background:var(--brand)}
+.forecast-num{font-size:12px;font-weight:700;margin-bottom:4px;color:var(--ink);font-variant-numeric:tabular-nums}
+.forecast-label{font-size:10.5px;color:var(--sub);margin-top:6px}
 .progwrap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:16px;box-shadow:var(--shadow)}
 .progwrap .t{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin-bottom:8px}
 .bar{height:10px;background:var(--soft);border-radius:99px;overflow:hidden}
@@ -94,7 +118,7 @@ main{flex:1;padding:16px;overflow-y:auto}
 .reading{font-size:17px;color:var(--brand2);margin-top:8px;font-weight:600}
 .mean{font-size:19px;margin-top:14px;font-weight:600}
 .en{font-size:14px;color:var(--sub);margin-top:4px;font-style:italic}
-.ex{font-size:15px;color:var(--ink);margin-top:16px;background:var(--soft);border-radius:12px;
+.ex{font-size:calc(15px * var(--fs-scale,1));color:var(--ink);margin-top:16px;background:var(--soft);border-radius:12px;
   padding:12px 14px;line-height:1.7;text-align:left;width:100%}
 .tag{font-size:11px;color:var(--sub);background:var(--soft);border-radius:99px;padding:3px 10px;margin-bottom:12px;font-weight:600}
 .speaker{background:var(--soft);border:none;border-radius:99px;width:52px;height:52px;font-size:24px;
@@ -113,13 +137,23 @@ main{flex:1;padding:16px;overflow-y:auto}
 
 /* quiz / listening options */
 .opts{display:flex;flex-direction:column;gap:10px;margin-top:18px}
-.opt{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:15px;font-size:16px;
+.opt{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:15px;font-size:calc(16px * var(--fs-scale,1));
   text-align:left;cursor:pointer;transition:.12s;font-weight:600}
 .opt:active{transform:scale(.99)}
 .opt.correct{background:#dcfce7;border-color:var(--good);color:#166534}
 .opt.wrong{background:#fee2e2;border-color:var(--bad);color:#991b1b}
 .opt.dim{opacity:.5}
-.qword{font-size:34px;font-weight:800;text-align:center;margin:6px 0}
+.qword{font-size:calc(34px * var(--fs-scale,1));font-weight:800;text-align:center;margin:6px 0}
+
+/* điền từ vào câu (FR_009) */
+.cloze-sentence{font-size:calc(18px * var(--fs-scale,1));line-height:2;text-align:left;
+  background:var(--soft);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.cloze-fill{background:#fef9c3;border-radius:4px;padding:0 3px;font-weight:700}
+
+/* phản xạ 3 giây (FR_010) */
+.reflex-ring-wrap{position:relative;width:104px;height:104px;margin:18px auto}
+.reflex-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:calc(30px * var(--fs-scale,1));font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 .qhint{text-align:center;color:var(--sub);font-size:14px}
 
 /* speaking / mic */
@@ -200,7 +234,20 @@ footer{text-align:center;font-size:11px;color:var(--sub);padding:14px}
 .gender-btn{flex:1;padding:10px;border:1.5px solid var(--line);border-radius:10px;font-size:14px;
   font-weight:600;cursor:pointer;text-align:center;background:var(--bg);color:var(--sub)}
 .gender-btn.on{border-color:var(--brand);background:var(--soft);color:var(--brand)}
+.reflex-btns{display:flex;gap:8px;margin-bottom:14px}
+.reflex-btn{flex:1;padding:10px;border:1.5px solid var(--line);border-radius:10px;font-size:14px;
+  font-weight:600;cursor:pointer;text-align:center;background:var(--bg);color:var(--sub)}
+.reflex-btn.on{border-color:var(--brand);background:var(--soft);color:var(--brand)}
 .sep{border:none;border-top:1px solid var(--line);margin:14px 0}
+
+/* xuất / nhập tiến độ (FR_011) */
+.export-summary{font-size:12.5px;color:var(--sub);margin:-8px 0 12px;line-height:1.5}
+.export-area{width:100%;min-height:110px;font-size:11.5px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  padding:10px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:10px;resize:vertical;background:var(--bg);color:var(--ink)}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+.compare-table td,.compare-table th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right}
+.compare-table th:first-child,.compare-table td:first-child{text-align:left;color:var(--sub);font-weight:600}
+.compare-warn{color:var(--bad);font-weight:700;font-size:13px;margin:8px 0 4px;line-height:1.5}
 
 /* topic selection */
 .topics{display:flex;flex-direction:column;gap:12px}
@@ -238,6 +285,7 @@ footer{text-align:center;font-size:11px;color:var(--sub);padding:14px}
   <header>
     <div class="hrow">
       <button class="backbtn hidden" id="backBtn">← 戻る</button>
+      <img class="header-logo hidden" id="headerLogo" alt="Kokoro Nihongo">
       <div>
         <h1 id="hTitle">ココロ日本語</h1>
         <div class="sub" id="hSub">Kokoro Nihongo · <span id="hCount">__COUNT__</span> từ</div>
@@ -261,11 +309,12 @@ const INTERVALS = [0, 1, 2, 4, 7, 15, 30];
 let store = load();
 if(!store.deckDone) store.deckDone={}; // migrate: user cũ chưa có field này
 if(!store.favorites) store.favorites={}; // migrate: user cũ chưa có field này
+if(!store.stats.history) store.stats.history={}; // migrate: user cũ chưa có field này (FR_012)
 function load(){
   try{ return JSON.parse(localStorage.getItem(LS_KEY)) || defaultStore(); }
   catch(e){ return defaultStore(); }
 }
-function defaultStore(){ return {cards:{},stats:{studied:0,streak:0,lastDay:null},deckDone:{},favorites:{}}; }
+function defaultStore(){ return {cards:{},stats:{studied:0,streak:0,lastDay:null,history:{}},deckDone:{},favorites:{}}; }
 function save(){ localStorage.setItem(LS_KEY, JSON.stringify(store)); }
 function today(){ return new Date().toISOString().slice(0,10); }
 function cardState(id){
@@ -297,13 +346,18 @@ function reviewCard(id, quality){
   bumpStudied();
   save();
 }
-function bumpStudied(){
+/* Streak + lịch sử theo ngày — dùng chung cho mọi hoạt động học (SRS lẫn IT業務編), không riêng lượt ôn thẻ */
+function bumpStreak(){
   const t=today();
   if(store.stats.lastDay!==t){
     const y=new Date(); y.setDate(y.getDate()-1);
     store.stats.streak = (store.stats.lastDay===y.toISOString().slice(0,10))? store.stats.streak+1 : 1;
     store.stats.lastDay=t;
   }
+  store.stats.history[t] = (store.stats.history[t]||0) + 1;
+}
+function bumpStudied(){
+  bumpStreak();
   store.stats.studied++;
 }
 function learnedCount(){ return Object.values(store.cards).filter(c=>c.box>=3||c.mastered).length; }
@@ -334,6 +388,18 @@ function defaultTTS(){
   return {mode:'google', speed:0.9, pitch:1.0, gender:'female', voiceName:''};
 }
 function saveTTS(){ localStorage.setItem(TTS_KEY, JSON.stringify(ttsSettings)); }
+
+/* ═══════════════ UI SETTINGS (cỡ chữ, thời gian phản xạ) — riêng biệt, không nhét chung TTS_KEY ═══════════════ */
+const UI_KEY = "kokoro_ui_settings";
+var uiSettings = loadUI();
+function loadUI(){
+  try{ return Object.assign({fontScale:1, reflexSec:3}, JSON.parse(localStorage.getItem(UI_KEY))||{}); }
+  catch(e){ return {fontScale:1, reflexSec:3}; }
+}
+function saveUI(){ localStorage.setItem(UI_KEY, JSON.stringify(uiSettings)); }
+/* Áp ngay lúc khởi động, trước khi render home() — tránh nháy cỡ chữ */
+function applyFontScale(){ document.documentElement.style.setProperty('--fs-scale', uiSettings.fontScale||1); }
+applyFontScale();
 
 /* ═══════════════ IT業務編 STORAGE (riêng biệt, không đụng jp_learn_v1) ═══════════════ */
 const GY_LS_KEY = "kokoro_gyoumu_v1";
@@ -565,7 +631,7 @@ function openSettings(){
   overlay.innerHTML=
     '<div class="settings-panel" id="settingsPanel">'+
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">'+
-        '<h3 style="margin:0">⚙️ Cài đặt giọng đọc</h3>'+
+        '<h3 style="margin:0">⚙️ Cài đặt</h3>'+
         '<button class="btn btn-ghost" id="closeSettings" style="padding:6px 12px;font-size:14px">✕</button>'+
       '</div>'+
 
@@ -622,7 +688,37 @@ function openSettings(){
         '<button class="btn btn-ghost" id="testSlow" style="flex:1">🐢 Chậm</button>'+
       '</div>'+
 
-      '<button class="btn btn-primary" id="saveSettings">💾 Lưu cài đặt</button>'+
+      '<button class="btn btn-primary" id="saveSettings">💾 Lưu cài đặt giọng đọc</button>'+
+
+      '<hr class="sep">'+
+
+      // Font size slider
+      '<label>Cỡ chữ</label>'+
+      '<div class="slider-row">'+
+        '<span style="font-size:11px;color:var(--sub)">A</span>'+
+        '<input type="range" id="sldFont" min="90" max="135" step="5" value="'+Math.round((uiSettings.fontScale||1)*100)+'">'+
+        '<span style="font-size:17px;color:var(--sub)">A</span>'+
+        '<span class="slider-val" id="valFont">'+Math.round((uiSettings.fontScale||1)*100)+'%</span>'+
+      '</div>'+
+
+      // Reflex time
+      '<label>Thời gian phản xạ <span style="font-size:11px;color:var(--sub)">(mode Phản xạ)</span></label>'+
+      '<div class="reflex-btns">'+
+        [3,5,8].map(function(s){
+          return '<button class="reflex-btn'+((uiSettings.reflexSec||3)===s?' on':'')+'" data-sec="'+s+'">'+s+'s</button>';
+        }).join('')+
+      '</div>'+
+
+      '<hr class="sep">'+
+
+      // Xuất / nhập tiến độ (FR_011)
+      '<label>💾 Tiến độ học</label>'+
+      '<div class="hint">Tiến độ chỉ lưu trên máy này, không có bản sao lưu tự động. Xuất ra định kỳ để phòng hờ, đặc biệt trước khi cài lại app.</div>'+
+      '<div class="row">'+
+        '<button class="btn btn-ghost" id="btnExport">📤 Xuất tiến độ</button>'+
+        '<button class="btn btn-ghost" id="btnImport">📥 Nhập tiến độ</button>'+
+      '</div>'+
+      '<div id="pmBox" style="margin-top:10px"></div>'+
     '</div>';
 
   document.body.appendChild(overlay);
@@ -675,12 +771,168 @@ function openSettings(){
     saveTTS();
     closeSettingsPanel();
   };
+
+  // Cỡ chữ — áp dụng + lưu ngay khi kéo, không chờ nút Lưu
+  document.getElementById('sldFont').oninput=function(){
+    var pct=parseInt(this.value,10);
+    document.getElementById('valFont').textContent=pct+'%';
+    uiSettings.fontScale=pct/100;
+    applyFontScale();
+    saveUI();
+  };
+
+  // Thời gian phản xạ — lưu ngay khi chọn
+  document.querySelectorAll('.reflex-btn').forEach(function(btn){
+    btn.onclick=function(){
+      document.querySelectorAll('.reflex-btn').forEach(function(b){b.classList.remove('on');});
+      btn.classList.add('on');
+      uiSettings.reflexSec=parseInt(btn.dataset.sec,10);
+      saveUI();
+    };
+  });
+
+  // Xuất / nhập tiến độ
+  document.getElementById('btnExport').onclick=renderExportBox;
+  document.getElementById('btnImport').onclick=renderImportBox;
 }
 function closeSettingsPanel(){
   var ov=document.getElementById('settingsOverlay');
   if(ov) ov.remove();
 }
 document.getElementById('settingsBtn').onclick=openSettings;
+
+/* ═══════════════ XUẤT / NHẬP TIẾN ĐỘ (FR_011) ═══════════════ */
+function buildExportPayload(){
+  return {
+    app:'kokoro_nihongo',
+    version:1,
+    exportedAt:new Date().toISOString(),
+    wordCount:VOCAB.length,
+    data:{
+      jp_learn_v1:localStorage.getItem('jp_learn_v1'),
+      kokoro_gyoumu_v1:localStorage.getItem('kokoro_gyoumu_v1'),
+      kokoro_tts_settings:localStorage.getItem('kokoro_tts_settings'),
+      kokoro_ui_settings:localStorage.getItem('kokoro_ui_settings')
+    }
+  };
+}
+function exportSummaryLine(){
+  var withProgress=Object.keys(store.cards).length;
+  var learned=learnedCount();
+  var streak=store.stats.streak||0;
+  return 'Đã xuất: '+withProgress+' từ có tiến độ · '+learned+' từ đã thuộc · streak '+streak+' ngày';
+}
+function copyToClipboard(text, cb){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){cb(true);}).catch(function(){fallbackCopyFromArea(cb);});
+  } else {
+    fallbackCopyFromArea(cb);
+  }
+}
+function fallbackCopyFromArea(cb){
+  try{
+    var ta=document.getElementById('exportArea');
+    if(!ta){ cb(false); return; }
+    ta.focus(); ta.select();
+    cb(document.execCommand('copy'));
+  }catch(e){ cb(false); }
+}
+function renderExportBox(){
+  var payload=buildExportPayload();
+  var json=JSON.stringify(payload);
+  var box=document.getElementById('pmBox');
+  if(isNativeApp()){
+    box.innerHTML=
+      '<div class="export-summary">'+exportSummaryLine()+'</div>'+
+      '<textarea class="export-area" id="exportArea" readonly>'+esc(json)+'</textarea>'+
+      '<button class="btn btn-primary" id="copyExport" style="width:100%;margin-bottom:8px">📋 Sao chép</button>'+
+      '<div class="hint">Dán chuỗi này vào Zalo, Mail hay ghi chú của bạn để lưu lại. Kiểm tra ký tự cuối cùng phải là <b>}</b>.</div>';
+    var ta=document.getElementById('exportArea');
+    ta.focus(); ta.select();
+    document.getElementById('copyExport').onclick=function(){
+      copyToClipboard(json, function(ok){
+        showToast(ok?'Đã sao chép vào bộ nhớ tạm':'Không sao chép được, hãy chạm giữ để bôi đen và copy thủ công');
+      });
+    };
+  } else {
+    var blob=new Blob([json], {type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var d=new Date().toISOString().slice(0,10);
+    var a=document.createElement('a');
+    a.href=url; a.download='kokoro_tien_do_'+d+'.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);}, 3000);
+    box.innerHTML=
+      '<div class="export-summary">'+exportSummaryLine()+'</div>'+
+      '<div class="hint">Đã tải file <b>kokoro_tien_do_'+d+'.json</b> về máy.</div>';
+    showToast('Đã xuất tiến độ');
+  }
+}
+function renderImportBox(){
+  var box=document.getElementById('pmBox');
+  var html='<textarea class="export-area" id="importArea" placeholder="Dán chuỗi JSON đã xuất trước đó vào đây"></textarea>';
+  if(!isNativeApp()){
+    html+='<input type="file" accept=".json" id="importFile" style="margin-bottom:10px;font-size:12px">';
+  }
+  html+='<button class="btn btn-primary" id="btnParseImport" style="width:100%">Kiểm tra & so sánh</button>'+
+    '<div id="importResult"></div>';
+  box.innerHTML=html;
+  if(!isNativeApp()){
+    document.getElementById('importFile').onchange=function(e){
+      var f=e.target.files[0]; if(!f) return;
+      var reader=new FileReader();
+      reader.onload=function(ev){ document.getElementById('importArea').value=ev.target.result; };
+      reader.readAsText(f);
+    };
+  }
+  document.getElementById('btnParseImport').onclick=function(){
+    var raw=document.getElementById('importArea').value.trim();
+    var parsed;
+    try{ parsed=JSON.parse(raw); }
+    catch(e){ document.getElementById('importResult').innerHTML='<div class="compare-warn">Chuỗi không hợp lệ, hãy copy lại đầy đủ từ đầu đến cuối.</div>'; return; }
+    if(parsed.app!=='kokoro_nihongo'){ document.getElementById('importResult').innerHTML='<div class="compare-warn">File này không phải bản sao lưu của Kokoro Nihongo.</div>'; return; }
+    if(!parsed.data || !parsed.data.jp_learn_v1){ document.getElementById('importResult').innerHTML='<div class="compare-warn">Thiếu dữ liệu tiến độ trong file.</div>'; return; }
+    showImportCompare(parsed);
+  };
+}
+function showImportCompare(parsed){
+  var incoming;
+  try{ incoming=JSON.parse(parsed.data.jp_learn_v1)||{}; }catch(e){ incoming={}; }
+  var incCards=incoming.cards||{};
+  var incStats=incoming.stats||{};
+  var curMastered=Object.keys(store.cards).filter(function(id){var c=store.cards[id];return c.box>=3||c.mastered;}).length;
+  var curReviews=store.stats.studied||0;
+  var curStreak=store.stats.streak||0;
+  var newMastered=Object.keys(incCards).filter(function(id){var c=incCards[id];return c.box>=3||c.mastered;}).length;
+  var newReviews=incStats.studied||0;
+  var newStreak=incStats.streak||0;
+  var biggerHere = curMastered>newMastered && curReviews>newReviews && curStreak>newStreak;
+
+  var html=
+    '<table class="compare-table">'+
+      '<tr><th></th><th>Máy này</th><th>File nhập vào</th></tr>'+
+      '<tr><td>Từ đã thuộc</td><td>'+curMastered+'</td><td>'+newMastered+'</td></tr>'+
+      '<tr><td>Tổng lượt ôn</td><td>'+curReviews+'</td><td>'+newReviews+'</td></tr>'+
+      '<tr><td>Streak</td><td>'+curStreak+'</td><td>'+newStreak+'</td></tr>'+
+      '<tr><td>Ngày xuất</td><td>—</td><td>'+(parsed.exportedAt?esc(parsed.exportedAt.slice(0,10)):'?')+'</td></tr>'+
+    '</table>'+
+    '<div class="compare-warn">Nhập vào sẽ GHI ĐÈ toàn bộ tiến độ trên máy này. Không khôi phục lại được.</div>'+
+    (biggerHere?'<div class="compare-warn">⚠ Máy này đang có nhiều tiến độ hơn file. Chắc chắn muốn ghi đè?</div>':'')+
+    '<div class="row" style="margin-top:10px">'+
+      '<button class="btn btn-ghost" id="cancelImport">Hủy</button>'+
+      '<button class="btn btn-primary" id="confirmImport" style="background:var(--bad)">Ghi đè</button>'+
+    '</div>';
+  document.getElementById('importResult').innerHTML=html;
+  document.getElementById('cancelImport').onclick=function(){ document.getElementById('importResult').innerHTML=''; };
+  document.getElementById('confirmImport').onclick=function(){
+    ['jp_learn_v1','kokoro_gyoumu_v1','kokoro_tts_settings','kokoro_ui_settings'].forEach(function(k){
+      var v=parsed.data[k];
+      if(v!==undefined) localStorage.setItem(k, v);
+    });
+    location.reload();
+  };
+  document.getElementById('cancelImport').focus();
+}
 
 /* ═══════════════ MICROPHONE / SPEECH RECOGNITION ═══════════════ */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -834,17 +1086,54 @@ function playScoreSound(score){
 
 /* ═══════════════ HELPERS ═══════════════ */
 const $=s=>document.querySelector(s);
-const main=$('#main'), backBtn=$('#backBtn'), hTitle=$('#hTitle'), hSub=$('#hSub');
+const main=$('#main'), backBtn=$('#backBtn'), hTitle=$('#hTitle'), hSub=$('#hSub'), headerLogo=$('#headerLogo');
+(function(){ var fav=document.querySelector('link[rel="icon"]'); if(fav && headerLogo) headerLogo.src=fav.href; })();
 let curCat='ALL';
 let curDeck='ALL';
 let deckPage=0;
-let readingDeckPage=0;
-let kaiwaDeckPage=0;
 const DECK_SIZE=25;
 function pool(){ return curCat==='ALL'? VOCAB : VOCAB.filter(v=>v.c===curCat); }
-/* Luyện đọc/Kaiwa không lọc theo chủ đề — luôn dùng toàn bộ từ có câu ví dụ, không phụ thuộc curCat */
+/* Từ có câu ví dụ đủ dài để dùng — không phụ thuộc curCat. Giữ lại cho mode Điền từ (FR_009). */
 function allWithEx(){ return VOCAB.filter(function(v){return v.ex && v.ex.trim().length>4;}); }
-/* Chia đều một mảng thành các "bộ" ~DECK_SIZE phần tử, dồn số dư rải đều thay vì dồn hết bộ cuối */
+
+/* ═══════════════ ĐIỀN TỪ VÀO CÂU — dò ô trống (FR_009) ═══════════════ */
+/* Sinh các dạng chữ có thể xuất hiện trong câu ví dụ, dài trước ngắn sau */
+function clozeCandidates(w){
+  var base = w.replace(/[（(][^）)]*[)）]/g,'').replace(/　/g,' ').trim();
+  var seeds = {}; seeds[base]=1; seeds[w.trim()]=1;
+  base.split(/[\/／=＝]/).forEach(function(p){ p=p.trim(); if(p) seeds[p]=1; });
+  var out = {};
+  Object.keys(seeds).forEach(function(t){
+    t = t.replace(/^[〜～]+/,'').trim(); if(!t) return;
+    out[t]=1;
+    ['する','です','ます','な','い'].forEach(function(suf){
+      if(t.length>suf.length && t.slice(-suf.length)===suf) out[t.slice(0,-suf.length)]=1;
+    });
+    var m = t.match(/^[一-鿿]{1,6}/); if(m) out[m[0]]=1;
+  });
+  return Object.keys(out).filter(function(t){return t.length>0 && t.indexOf('✙')<0;})
+                         .sort(function(a,b){return b.length-a.length;});
+}
+/* Trả về [vị trí, độ dài] đoạn cần che trong v.ex, hoặc null nếu không dò được */
+function findCloze(v){
+  var ex = v.ex||''; if(!ex) return null;
+  var cands = clozeCandidates(v.w);
+  for(var i=0;i<cands.length;i++){
+    var t=cands[i], p=ex.indexOf(t);
+    if(p<0) continue;
+    if(t.length===1 && !/[一-鿿]/.test(t)) continue;   // 1 ký tự kana thì bỏ, quá dễ nhầm
+    return [p,t.length];
+  }
+  var y=(v.r||'').replace(/[（(][^）)]*[)）]/g,'').trim();
+  var ys=[y].concat(y.split(/[\/／・]/)).map(function(s){return s.trim();})
+            .filter(function(s){return s.length>=2;})
+            .sort(function(a,b){return b.length-a.length;});
+  for(var j=0;j<ys.length;j++){ var q=ex.indexOf(ys[j]); if(q>=0) return [q,ys[j].length]; }
+  return null;
+}
+
+/* Chia đều một mảng thành các "bộ" ~DECK_SIZE phần tử, dồn số dư rải đều thay vì dồn hết bộ cuối.
+   Không còn lời gọi nào từ FR_008 (Luyện đọc/Kaiwa dùng hàm này đã bị gỡ) — cố ý giữ lại, xem FR_008 mục 4.3. */
 function splitDecks(arr, target){
   target = target || DECK_SIZE;
   var n = arr.length;
@@ -860,7 +1149,7 @@ function splitDecks(arr, target){
   return decks;
 }
 /* Chia CỐ ĐỊNH mỗi bộ đúng target từ, bắt đầu từ #1, bộ cuối = phần dư còn lại — dùng cho IT専門
-   (đơn giản, dễ đoán vị trí, không dồn/san đều số dư như splitDecks() dùng cho Luyện đọc/Kaiwa) */
+   (đơn giản, dễ đoán vị trí, không dồn/san đều số dư như splitDecks()) */
 function splitDecksStrict(arr, target){
   target = target || DECK_SIZE;
   var decks=[];
@@ -915,6 +1204,7 @@ backBtn.onclick=()=>{ stopSpeech(); if(onBack) onBack(); else home(); };
 function setHeader(title,sub,showBack){
   hTitle.textContent=title; if(sub!==null) hSub.innerHTML=sub;
   backBtn.classList.toggle('hidden',!showBack);
+  headerLogo.classList.toggle('hidden',showBack);
 }
 
 /* ═══════════════ TOPIC SELECTION (màn hình chính) ═══════════════ */
@@ -924,8 +1214,6 @@ function setHeader(title,sub,showBack){
 const MENU_MODULES = [
   {id:'it_senmon', icon:'💻', title:'IT専門', sub:function(){return 'Từ vựng IT chuyên ngành · '+VOCAB.length+' từ';}, open:homeDashboard},
   {id:'it_gyoumu', icon:'🏢', title:'IT業務編', sub:function(){return 'Hội thoại thực tế công việc IT · '+GYOUMU.length+' track';}, open:gyoumuDashboard},
-  {id:'reading_lib', icon:'📖', title:'Luyện đọc', sub:function(){return 'Đọc câu ví dụ, nghe + lặp lại';}, open:readingLibrary},
-  {id:'kaiwa_lib', icon:'💬', title:'Kaiwa', sub:function(){return 'Hội thoại ngắn từ câu ví dụ';}, open:kaiwaLibrary},
 ];
 
 function home(){
@@ -934,10 +1222,13 @@ function home(){
   var learned=learnedCount();
   var gyListened=Object.keys(gyStore.listened).length;
   main.innerHTML=
-    '<div class="stats">'+
-      '<div class="stat"><div class="n">'+(store.stats.streak||0)+'</div><div class="l">Streak</div></div>'+
-      '<div class="stat"><div class="n">'+learned+'</div><div class="l">Từ đã thuộc</div></div>'+
-      '<div class="stat"><div class="n">'+gyListened+'</div><div class="l">Track đã nghe</div></div>'+
+    '<div class="stats-block" id="statsBlock">'+
+      '<div class="stats">'+
+        '<div class="stat"><div class="n">'+(store.stats.streak||0)+'</div><div class="l">Streak</div></div>'+
+        '<div class="stat"><div class="n">'+learned+'</div><div class="l">Từ đã thuộc</div></div>'+
+        '<div class="stat"><div class="n">'+gyListened+'</div><div class="l">Track đã nghe</div></div>'+
+      '</div>'+
+      '<div class="stats-arrow">›</div>'+
     '</div>'+
     '<div class="sectitle">Chọn chủ đề bạn muốn học</div>'+
     '<div class="topics">'+
@@ -960,45 +1251,120 @@ function home(){
       mod.open();
     };
   });
+  $('#statsBlock').onclick=statsScreen;
 }
 
-/* ═══════════════ LUYỆN ĐỌC / KAIWA — chọn bộ (dùng chung deckGridHTML) ═══════════════ */
-function readingLibrary(){
-  onBack=home;
-  setHeader('Luyện đọc', 'Chọn bộ câu để luyện đọc', true);
-  var decks = splitDecks(allWithEx());
-  if(decks.length===0){ main.innerHTML='<div class="note">Cần ít nhất vài từ có câu ví dụ để luyện đọc.</div>'; return; }
-  var offset=0;
-  var items = decks.map(function(d,i){
-    var s=offset+1, e=offset+d.length; offset+=d.length;
-    var done = deckDoneModes('_reading', i);
-    return {key:String(i), label:'Bộ '+(i+1)+' ('+s+'-'+e+')', icons:[{icon:'✅', done:!!done.done}]};
-  });
-  main.innerHTML = deckGridHTML('rdeck', items, readingDeckPage);
-  $('#rdeckPrev').onclick=function(){ readingDeckPage=Math.max(0,readingDeckPage-1); readingLibrary(); };
-  $('#rdeckNext').onclick=function(){ readingDeckPage=readingDeckPage+1; readingLibrary(); };
-  main.querySelectorAll('.deck-card').forEach(function(c){
-    c.onclick=function(){ var idx=parseInt(c.dataset.key,10); readingMode(decks[idx], idx); };
-  });
+/* ═══════════════ THỐNG KÊ VÀ LỊCH SỬ HỌC (FR_012) ═══════════════ */
+function heatmapTier(n){
+  if(n<=0) return '';
+  if(n<=7) return 'l1';
+  if(n<=19) return 'l2';
+  return 'l3';
 }
-
-function kaiwaLibrary(){
+function buildHeatmapHTML(){
+  var todayStr=today();
+  var now=new Date();
+  var dow=now.getDay();
+  var daysSinceMonday=(dow+6)%7;
+  var curMonday=new Date(now); curMonday.setDate(curMonday.getDate()-daysSinceMonday);
+  var startMonday=new Date(curMonday); startMonday.setDate(startMonday.getDate()-12*7);
+  var cellsHtml='';
+  for(var c=0;c<13;c++){
+    for(var r=0;r<7;r++){
+      var d=new Date(startMonday); d.setDate(d.getDate()+c*7+r);
+      var ds=d.toISOString().slice(0,10);
+      if(ds>todayStr){
+        cellsHtml+='<div class="heatmap-cell future"></div>';
+      } else {
+        var n=store.stats.history[ds]||0;
+        cellsHtml+='<div class="heatmap-cell '+heatmapTier(n)+'" title="'+ds+': '+n+' lượt"></div>';
+      }
+    }
+  }
+  return '<div style="overflow-x:auto"><div class="heatmap-grid">'+cellsHtml+'</div></div>';
+}
+/* Mỗi từ chỉ đếm vào đúng 1 nhóm — thứ tự ưu tiên: Đã thuộc > Từ khó > Đang học > Chưa học (tổng luôn = VOCAB.length) */
+function computeDistribution(){
+  var daxthuoc=0, tukhoi=0, danghoc=0, chuahoc=0;
+  VOCAB.forEach(function(v){
+    var c=store.cards[v.id];
+    if(!c){ chuahoc++; return; }
+    if(c.box>=3 || c.mastered){ daxthuoc++; return; }
+    if(c.seen>=5 && (c.correct/c.seen)<0.5){ tukhoi++; return; }
+    danghoc++;
+  });
+  return {daxthuoc:daxthuoc, tukhoi:tukhoi, danghoc:danghoc, chuahoc:chuahoc};
+}
+function buildDistBarsHTML(dist){
+  var total=VOCAB.length||1;
+  var rows=[
+    {label:'Đã thuộc', n:dist.daxthuoc, color:'var(--good)'},
+    {label:'Đang học', n:dist.danghoc, color:'var(--brand)'},
+    {label:'Từ khó', n:dist.tukhoi, color:'#ea580c'},
+    {label:'Chưa học', n:dist.chuahoc, color:'var(--sub)'}
+  ];
+  return rows.map(function(r){
+    var pct=Math.round(r.n/total*100);
+    return '<div style="margin-bottom:10px">'+
+      '<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">'+
+        '<span>'+r.label+'</span><span style="color:var(--sub)">'+r.n+' ('+pct+'%)</span>'+
+      '</div>'+
+      '<div class="bar"><i style="width:'+pct+'%;background:'+r.color+'"></i></div>'+
+    '</div>';
+  }).join('');
+}
+/* Số thẻ due mỗi ngày trong 7 ngày tới — thẻ quá hạn gộp hết vào cột Hôm nay */
+function computeForecast(){
+  var todayStr=today();
+  var dayStrs=[];
+  for(var k=0;k<7;k++){
+    var d=new Date(); d.setDate(d.getDate()+k);
+    dayStrs.push(d.toISOString().slice(0,10));
+  }
+  var counts=[0,0,0,0,0,0,0], overdue=0;
+  Object.keys(store.cards).forEach(function(id){
+    var c=store.cards[id];
+    if(!c || !c.due) return;
+    if(c.due<todayStr){ overdue++; counts[0]++; return; }
+    var idx=dayStrs.indexOf(c.due);
+    if(idx>=0) counts[idx]++;
+  });
+  return {counts:counts, overdue:overdue};
+}
+function statsScreen(){
   onBack=home;
-  setHeader('Kaiwa', 'Chọn bộ câu để hội thoại', true);
-  var decks = splitDecks(allWithEx());
-  if(decks.length===0){ main.innerHTML='<div class="note">Cần ít nhất vài từ có câu ví dụ để tạo hội thoại.</div>'; return; }
-  var offset=0;
-  var items = decks.map(function(d,i){
-    var s=offset+1, e=offset+d.length; offset+=d.length;
-    var done = deckDoneModes('_kaiwa', i);
-    return {key:String(i), label:'Bộ '+(i+1)+' ('+s+'-'+e+')', icons:[{icon:'✅', done:!!done.done}]};
-  });
-  main.innerHTML = deckGridHTML('kdeck', items, kaiwaDeckPage);
-  $('#kdeckPrev').onclick=function(){ kaiwaDeckPage=Math.max(0,kaiwaDeckPage-1); kaiwaLibrary(); };
-  $('#kdeckNext').onclick=function(){ kaiwaDeckPage=kaiwaDeckPage+1; kaiwaLibrary(); };
-  main.querySelectorAll('.deck-card').forEach(function(c){
-    c.onclick=function(){ var idx=parseInt(c.dataset.key,10); kaiwaMode(decks[idx], idx); };
-  });
+  setHeader('Thống kê', 'Thống kê và lịch sử học', true);
+  var totalDaysStudied=Object.keys(store.stats.history).length;
+  var dist=computeDistribution();
+  var fc=computeForecast();
+  var maxCount=Math.max(1, fc.counts.reduce(function(a,b){return Math.max(a,b);},0));
+  var dayLabels=['Hôm nay','+1','+2','+3','+4','+5','+6'];
+
+  main.innerHTML=
+    '<div class="stats-hero">'+
+      '<div class="n">'+(store.stats.streak||0)+'</div>'+
+      '<div class="l">ngày liên tiếp · tổng '+totalDaysStudied+' ngày có học</div>'+
+    '</div>'+
+
+    '<div class="sectitle">Lịch sử 12 tuần</div>'+
+    buildHeatmapHTML()+
+    '<div class="hint" style="margin-top:8px">Lịch sử bắt đầu ghi từ ngày cập nhật app, các ngày trước đó không có dữ liệu.</div>'+
+
+    '<div class="sectitle" style="margin-top:18px">Phân bố từ theo trạng thái</div>'+
+    buildDistBarsHTML(dist)+
+
+    '<div class="sectitle" style="margin-top:18px">Dự báo tải ôn 7 ngày tới</div>'+
+    '<div class="forecast-chart">'+
+      fc.counts.map(function(n,idx){
+        var h=Math.round(n/maxCount*90)+10;
+        return '<div class="forecast-bar-wrap">'+
+          '<div class="forecast-num">'+n+'</div>'+
+          '<div class="forecast-bar'+(idx===0?' today':'')+'" style="height:'+h+'px"></div>'+
+          '<div class="forecast-label">'+dayLabels[idx]+'</div>'+
+        '</div>';
+      }).join('')+
+    '</div>'+
+    (fc.overdue>0?'<div class="hint">Trong đó <b>'+fc.overdue+'</b> thẻ đã quá hạn</div>':'');
 }
 
 /* ═══════════════ IT業務編 — Unit/Track browsing + Player + Reading ═══════════════ */
@@ -1139,7 +1505,10 @@ function gyoumuTrackDetail(trackId){
   });
   audioEl.addEventListener('ended',function(){
     playBtn.textContent='▶️';
+    var wasListened=!!gyStore.listened[track.track];
     gyStore.listened[track.track]=true; saveGyoumu();
+    /* Tính vào streak/lịch sử (không tính vào store.stats.studied — đó là lượt ôn thẻ SRS riêng) — chỉ lần đầu nghe xong track này */
+    if(!wasListened){ bumpStreak(); save(); }
   });
   audioEl.addEventListener('error',function(){
     $('.player-card').insertAdjacentHTML('beforeend',
@@ -1264,6 +1633,8 @@ function gyoumuReadingFinish(track,total,avgScore){
   var bestAvg = Math.max(prevBest, avgScore);
   gyStore.read[track.track] = {bestAvg:bestAvg, attempts:((gyStore.read[track.track]||{}).attempts||0)+1};
   saveGyoumu();
+  /* Hoàn thành 1 lượt luyện đọc theo thoại cũng tính vào streak/lịch sử (không tính vào studied) */
+  bumpStreak(); save();
   setHeader('Hoàn thành','',true);
   main.innerHTML=
     '<div class="done">'+
@@ -1316,10 +1687,14 @@ function homeDashboard(){
         '<span class="ico">🗂️</span><div class="mt">Flashcard</div><div class="md">Lật thẻ + SRS</div></button>'+
       '<button class="mode" data-mode="quiz">'+
         '<span class="ico">✍️</span><div class="mt">Quiz</div><div class="md">Trắc nghiệm JP↔VI</div></button>'+
+      '<button class="mode" data-mode="cloze">'+
+        '<span class="ico">🧩</span><div class="mt">Điền từ</div><div class="md">Điền vào câu ví dụ</div></button>'+
       '<button class="mode" data-mode="listen">'+
         '<span class="ico">🎧</span><div class="mt">Luyện nghe</div><div class="md">Nghe rồi chọn nghĩa</div></button>'+
       '<button class="mode" data-mode="speak">'+
         '<span class="ico">🎤</span><div class="mt">Luyện nói</div><div class="md">Đọc theo, chấm phát âm</div></button>'+
+      '<button class="mode" data-mode="reflex">'+
+        '<span class="ico">⚡</span><div class="mt">Phản xạ '+((typeof uiSettings!=='undefined'&&uiSettings.reflexSec)||3)+'s</div><div class="md">Thấy nghĩa, nói ra từ</div></button>'+
       '<button class="mode" data-mode="favorites">'+
         '<span class="ico">⭐</span><div class="mt">Yêu thích</div><div class="md">'+(Object.keys(store.favorites).length?Object.keys(store.favorites).length+' từ đã lưu':'Chưa có từ nào')+'</div></button>'+
     '</div>';
@@ -1342,8 +1717,10 @@ function startMode(m){
   if(list.length<4){ alert('Bộ này cần ít nhất 4 từ.'); return; }
   if(m==='flash') flashMode(list);
   else if(m==='quiz')  quizMode(list);
+  else if(m==='cloze') clozeMode(list);
   else if(m==='listen')listenMode(list);
   else if(m==='speak') speakModeInit(list);
+  else if(m==='reflex')reflexMode(list);
 }
 
 /* ═══════════════ FLASHCARD + SRS ═══════════════ */
@@ -1551,6 +1928,78 @@ function quizMode(list){
   render();
 }
 
+/* ═══════════════ ĐIỀN TỪ VÀO CÂU (穴埋め — FR_009) ═══════════════ */
+function clozeMode(list){
+  onBack=homeDashboard;
+  /* setHeader trước mọi return sớm — tránh header còn giữ tên màn trước đó */
+  setHeader('Điền từ','',true);
+  list = list.filter(function(v){return !isMastered(v.id);});
+  var usable=[];
+  for(var k=0;k<list.length;k++){
+    var pos=findCloze(list[k]);
+    if(pos) usable.push({v:list[k], pos:pos});
+  }
+  if(usable.length<4){
+    main.innerHTML='<div class="note">Bộ này không đủ 4 từ có câu ví dụ dùng được để tạo bài Điền từ. Hãy thử Quiz hoặc Flashcard nhé!</div>';
+    return;
+  }
+  var queue = curDeck==='ALL' ? shuffle(usable).slice(0,15) : shuffle(usable);
+  var i=0, score=0;
+  function render(){
+    if(i>=queue.length) return finish('cloze', queue.length, score);
+    var item=queue[i], v=item.v, pos=item.pos[0], len=item.pos[1];
+    var before=v.ex.slice(0,pos), after=v.ex.slice(pos+len);
+    setHeader('Điền từ',(i+1)+' / '+queue.length+' · '+score+'đ',true);
+    var correct=v.w;
+    var distract=sample(list,3,v).map(function(x){return x.w;});
+    var opts=shuffle([correct].concat(distract));
+    var hintLevel=0;
+    main.innerHTML=
+      '<div class="counter">Điền từ còn thiếu vào câu</div>'+
+      '<div class="cloze-sentence">'+esc(before)+'＿＿＿'+esc(after)+'</div>'+
+      '<div id="hintBox"></div>'+
+      '<button class="btn btn-ghost" id="hintBtn" style="width:100%;margin-bottom:14px">💡 Gợi ý</button>'+
+      '<div class="opts" id="opts">'+
+        opts.map(function(o,k){return '<button class="opt" data-k="'+k+'">'+esc(o)+'</button>';}).join('')+
+      '</div>'+
+      '<div class="fb" id="fb"></div>';
+
+    function renderHints(){
+      var lines=[];
+      if(hintLevel>=1) lines.push('💡 Nghĩa: '+esc(v.vi));
+      if(hintLevel>=2) lines.push('💡 Ký tự đầu: '+esc(v.w.charAt(0))+'…');
+      if(hintLevel>=3) lines.push('💡 Cách đọc: '+esc(v.r));
+      $('#hintBox').innerHTML = lines.map(function(l){return '<div class="note" style="margin-top:8px">'+l+'</div>';}).join('');
+      if(hintLevel>=3) $('#hintBtn').classList.add('hidden');
+    }
+    $('#hintBtn').onclick=function(){ hintLevel++; renderHints(); };
+
+    main.querySelectorAll('.opt').forEach(function(btn){btn.onclick=function(){
+      var chosen=opts[+btn.dataset.k];
+      var ok=chosen===correct;
+      main.querySelectorAll('.opt').forEach(function(b){
+        b.onclick=null;
+        var val=opts[+b.dataset.k];
+        if(val===correct)b.classList.add('correct');
+        else if(b===btn)b.classList.add('wrong');
+        else b.classList.add('dim');
+      });
+      if(ok){score++;reviewCard(v.id,2);}else{reviewCard(v.id,0);}
+      $('#hintBtn').classList.add('hidden');
+      var full = esc(before)+'<span class="cloze-fill">'+esc(v.ex.slice(pos,pos+len))+'</span>'+esc(after);
+      var hasJp = /[぀-ヿ一-鿿]/.test(v.ex);
+      $('#fb').innerHTML=
+        (ok?'<span class="ok">Chính xác!</span>':'<span class="no">Đáp án: '+esc(correct)+'</span>')+
+        '<div class="cloze-sentence" style="margin-top:10px">'+full+
+          (hasJp?' <button class="speaker" id="clozeSpk" style="width:36px;height:36px;font-size:16px;margin:0;vertical-align:middle">🔊</button>':'')+
+        '</div>';
+      if(hasJp && $('#clozeSpk')) $('#clozeSpk').onclick=function(){speak(v.ex);};
+      setTimeout(function(){i++;render();}, ok?750:1600);
+    };});
+  }
+  render();
+}
+
 /* ═══════════════ LISTENING ═══════════════ */
 function listenMode(list){
   onBack=homeDashboard;
@@ -1635,16 +2084,17 @@ function speakMode(list){
       '</div>'+
       (supported?
         '<button class="mic" id="mic">🎤</button>'+
-        '<div class="qhint" id="mhint">Chạm mic rồi đọc to từ này</div>'+
+        '<div class="qhint" id="mhint">Chạm mic rồi đọc to từ này (≥90 điểm mới tự động qua từ tiếp theo)</div>'+
         '<div class="heard hidden" id="heard"></div>'+
         '<div class="fb" id="fb"></div>'
       :
-        '<div class="note">Microphone không khả dụng. Hãy nghe mẫu và đọc theo (shadowing).</div>'+
-        '<button class="btn btn-primary" id="next" style="margin-top:14px">Từ tiếp theo →</button>'
-      );
+        '<div class="note">Microphone không khả dụng. Hãy nghe mẫu và đọc theo (shadowing).</div>'
+      )+
+      '<button class="btn btn-primary" id="next" style="margin-top:14px">Tiếp theo →</button>';
     $('#spk').onclick=function(){speak(v.w);};
     setTimeout(function(){speak(v.w);},300);
-    if(!supported){ $('#next').onclick=function(){i++;render();}; return; }
+    $('#next').onclick=function(){ if(listening) cancelRecognition(); i++; render(); };
+    if(!supported){ return; }
     var mic=$('#mic'), hint=$('#mhint'), heard=$('#heard'), fb=$('#fb');
     mic.onclick=async function(){
       if(listening){ cancelRecognition(); return; }
@@ -1657,11 +2107,12 @@ function speakMode(list){
         heard.classList.remove('hidden'); heard.textContent='Bạn đọc: '+alts[0];
         total++; sum+=best;
         playScoreSound(best);
-        fb.innerHTML = best>=90?'<span class="ok">🌟 Tuyệt! '+best+' điểm</span>'
-                     : best>=51?'<span class="ok">👍 Khá ổn: '+best+' điểm</span>'
-                     : '<span class="no">💪 '+best+' điểm - thử lại nhé</span>';
+        /* Chỉ tự động qua từ tiếp theo khi đạt ≥90 điểm — dưới đó phải bấm "Tiếp theo" thủ công hoặc thử lại mic */
+        fb.innerHTML = best>=90?'<span class="ok">🌟 Tuyệt! '+best+' điểm — tự động qua từ tiếp theo...</span>'
+                     : best>=51?'<span class="ok">👍 Khá ổn: '+best+' điểm — thử lại hoặc bấm "Tiếp theo" để qua</span>'
+                     : '<span class="no">💪 '+best+' điểm — thử lại hoặc bấm "Tiếp theo" để qua</span>';
         if(best>=51)reviewCard(v.id,2);
-        setTimeout(function(){i++;render();},1900);
+        if(best>=90){ setTimeout(function(){i++;render();},1900); }
       }catch(err){
         hint.textContent='Không nghe được ('+err+'). Chạm mic thử lại.';
         if(err==='not-allowed') micPermission='denied';
@@ -1673,337 +2124,79 @@ function speakMode(list){
   render();
 }
 
-/* ═══════════════ READING MODE (luyện đọc câu ví dụ) ═══════════════ */
-function readingMode(list, deckIdx){
-  onBack=readingLibrary;
-  var exVocab = list;
-  if(exVocab.length<3){ main.innerHTML='<div class="note">Cần ít nhất 3 từ có câu ví dụ để luyện đọc.</div>'; setHeader('Luyện đọc','',true); return; }
-  var queue=shuffle(exVocab);
-  var i=0;
-  var slowMode=false;
-  setHeader('Luyện đọc','Đọc câu ví dụ · '+queue.length+' câu',true);
+/* ═══════════════ PHẢN XẠ N GIÂY (瞬間作文 — FR_010) ═══════════════ */
+function reflexMode(list){
+  onBack=homeDashboard;
+  /* setHeader trước mọi return sớm */
+  setHeader('Phản xạ','',true);
+  list = list.filter(function(v){return !isMastered(v.id);});
+  if(list.length<4){ main.innerHTML='<div class="note">Bộ này cần ít nhất 4 từ chưa thuộc.</div>'; return; }
+  /* Đọc phòng thủ — nếu FR_011 vì lý do gì đó chưa chạy trước, vẫn không lỗi undefined */
+  var sec = (typeof uiSettings!=='undefined' && uiSettings.reflexSec) || 3;
+  var queue = curDeck==='ALL' ? shuffle(list).slice(0,12) : shuffle(list);
+  var i=0, score=0, timer=null;
+  var R=44, C=2*Math.PI*R;
 
   function render(){
-    if(i>=queue.length) return finishReading(queue.length);
-    var v=queue[i];
-    setHeader('Luyện đọc',(i+1)+' / '+queue.length,true);
-    var micSupport = hasSR() && micPermission!=='denied' && micPermission!=='unsupported';
+    if(timer){ clearInterval(timer); timer=null; }
+    if(i>=queue.length) return finish('reflex', queue.length, score);
+    renderPhase1(queue[i]);
+  }
+
+  function renderPhase1(v){
+    setHeader('Phản xạ '+sec+' giây', (i+1)+' / '+queue.length, true);
     main.innerHTML=
-      '<div class="counter">Nghe → Đọc to → Kiểm tra phát âm</div>'+
-      '<div class="sent-card">'+
-        '<div class="sent-jp">'+esc(v.ex)+'</div>'+
-        '<div class="sent-word">📘 '+esc(v.w)+' ('+esc(v.r)+') — '+esc(v.vi)+'</div>'+
-        '<div class="sent-vi hidden" id="viMean">💡 '+esc(v.vi)+': '+esc(v.en)+'</div>'+
-        '<div class="sent-controls">'+
-          '<button class="speaker" id="spk" style="margin:0">🔊</button>'+
-          '<button class="speed-btn '+(slowMode?'on':'')+'" id="slowBtn">🐢 Chậm</button>'+
-          '<button class="btn btn-ghost" id="showVi" style="padding:8px 12px;font-size:13px">Xem nghĩa</button>'+
-        '</div>'+
+      '<div class="qhint" style="text-align:center">Đọc to từ tiếng Nhật trước khi hết giờ</div>'+
+      '<div class="mean" style="font-size:calc(23px * var(--fs-scale,1));text-align:center;margin:14px 0">'+esc(v.vi)+'</div>'+
+      '<div class="reflex-ring-wrap">'+
+        '<svg width="104" height="104" viewBox="0 0 104 104" style="transform:rotate(-90deg)">'+
+          '<circle cx="52" cy="52" r="'+R+'" fill="none" stroke="var(--line)" stroke-width="8"/>'+
+          '<circle id="reflexRing" cx="52" cy="52" r="'+R+'" fill="none" stroke="#f97316" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="0"/>'+
+        '</svg>'+
+        '<div class="reflex-ring-num" id="reflexNum">'+sec+'</div>'+
       '</div>'+
-      (micSupport?
-        '<div style="text-align:center;margin-top:14px">'+
-          '<button class="btn btn-primary" id="micBtn" style="display:inline-flex;align-items:center;gap:8px;width:auto;padding:14px 28px;font-size:16px;border-radius:99px">'+
-            '<span style="font-size:22px">🎤</span> Luyện đọc'+
-          '</button>'+
-          '<div class="qhint" id="mhint" style="margin-top:8px">Chạm để thu giọng và chấm phát âm</div>'+
-          '<div class="heard hidden" id="heard"></div>'+
-          '<div class="fb" id="fb"></div>'+
-        '</div>'
-      :'')+
-      '<div style="margin-top:16px">'+
-        '<button class="btn btn-primary" id="next">Câu tiếp theo →</button>'+
-      '</div>';
+      '<div style="text-align:center"><button class="btn btn-ghost" id="skipBtn">Xem đáp án ngay</button></div>';
 
-    $('#spk').onclick=function(){speak(v.ex, slowMode?0.65:0.9);};
-    setTimeout(function(){speak(v.ex, slowMode?0.65:0.9);},300);
-    $('#slowBtn').onclick=function(){
-      slowMode=!slowMode;
-      $('#slowBtn').classList.toggle('on',slowMode);
-      speak(v.ex, slowMode?0.65:0.9);
-    };
-    $('#showVi').onclick=function(){$('#viMean').classList.remove('hidden');};
-    $('#next').onclick=function(){i++;render();};
-
-    if(micSupport && $('#micBtn')) setupReadingMic(v);
-  }
-
-  function setupReadingMic(v){
-    var micBtn=$('#micBtn'), hint=$('#mhint'), heard=$('#heard'), fb=$('#fb');
-    var listening=false;
-    micBtn.onclick=async function(){
-      if(listening){ cancelRecognition(); return; }
-      try{
-        var ok = await ensureMicReady();
-        if(!ok){ hint.textContent='Mic bị từ chối.'; return; }
-        listening=true;
-        micBtn.style.background='var(--bad)';
-        micBtn.innerHTML='<span style="font-size:22px">⏹</span> Đang nghe...';
-        hint.textContent='Hãy đọc to câu này';
-        var alts = await recognizeOnce('ja-JP');
-        var best=Math.max.apply(null,alts.map(function(a){return similarity(a,v.ex);}));
-        heard.classList.remove('hidden'); heard.textContent='Bạn đọc: '+alts[0];
-        playScoreSound(best);
-        fb.innerHTML = best>=90?'<span class="ok">🌟 Tuyệt! '+best+' điểm</span>'
-                     : best>=51?'<span class="ok">👍 Khá: '+best+' điểm</span>'
-                     : '<span class="no">💪 '+best+' điểm — thử lại</span>';
-        if(best>=51) reviewCard(v.id,2);
-      }catch(err){
-        hint.textContent='Lỗi: '+err;
-        if(err==='not-allowed') micPermission='denied';
-      }finally{
-        micBtn.style.background=''; micBtn.innerHTML='<span style="font-size:22px">🎤</span> Luyện đọc'; listening=false;
-      }
+    var start=Date.now();
+    var ring=$('#reflexRing'), numEl=$('#reflexNum');
+    timer=setInterval(function(){
+      /* Chống chạy tiếp khi user đã rời màn — kiểm tra phần tử SVG còn trong DOM không */
+      if(!document.body.contains(ring)){ clearInterval(timer); timer=null; return; }
+      var elapsed=(Date.now()-start)/1000;
+      var remain=Math.max(0, sec-elapsed);
+      ring.setAttribute('stroke-dashoffset', C*(1-remain/sec));
+      numEl.textContent=Math.ceil(remain);
+      if(remain<=0){ clearInterval(timer); timer=null; renderPhase2(v); }
+    }, 60);
+    $('#skipBtn').onclick=function(){
+      if(timer){ clearInterval(timer); timer=null; }
+      renderPhase2(v);
     };
   }
 
-  function finishReading(total){
-    markDeckDone('_reading', deckIdx, 'done');
-    setHeader('Hoàn thành','',true);
+  function renderPhase2(v){
+    if(timer){ clearInterval(timer); timer=null; }
+    setHeader('Phản xạ '+sec+' giây', (i+1)+' / '+queue.length, true);
     main.innerHTML=
-      '<div class="done">'+
-        '<div class="big">📖</div>'+
-        '<h2>Xong buổi đọc!</h2>'+
-        '<p>Đã luyện đọc <b>'+total+'</b> câu ví dụ</p>'+
-        '<div class="row" style="margin-top:20px">'+
-          '<button class="btn btn-ghost" id="again">Đọc tiếp</button>'+
-          '<button class="btn btn-primary" id="hm">Về danh sách bộ</button>'+
-        '</div>'+
+      '<div class="card" style="min-height:170px">'+
+        '<div class="jp" style="font-size:34px">'+esc(v.w)+'</div>'+
+        '<div class="reading">'+esc(v.r)+'</div>'+
+        '<div class="mean" style="font-size:15px">'+esc(v.vi)+'</div>'+
+        (v.en?'<div class="en">'+esc(v.en)+'</div>':'')+
+        '<button class="speaker" id="spk">🔊</button>'+
+      '</div>'+
+      '<div class="qhint" style="margin-top:14px;text-align:center">Anh có bật ra được từ này trong '+sec+' giây không?</div>'+
+      '<div class="row" style="margin-top:12px">'+
+        '<button class="btn btn-ghost" id="noBtn">Chưa bật ra được</button>'+
+        '<button class="btn btn-primary" id="yesBtn">Bật ra được</button>'+
       '</div>';
-    $('#hm').onclick=readingLibrary;
-    $('#again').onclick=function(){ readingMode(list, deckIdx); };
+    $('#spk').onclick=function(){speak(v.w);};
+    setTimeout(function(){speak(v.w);},300);
+    $('#noBtn').onclick=function(){ reviewCard(v.id,0); i++; render(); };
+    $('#yesBtn').onclick=function(){ reviewCard(v.id,2); score++; i++; render(); };
   }
+
   render();
-}
-
-/* ═══════════════ KAIWA MODE (hội thoại từ câu ví dụ) ═══════════════ */
-function kaiwaMode(list, deckIdx){
-  onBack=kaiwaLibrary;
-  var exVocab = list;
-  if(exVocab.length<4){ main.innerHTML='<div class="note">Cần ít nhất 4 từ có câu ví dụ để tạo hội thoại.</div>'; setHeader('Kaiwa','',true); return; }
-
-  // Build mini conversations: pick 4-6 sentences, assign roles A/B alternating
-  var allConvos = buildConversations(exVocab);
-  if(allConvos.length===0){ main.innerHTML='<div class="note">Không đủ câu ví dụ để tạo hội thoại.</div>'; setHeader('Kaiwa','',true); return; }
-
-  var ci=0; // conversation index
-  setHeader('Kaiwa','Hội thoại ngắn',true);
-
-  function renderConvo(){
-    if(ci>=allConvos.length) return finishKaiwa();
-    var convo=allConvos[ci];
-    setHeader('Kaiwa','Hội thoại '+(ci+1)+' / '+allConvos.length,true);
-
-    var bubblesHTML='<div class="kaiwa-container" id="kBubbles">';
-    convo.forEach(function(line,idx){
-      var side=idx%2===0?'left':'right';
-      var role=idx%2===0?'Aさん':'Bさん';
-      bubblesHTML+=
-        '<div class="kaiwa-bubble '+side+' hidden" data-idx="'+idx+'">'+
-          '<div class="kaiwa-role">'+role+'</div>'+
-          '<div class="kaiwa-text">'+esc(line.ex)+'</div>'+
-          '<div class="kaiwa-vi hidden" data-vi="'+idx+'">'+esc(line.w)+' — '+esc(line.vi)+'</div>'+
-          '<div class="sent-controls" style="margin-top:8px">'+
-            '<button class="speaker" style="margin:0;width:36px;height:36px;font-size:16px" data-speak="'+idx+'">🔊</button>'+
-            '<button class="speed-btn" data-showvi="'+idx+'" style="font-size:11px;padding:4px 10px">Nghĩa</button>'+
-          '</div>'+
-        '</div>';
-    });
-    bubblesHTML+='</div>';
-
-    var micSupport = hasSR() && micPermission!=='denied' && micPermission!=='unsupported';
-
-    main.innerHTML=
-      '<div class="counter">Hội thoại mẫu — chạm ▶ để bắt đầu</div>'+
-      bubblesHTML+
-      '<div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;justify-content:center">'+
-        '<button class="btn btn-ghost" id="playAll" style="flex:none;padding:10px 18px">▶ Nghe toàn bộ</button>'+
-        '<button class="btn btn-ghost" id="showAll" style="flex:none;padding:10px 18px">👁 Hiện tất cả</button>'+
-        '<input type="hidden" id="toggleState" value="hidden">'+
-        (micSupport?'<button class="btn btn-ghost" id="practiceBtn" style="flex:none;padding:10px 18px">🎤 Luyện đọc vai</button>':'')+
-      '</div>'+
-      '<div class="fb" id="fb" style="margin-top:10px"></div>'+
-      '<button class="btn btn-primary" id="nextConvo" style="margin-top:14px">Hội thoại tiếp →</button>';
-
-    // Show bubbles one by one with animation
-    var bubbles=main.querySelectorAll('.kaiwa-bubble');
-    var shown=0;
-    function showNext(){
-      if(shown<bubbles.length){
-        bubbles[shown].classList.remove('hidden');
-        bubbles[shown].style.opacity='0';
-        bubbles[shown].style.transform='translateY(10px)';
-        requestAnimationFrame(function(){
-          bubbles[shown-1>=0?shown:0].style.transition='opacity .3s,transform .3s';
-          bubbles[shown].style.opacity='1';
-          bubbles[shown].style.transform='translateY(0)';
-        });
-        shown++;
-      }
-    }
-    // Show first bubble immediately
-    showNext();
-
-    // Play all: show bubbles sequentially with TTS
-    var playing=false;
-    $('#playAll').onclick=async function(){
-      if(playing) return;
-      playing=true;
-      $('#playAll').textContent='⏸ Đang phát...';
-      for(var j=0;j<convo.length;j++){
-        if(j>=shown) showNext();
-        bubbles[j].style.background = j%2===0? '#dbeafe':'#dcfce7';
-        await speakAsync(convo[j].ex, 0.85);
-        bubbles[j].style.background='';
-        await new Promise(function(r){setTimeout(r,400);});
-      }
-      playing=false;
-      $('#playAll').textContent='▶ Nghe lại';
-    };
-
-    // Toggle show/hide all bubbles
-    $('#showAll').onclick=function(){
-      var state=$('#toggleState').value;
-      if(state==='hidden'){
-        // Show all bubbles + meanings
-        for(var k=0;k<bubbles.length;k++){
-          bubbles[k].classList.remove('hidden');
-          bubbles[k].style.opacity='1';
-          bubbles[k].style.transform='none';
-          bubbles[k].style.transition='none';
-        }
-        shown=bubbles.length;
-        main.querySelectorAll('[data-vi]').forEach(function(el){el.classList.remove('hidden');});
-        $('#showAll').textContent='🙈 Ẩn tất cả';
-        $('#toggleState').value='shown';
-      } else {
-        // Hide all except first bubble, hide all meanings
-        for(var k=1;k<bubbles.length;k++){
-          bubbles[k].classList.add('hidden');
-        }
-        shown=1;
-        main.querySelectorAll('[data-vi]').forEach(function(el){el.classList.add('hidden');});
-        $('#showAll').textContent='👁 Hiện tất cả';
-        $('#toggleState').value='hidden';
-      }
-    };
-
-    // Individual speak buttons
-    main.querySelectorAll('[data-speak]').forEach(function(btn){
-      btn.onclick=function(){
-        var idx=+btn.dataset.speak;
-        if(idx>=shown){ while(shown<=idx) showNext(); }
-        speak(convo[idx].ex, 0.85);
-      };
-    });
-    // Individual meaning buttons
-    main.querySelectorAll('[data-showvi]').forEach(function(btn){
-      btn.onclick=function(){
-        var el=main.querySelector('[data-vi="'+btn.dataset.showvi+'"]');
-        if(el) el.classList.remove('hidden');
-      };
-    });
-
-    // Practice: read each line with mic
-    if(micSupport && $('#practiceBtn')){
-      $('#practiceBtn').onclick=function(){ practiceKaiwa(convo); };
-    }
-
-    $('#nextConvo').onclick=function(){ci++;renderConvo();};
-  }
-
-  function practiceKaiwa(convo){
-    var pi=0;
-    var bubbles=main.querySelectorAll('.kaiwa-bubble');
-    // Show all bubbles
-    bubbles.forEach(function(b){b.classList.remove('hidden');b.style.opacity='1';b.style.transform='none';});
-
-    function highlightLine(){
-      bubbles.forEach(function(b,idx){
-        if(idx===pi) b.style.boxShadow='0 0 0 3px var(--brand)';
-        else b.style.boxShadow='';
-      });
-      if(pi>=convo.length){
-        $('#fb').innerHTML='<span class="ok">Hoàn thành hội thoại!</span>';
-        return;
-      }
-      speak(convo[pi].ex, 0.85);
-      $('#fb').innerHTML='Nghe xong → Chạm 🎤 để đọc theo dòng '+(pi+1);
-      // Replace buttons with single mic
-      var ctrl=main.querySelector('#practiceArea');
-      if(!ctrl){
-        var area=document.createElement('div');
-        area.id='practiceArea';
-        area.style.textAlign='center';
-        area.innerHTML=
-          '<button class="mic" id="pMic" style="width:72px;height:72px;font-size:30px;margin:10px auto">🎤</button>'+
-          '<div class="heard hidden" id="pHeard"></div>';
-        main.querySelector('#nextConvo').before(area);
-      }
-      setupPracticeMic(convo[pi]);
-    }
-
-    function setupPracticeMic(line){
-      var mic=$('#pMic'), heard=$('#pHeard'), fb=$('#fb');
-      var listening=false;
-      mic.onclick=async function(){
-        if(listening){cancelRecognition();return;}
-        try{
-          var ok=await ensureMicReady();
-          if(!ok){fb.innerHTML='Mic bị từ chối.';return;}
-          listening=true;mic.classList.add('rec');mic.textContent='⏹';
-          var alts = await recognizeOnce('ja-JP');
-          var score=Math.max.apply(null,alts.map(function(a){return similarity(a,line.ex);}));
-          heard.classList.remove('hidden');heard.textContent='Bạn: '+alts[0]+' ('+score+' điểm)';
-          playScoreSound(score);
-          if(score>=50){
-            fb.innerHTML='<span class="ok">Tốt! → Dòng tiếp</span>';
-            if(score>=55) reviewCard(line.id,2);
-            setTimeout(function(){pi++;highlightLine();},1200);
-          } else {
-            fb.innerHTML='<span class="no">'+score+' điểm — thử lại</span>';
-          }
-        }catch(err){
-          fb.innerHTML='Lỗi: '+err;
-          if(err==='not-allowed') micPermission='denied';
-        }finally{
-          mic.classList.remove('rec');mic.textContent='🎤';listening=false;
-        }
-      };
-    }
-    highlightLine();
-  }
-
-  function finishKaiwa(){
-    markDeckDone('_kaiwa', deckIdx, 'done');
-    setHeader('Hoàn thành','',true);
-    main.innerHTML=
-      '<div class="done">'+
-        '<div class="big">💬</div>'+
-        '<h2>Xong buổi Kaiwa!</h2>'+
-        '<p>Đã luyện <b>'+allConvos.length+'</b> đoạn hội thoại</p>'+
-        '<div class="row" style="margin-top:20px">'+
-          '<button class="btn btn-ghost" id="again">Kaiwa mới</button>'+
-          '<button class="btn btn-primary" id="hm">Về danh sách bộ</button>'+
-        '</div>'+
-      '</div>';
-    $('#hm').onclick=kaiwaLibrary;
-    $('#again').onclick=function(){ kaiwaMode(list, deckIdx); };
-  }
-  renderConvo();
-}
-
-/* Build conversations from example sentences */
-function buildConversations(exVocab){
-  var shuffled=shuffle(exVocab);
-  var convos=[];
-  var idx=0;
-  // Each convo = 4-6 lines
-  while(idx+3<shuffled.length && convos.length<5){
-    var len = Math.min(4+Math.floor(Math.random()*3), shuffled.length-idx); // 4-6
-    convos.push(shuffled.slice(idx,idx+len));
-    idx+=len;
-  }
-  return convos;
 }
 
 /* ═══════════════ FINISH SCREEN ═══════════════ */

@@ -3,7 +3,7 @@
 > **Mục đích tài liệu:** Ghi lại toàn bộ bản chất vấn đề & quy trình — từ **từ điển Excel** → **build app HTML** → **đóng gói APK Android** → **push GitHub**. Đọc file này là 1 chat Claude mới hiểu ngay context, không cần giải thích lại.
 > **Đối tượng đọc:** Claude (chat mới) hoặc chính người dùng.
 > **Người dùng:** NguyenNC — PM/BrSE ngành IT (cầu nối VN ⇄ Nhật).
-> **Cập nhật lần cuối:** 2026-07-18 — sau khi hoàn thành FR_005 (fix TTS Android bằng plugin native, redesign Flashcard/IT専門/main menu, thêm app icon), đã test thật trên điện thoại và **xác nhận nghe được**.
+> **Cập nhật lần cuối:** 2026-09-12 — sau khi hoàn thành gói Phase 2 (FR_008→FR_012: gỡ Kaiwa/Luyện đọc, xuất-nhập tiến độ + cỡ chữ + thời gian phản xạ, mode Điền từ, mode Phản xạ, màn hình Thống kê + fix bug streak). Đã test qua trình duyệt desktop, **CHƯA build APK cho gói này**. Trước đó, giữa 2 lần cập nhật tài liệu này, dự án đã trải qua "Phase 1" (2026-09-11, không phải phiên này thực hiện): viết lại tầng đọc `build_app.py` (v2, hỗ trợ cả 3 kiểu ô OOXML) sau khi từ điển đổi cách lưu làm build chết, thêm sổ khóa `_id_lock.json`, và từ điển tăng từ 596 → **667 từ**. Đọc kỹ mục 4.8 và `CLAUDE.md` quy tắc #6 nếu thấy nhắc `_id_lock.json`.
 
 ---
 
@@ -29,7 +29,7 @@ Kokoro_Nihongo.apk  ← app Android thật, cài trực tiếp lên điện tho�
 
 ```
 100_日本語/
-├── 日本語の辞書.xlsx                      ← Từ điển gốc (596 từ) — KHÔNG dùng openpyxl.save()
+├── 日本語の辞書.xlsx                      ← Từ điển gốc (667 từ) — KHÔNG dùng openpyxl.save()
 ├── CLAUDE.md                               ← Quy tắc/kiến trúc dự án
 ├── PROJECT_日本語学習アプリ_Handover.md    ← File này
 ├── README.md                               ← Hướng dẫn build/chạy/push GitHub (tiếng Việt, ngắn gọn hơn file này)
@@ -39,9 +39,10 @@ Kokoro_Nihongo.apk  ← app Android thật, cài trực tiếp lên điện tho�
 │   ├── Kokoro_Nihongo.html                 ← App đã build (commit vào git, mở trực tiếp được)
 │   ├── audio/                              ← (gitignore) copy từ 02_IT_Gyoumuhen/AudioCD, build_app.py tự sync
 │   ├── _app_build/
-│   │   ├── build_app.py                    ← Script build: xlsx + transcript → JSON → inject template + copy audio
-│   │   └── app_template.html                ← TOÀN BỘ CSS+JS của app (~1800+ dòng, sửa file này để thêm tính năng)
-│   └── _feature_requests/                  ← TEMPLATE.md (viết FR mới) + done/ (FR_002..FR_005, đã xong)
+│   │   ├── build_app.py                    ← Script build v2: xlsx + transcript → JSON → inject template + copy audio
+│   │   ├── app_template.html                ← TOÀN BỘ CSS+JS của app (~2300+ dòng, sửa file này để thêm tính năng)
+│   │   └── _id_lock.json                    ← ⚠ Sổ khóa từ vựng → id cố định (Phase 1). KHÔNG xóa/sửa tay, PHẢI commit.
+│   └── _feature_requests/                  ← TEMPLATE.md (viết FR mới) + done/ (FR_002..FR_005, FR_008..FR_012, đã xong)
 │
 ├── 02_IT_Gyoumuhen/                         ← Nguồn dữ liệu module IT業務編 (hội thoại công việc IT)
 │   ├── IT_Gyoumuhen.pdf                     ← Sách gốc scan, chỉ tham khảo
@@ -93,7 +94,7 @@ import zipfile, shutil, re, html
 # ghi lại: chỉ writestr() 2 file đã sửa, các file khác giữ nguyên bytes gốc
 ```
 
-Hiện tại: **596 từ** (STT 1–596, gồm cả セキュリティ/脆弱性 thêm gần đây).
+Hiện tại: **667 từ** (tăng từ 596 sau Phase 1, 2026-09-11 — xem mục 4.9 về `_id_lock.json`). `id` mỗi từ **không còn khớp STT cột B** kể từ Phase 1 — xem `CLAUDE.md` quy tắc #6.
 
 ### 3.3. Quy tắc dịch từ mới
 Dùng skill `translator-ja-vi-en`. Ưu tiên Hán-Việt, katakana → cột EN ghi từ gốc (セキュリティ→Security), câu ví dụ N3+ thuần Nhật. Chỉ thêm từ **chưa có** (check trùng qua sharedStrings).
@@ -114,38 +115,36 @@ Lệnh build: `cd 01_Build_App/_app_build && python3 build_app.py` — path tự
 
 ### 4.2. Kiến trúc điều hướng (menu chính — QUAN TRỌNG, mới đổi gần đây)
 
-`home()` giờ render từ **1 registry `MENU_MODULES`** (không hard-code từng card nữa — đây là điểm mở rộng chính cho tương lai, thêm chủ đề mới chỉ cần thêm 1 phần tử vào mảng):
+`home()` render từ **1 registry `MENU_MODULES`** (không hard-code từng card — điểm mở rộng chính, thêm chủ đề mới chỉ cần thêm 1 phần tử vào mảng):
 
 ```js
 const MENU_MODULES = [
   {id:'it_senmon', icon:'💻', title:'IT専門', ..., open:homeDashboard},
   {id:'it_gyoumu', icon:'🏢', title:'IT業務編', ..., open:gyoumuDashboard},
-  {id:'reading_lib', icon:'📖', title:'Luyện đọc', ..., open:readingLibrary},
-  {id:'kaiwa_lib', icon:'💬', title:'Kaiwa', ..., open:kaiwaLibrary},
 ];
 ```
 
-Đã bỏ 3 card placeholder cũ (日常生活/N2/面接). Luyện đọc + Kaiwa **không còn nằm trong lưới "Chế độ học" của IT専門** — giờ là mục riêng ở menu chính, mỗi mục có màn chọn "bộ" riêng (`readingLibrary()`/`kaiwaLibrary()`, nguồn `splitDecks(allWithEx())` — toàn bộ từ có câu ví dụ, không lọc category).
+**FR_008 (Phase 2, 2026-09-12) đã gỡ hẳn 2 phần tử `reading_lib`/`kaiwa_lib`** cùng toàn bộ hàm `readingLibrary()`/`readingMode()`/`finishReading()`/`kaiwaLibrary()`/`kaiwaMode()`/`finishKaiwa()`/`buildConversations()` — PM xác nhận không dùng 2 module này nữa (Kaiwa ghép câu ví dụ rời rạc thành hội thoại giả không liên quan logic; Luyện đọc câu trùng mục đích với Luyện nói). Dữ liệu `deckDone._reading`/`deckDone._kaiwa` của user cũ vẫn còn nguyên trong `localStorage` (không dọn, không migrate xóa) nhưng không còn đường nào đọc tới. Hàm `allWithEx()` và `splitDecks()` (san đều số dư, khác `splitDecksStrict()`) **được giữ lại có chủ đích** dù mất người dùng cũ — `allWithEx()` nay phục vụ thuật toán dò ô trống của mode Điền từ (mục 4.8).
 
-**Đã thêm ở FR_005:** `home()` giờ hiện 1 khối thống kê tổng hợp toàn hệ thống ngay trên đầu (tái dùng CSS `.stats`/`.stat` sẵn có) trước khi tới danh sách chủ đề: **Streak** (`store.stats.streak`), **Từ đã thuộc** (`learnedCount()` của IT専門), **Track đã nghe** (`Object.keys(gyStore.listened).length` của IT業務編) — mục đích thay cho khối thống kê đã bỏ khỏi riêng từng module con (mục 4.3).
-
-Luồng đầy đủ:
+Luồng đầy đủ hiện tại:
 ```
-home() → IT専門 → homeDashboard() → [Flashcard/Quiz/Nghe/Nói/⭐Yêu thích] → mode screen
+home() → IT専門 → homeDashboard() → [Flashcard/Quiz/Điền từ/Nghe/Nói/⚡Phản xạ/⭐Yêu thích] → mode screen
 home() → IT業務編 → gyoumuDashboard() → gyoumuTrackList() → gyoumuTrackDetail() → gyoumuReadingMode()
-home() → Luyện đọc → readingLibrary() → readingMode(deckList, deckIdx)
-home() → Kaiwa → kaiwaLibrary() → kaiwaMode(deckList, deckIdx)
+home() → (khối thống kê, bấm được) → statsScreen()
 ```
+
+**Đã thêm ở FR_005, còn nguyên tới nay:** `home()` hiện 1 khối thống kê tổng hợp toàn hệ thống ngay trên đầu (tái dùng CSS `.stats`/`.stat`): **Streak**, **Từ đã thuộc** (IT専門), **Track đã nghe** (IT業務編). **FR_012 (Phase 2) làm khối này bấm được** (mũi tên `›`, class `.stats-block`) → mở `statsScreen()`, xem mục 4.8.
 
 ### 4.3. Hệ thống "Bộ học" (deck) — quan trọng, ảnh hưởng nhiều logic
 
-**Đã đổi ở FR_005 (2026-07-18):** IT専門 **không còn chip lọc "Chủ đề"** (漢字/外来語/その他 đã bỏ khỏi UI — biến `curCat` vẫn còn trong code nhưng luôn cố định `'ALL'`, chỉ dùng làm namespace key cho `deckDone`, không có UI đổi nữa). Toàn bộ 596 từ được chia **CỐ ĐỊNH đúng 25 từ/bộ, bắt đầu từ #1** bằng hàm riêng `splitDecksStrict(arr, target)` (bộ cuối = phần dư, KHÔNG san đều số dư như trước) → 596 từ = 23 bộ×25 + 1 bộ 21 từ cuối. Hàm `splitDecks()` cũ (san đều số dư) **vẫn giữ nguyên, chỉ dùng cho Luyện đọc/Kaiwa** (`allWithEx()`) — 2 hàm này KHÔNG dùng chung, đừng nhầm lẫn khi sửa.
+**Đã đổi ở FR_005 (2026-07-18):** IT専門 **không còn chip lọc "Chủ đề"** (漢字/外来語/その他 đã bỏ khỏi UI — biến `curCat` vẫn còn trong code nhưng luôn cố định `'ALL'`, chỉ dùng làm namespace key cho `deckDone`, không có UI đổi nữa). Toàn bộ từ vựng (667 từ kể từ Phase 1, xem mục 4.9) được chia **CỐ ĐỊNH đúng 25 từ/bộ, bắt đầu từ #1** bằng hàm riêng `splitDecksStrict(arr, target)` (bộ cuối = phần dư, KHÔNG san đều số dư như trước) → 667 từ = 26 bộ×25 + 1 bộ 17 từ cuối. Hàm `splitDecks()` cũ (san đều số dư) trước kia dùng riêng cho Luyện đọc/Kaiwa — **2 module đó đã bị gỡ ở FR_008 (Phase 2)**, nên `splitDecks()` hiện là hàm không còn ai gọi, giữ lại có chủ đích (xem mục 4.2).
 
 UI: lưới 4 thẻ/trang (`deckGridHTML()` — component dùng chung cho IT専門/Luyện đọc/Kaiwa), phân trang bằng `‹`/`›`. Bộ đang chọn (`.deck-card.on`) đổi nền **xanh dương nhạt** (`#dbeafe`) để phân biệt rõ với bộ chưa chọn (xanh dương đậm mặc định).
 
 - `curDeck` (global, 'ALL' hoặc index string) — khi chọn 1 bộ cụ thể, 4 mode Flashcard/Quiz/Nghe/Nói dùng **TRỌN VẸN** danh sách bộ đó (không random-sample như khi chọn "Tất cả") → hoàn thành 1 phiên = hoàn thành cả bộ.
 - **Hoàn thành bộ** lưu ở `store.deckDone[category][deckIndex][mode] = true`, đánh dấu tập trung trong `finish()` (điểm chung của cả 4 mode). Thẻ bộ hiện icon nhỏ (🗂️✍️🎧🎤) cho mode đã hoàn thành, và **chuyển màu xanh lá** khi đủ cả 4 mode (màu selected `.on` ưu tiên hiển thị trước màu `.done` nếu cả 2 cùng áp dụng).
-- Reading/Kaiwa dùng namespace riêng `store.deckDone['_reading']`/`['_kaiwa']` (chỉ 1 "mode" mỗi cái), không đụng tracking của IT専門.
+- (Trước FR_008) Reading/Kaiwa dùng namespace riêng `store.deckDone['_reading']`/`['_kaiwa']` — 2 module đã gỡ, nhưng dữ liệu cũ này vẫn còn nguyên trong `localStorage` của user cũ, không bị migrate xóa.
+- **FR_009/FR_010 (Phase 2) thêm mode `cloze`/`reflex` vào cùng object `deckDone[curCat][deckIdx]`** nhưng **`deckGridHTML()` chỉ nhận đúng 4 icon cũ** (🗂️✍️🎧🎤) — xem `CLAUDE.md` quy tắc #7. Thêm icon thứ 5/6 sẽ làm mọi Bộ đã hoàn thành (theo 4 mode cũ) lập tức mất màu xanh.
 - IT専門 dashboard (`homeDashboard()`) đã bỏ khối thống kê (Tổng từ/Đã thuộc/Streak + progress bar) — số liệu tổng hợp này giờ chuyển sang hiện ở **main menu** (`home()`, mục 4.2), không lặp lại ở từng module con nữa.
 
 ### 4.4. Yêu thích & Đã nhớ (mới, trên màn Flashcard)
@@ -204,9 +203,30 @@ async function nativeSpeak(text, rateOverride){
 `speak()`/`speakAsync()` giờ kiểm tra `isNativeApp() && nativeTTS()` **ĐẦU TIÊN**: nếu true → gọi thẳng `nativeSpeak()`, hoàn toàn KHÔNG qua mạng/Google TTS nữa (nếu plugin lỗi, VD máy thiếu gói giọng tiếng Nhật, hiện toast hướng dẫn vào Cài đặt Android bật giọng đọc). Đường Google TTS (`playTTSChunk()`, tự thử 2 endpoint `client=gtx`/`client=tw-ob`) + `deviceSpeak()` (`speechSynthesis`) **CHỈ còn áp dụng cho môi trường web/Chrome** (mở file HTML trực tiếp, không qua APK) — không đổi gì ở nhánh đó. `stopSpeech()` cũng gọi `nativeTTS().stop()` khi native để dừng đúng lượt đọc trước đó.
 
 - Toast lỗi (`showToast()`) hiện khi TTS thất bại (cả 2 nhánh native/web) thay vì im lặng như trước — có mã lỗi cụ thể ở nhánh web (VD `error:timeout`/`error:media2`) để chẩn đoán nếu tái phát.
-- Chấm điểm phát âm: `normJa()` bỏ dấu câu → `similarity()` LCS ratio → %. **Ngưỡng đã đổi ở FR_005: ≥90 xuất sắc · ≥51 khá · <51 luyện lại** (trước là ≥80/≥55) — áp dụng đồng bộ ở cả 4 nơi chấm điểm (`speakMode`, `setupReadingMic` IT専門, `setupMic` IT業務編, `setupPracticeMic` Kaiwa). Mỗi lần chấm điểm giờ có thêm **âm thanh phản hồi** qua Web Audio API thuần (`playScoreSound(score)`, hàm `beep()` tự tạo tần số, không cần file âm thanh — 3 mức tương ứng 3 ngưỡng điểm).
+- Chấm điểm phát âm: `normJa()` bỏ dấu câu → `similarity()` LCS ratio → %. **Ngưỡng đã đổi ở FR_005: ≥90 xuất sắc · ≥51 khá · <51 luyện lại** (trước là ≥80/≥55) — áp dụng đồng bộ ở các nơi chấm điểm bằng mic còn lại (`speakMode` IT専門, `setupMic` IT業務編 — `setupReadingMic`/`setupPracticeMic` của Reading/Kaiwa đã mất theo FR_008). Mỗi lần chấm điểm giờ có thêm **âm thanh phản hồi** qua Web Audio API thuần (`playScoreSound(score)`, hàm `beep()` tự tạo tần số, không cần file âm thanh — 3 mức tương ứng 3 ngưỡng điểm).
 - **Verify sau mỗi build:** `node --check` trên phần `<script>` tách ra; `json.loads` JSON vocab/gyoumu đủ số lượng; không còn placeholder `__GEN_DATE__`/`__COUNT__`.
 - **Verify riêng cho plugin TTS native (không có device thật):** kiểm tra `TextToSpeechPlugin` có compile vào bytecode APK (`unzip classes*.dex` rồi tìm chuỗi `TextToSpeechPlugin`/`community/tts`) + `npx cap sync` log phải liệt kê đủ 2 plugin (`@capacitor-community/text-to-speech` và `@capgo/capacitor-speech-recognition`) — KHÔNG thay thế test thật, nhưng đủ để verify plugin thực sự được đóng gói.
+
+### 4.8. Gói Phase 2 (FR_008 → FR_012, 2026-09-12) — 3 mode mới + xuất/nhập tiến độ + thống kê
+
+Cả gói làm theo đúng thứ tự FR_008 → FR_011 → FR_009 → FR_010 → FR_012 (xem `01_Build_App/_feature_requests/done/_PHASE2_GOI_CAI_MOT_LAN.md` để biết vì sao đúng thứ tự này và các ràng buộc xuyên suốt: không đổi hợp đồng dữ liệu 7 khóa, giữ đúng 4 icon lưới Bộ, không thêm thư viện ngoài).
+
+- **FR_008** — gỡ Kaiwa/Luyện đọc, xem mục 4.2.
+- **FR_011 — `uiSettings` (`kokoro_ui_settings`)**: `{fontScale, reflexSec}`, áp `--fs-scale` lên `<html>` ngay lúc script chạy (trước `home()`) để không nháy cỡ chữ. Thêm mục "💾 Tiến độ học" trong `openSettings()`: xuất tiến độ **phân nhánh theo `isNativeApp()`** — web tải file `.json` qua `Blob`+`<a download>`; native (WebView đóng gói không chạy được `<a download>`) hiện `<textarea readonly>` đã bôi đen sẵn + nút Sao chép (`navigator.clipboard` → fallback `execCommand('copy')`). Nhập tiến độ **bắt buộc** hiện bảng so sánh Máy này/File nhập vào (Từ đã thuộc/Tổng lượt ôn/Streak) + cảnh báo đỏ trước khi ghi đè, không bao giờ ghi thẳng. Xuất/nhập **nguyên văn chuỗi** 4 key localStorage, không parse-rồi-dựng-lại — để bản backup cũ vẫn nhập được dù schema đổi sau này.
+- **FR_009 — mode `cloze` (Điền từ vào câu, 🧩)**: `findCloze(v)`/`clozeCandidates(w)` (đặt cạnh `allWithEx()`) dò vị trí che trong `v.ex` bằng cách thử nhiều biến thể của `v.w` (bỏ chú thích ngoặc, tách `/`, bỏ đuôi chia động từ する/です/ます/な/い, lấy gốc Hán tự) rồi rơi về so khớp theo `v.r`. **Đo được trên 667 từ: phủ 629 từ (94,3%)** — đã verify lại bằng script Node độc lập khớp đúng số liệu FR nêu, đừng sửa lại logic nếu không đo lại. Ô trống hiển thị cố định `＿＿＿` (không theo đúng độ dài thật, tránh lộ manh mối). Gợi ý 3 bậc không thu lại được. Tính vào `deckDone` nhưng **không thêm icon** (quy tắc #7).
+- **FR_010 — mode `reflex` (Phản xạ Ns, ⚡)**: hiện `v.vi`, vòng đếm ngược vẽ bằng SVG tay (`stroke-dasharray`/`stroke-dashoffset`, cập nhật `setInterval` 60ms), hết giờ hoặc bấm "Xem đáp án ngay" thì sang pha 2 hiện `v.w`/`v.r` để **người học tự chấm** 2 mức (không dùng mic — nhận giọng mất 1-2s khởi động sẽ phá phép đo phản xạ). Đọc `uiSettings.reflexSec` (mặc định 3, chỉnh 3/5/8s ở FR_011). `clearInterval` ở mọi lối thoát, mỗi nhịp tự kiểm tra phần tử SVG còn trong DOM không (tự dọn khi user bấm Back giữa chừng). Tính vào `deckDone` nhưng **không thêm icon**.
+- **FR_012 — `statsScreen()`**: thêm `store.stats.history` (`{"YYYY-MM-DD":số_lượt}`, migrate an toàn cho user cũ, **không dựng lại lịch sử quá khứ**). Tách `bumpStudied()` (streak + history + `stats.studied`, gọi từ `reviewCard()`) khỏi `bumpStreak()` (chỉ streak + history) — IT業務編 (nghe xong 1 track lần đầu / hoàn thành 1 lượt luyện đọc theo thoại) chỉ gọi `bumpStreak()`, **fix đúng bug streak không tính khi học IT業務編**. Màn hình gồm 4 khối: streak, lịch nhiệt 12 tuần (CSS grid, không thư viện), phân bố trạng thái (Đã thuộc/Đang học/Từ khó/Chưa học — mỗi từ tính đúng 1 nhóm, tổng = `VOCAB.length`), dự báo tải ôn 7 ngày (`store.cards[*].due`, quá hạn gộp vào "Hôm nay"). Mở từ khối thống kê ở `home()` (mục 4.2).
+
+**Đã test qua trình duyệt desktop (Chrome headless)**: cả 7 mode chạy được, lưới Bộ vẫn đúng 4 icon + chuyển xanh lá khi đủ 4 mode cũ, xuất/nhập tiến độ round-trip đúng số liệu, khổ màn ~390px không tràn ngang, không lỗi console. **Chưa test trên APK thật / thiết bị Android** — theo đúng nguyên tắc gộp cả 5 FR vào 1 lần build+cài APK duy nhất (xem `_PHASE2_GOI_CAI_MOT_LAN.md`).
+
+### 4.9. "Phase 1" (2026-09-11) — viết lại tầng đọc Excel, `_id_lock.json`
+
+Không thuộc phiên làm Phase 2, nhưng ảnh hưởng trực tiếp tới `build_app.py`/`app_template.html` nên ghi lại để không nhầm lẫn nguồn gốc thay đổi:
+
+- Từ điển đổi cách lưu (chuyển hẳn sang `t="inlineStr"`, bỏ `xl/sharedStrings.xml`) làm `build_app.py` bản v1 (chỉ đọc được `t="s"` + `<v>`) chết với `KeyError`. `build_app.py` v2 đọc được **cả 3 kiểu ô** OOXML (`t="s"`/`t="inlineStr"`/`t="str"` hoặc số), kèm rich text và ô tự đóng; tìm cột theo **tên tiêu đề** dòng 4 thay vì hardcode B/C/D/E/F/G.
+- Từ điển tăng từ 596 → **667 từ**.
+- Thêm sổ khóa `01_Build_App/_app_build/_id_lock.json`: ánh xạ **từ vựng → id cố định vĩnh viễn**, không theo STT cột B nữa. Lý do: bản v1 dùng `id = STT`, nên xóa/chèn 1 dòng giữa Excel làm mọi id phía sau dịch theo — tiến độ học của từ A lặng lẽ gắn sang từ B. **Đã xảy ra thật**: so bản APK 2026-07-18 (596 từ) với từ điển 2026-09-11 (667 từ), 47/596 id trỏ sang từ khác. Chi tiết đầy đủ: `CLAUDE.md` quy tắc #6. File này **phải commit vào git**, không bao giờ xóa/sửa tay.
+- Cờ CLI mới: `--check` (chỉ đọc + báo cáo, không ghi file), `--force` (bỏ qua cảnh báo chặn), `--seed-lock <file.html>` (khởi tạo sổ khóa từ 1 bản app đã build, dùng 1 lần).
 
 ---
 
@@ -283,7 +303,7 @@ Máy chạy Claude **không có thiết bị/emulator Android kết nối** — 
 
 ## 8. Feature Request — cách yêu cầu thêm/sửa chức năng
 
-Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên `FR_<số>_<tên>.md`, viết xong đặt ngay tại `_feature_requests/` (khi hoàn thành sẽ chuyển vào `done/`). Lịch sử (`done/`): FR_002 (đổi màu + fix Kaiwa + mic reading), FR_003 (multi-theme + IT業務編 — Part 1+2 UI/menu đã có sẵn từ trước, Part 3 audio làm ở FR_004), FR_004 (IT業務編 Luyện nghe/Luyện đọc), FR_005 (fix TTS Android bằng plugin native — **đã test thật, PM xác nhận nghe được**; redesign Flashcard/IT専門/main menu; thêm app icon từ `04_Image/Logo_Tanpopo.png`) — tất cả **đã xong**. **Hiện không có FR nào pending** — sẵn sàng cho Phase 2. Không cần viết file FR nếu không muốn — mô tả trong chat theo cấu trúc (làm gì → hành vi cụ thể → ràng buộc) là đủ.
+Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên `FR_<số>_<tên>.md`, viết xong đặt ngay tại `_feature_requests/` (khi hoàn thành sẽ chuyển vào `done/`). Lịch sử (`done/`): FR_002 (đổi màu + fix Kaiwa + mic reading), FR_003 (multi-theme + IT業務編 — Part 1+2 UI/menu đã có sẵn từ trước, Part 3 audio làm ở FR_004), FR_004 (IT業務編 Luyện nghe/Luyện đọc), FR_005 (fix TTS Android bằng plugin native — **đã test thật, PM xác nhận nghe được**; redesign Flashcard/IT専門/main menu; thêm app icon), FR_008..FR_012 (gói Phase 2, xem mục 4.8 — **đã code + test qua trình duyệt, CHƯA build APK**) — tất cả **đã xong về code**. Còn pending: **FR_006** (tự focus Bộ nhỏ nhất chưa hoàn thành) và **FR_007** (luyện đọc bằng 213 đoạn audio thật) — đã chốt yêu cầu từ 2026-07-26, PM quyết để lại đợt sau Phase 2. Không cần viết file FR nếu không muốn — mô tả trong chat theo cấu trúc (làm gì → hành vi cụ thể → ràng buộc) là đủ.
 
 ---
 
@@ -291,8 +311,9 @@ Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên 
 
 - Bump version APK lên "0.1" chính thức (chờ người dùng xác nhận test ổn trên điện thoại thật).
 - Quiz nội dung + trích từ vựng riêng cho IT業務編 (đã note rõ ngoài phạm vi FR_004, để FR riêng).
-- Đồng bộ tiến độ đa thiết bị (cần backend nhẹ / export-import JSON).
+- Đồng bộ tiến độ đa thiết bị **kiểu gộp thông minh** (FR_011 mới làm ghi đè một chiều, chưa gộp theo nguyên tắc "bậc cao hơn thắng" — PM đã đồng ý tạm thời, mở FR mới nếu cần).
 - Chế độ viết kanji, ghép câu, nghe chép chính tả.
-- Export tiến độ ra file để backup (tránh mất khi xóa cache trình duyệt/gỡ app).
+- Thêm lại nút "Khó" cho SRS (`reviewCard` mức 1/3 hiện là code chết, xem mục "SRS — điểm cần biết" trong `CLAUDE.md`).
+- FR_006 (tự focus Bộ nhỏ nhất chưa hoàn thành) và FR_007 (luyện đọc bằng 213 đoạn audio thật) — đã chốt yêu cầu, để lại sau gói Phase 2.
 - Bản release APK đã ký (hiện chỉ có debug build).
 - Đổi tên GitHub repo cho khớp tên dự án (hiện đang dùng tạm `Lading_page-VS`).

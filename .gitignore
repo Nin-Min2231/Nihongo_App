@@ -12,6 +12,10 @@ package-lock.json.bak
 01_Build_App/audio/
 03_Android_App/www/
 
+# Audio đã cắt đoạn cho tính năng Luyện đọc theo (FR_006) — regenerate bằng
+# 01_Build_App/_app_build/segment_reading_audio.py từ 02_IT_Gyoumuhen/AudioCD/, ~37MB, không cần commit
+02_IT_Gyoumuhen/reading_segments/audio/
+
 # ─── APK build ra — build lại bằng gradlew, không cần commit (~70MB) ───
 03_Android_App/*.apk
 03_Android_App/android/**/*.apk
@@ -27,6 +31,10 @@ package-lock.json.bak
 # ─── Python ───
 __pycache__/
 *.pyc
+
+# ─── Báo cáo build tạm — sinh lại mỗi lần chạy build_app.py, không cần commit ───
+# (_id_lock.json thì NGƯỢC LẠI — PHẢI commit, xem CLAUDE.md quy tắc #6)
+01_Build_App/_app_build/_last_build_report.txt
 
 # ─── OS / Editor noise ───
 .DS_Store
