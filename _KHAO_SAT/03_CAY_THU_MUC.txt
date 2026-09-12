@@ -1,0 +1,195 @@
+﻿CAY THU MUC — D:\01_NguyenNC\10_Claude\100_日本語
+Sinh ngay: 2026-09-11 | Do sau toi da 4 cap
+Da bo qua: node_modules, .git, .gradle, build, dist, out, venv, __pycache__, .next, target, .claude\worktrees
+LUU Y: cac file .mp3 duoc gom lai thanh 1 dong tom tat cho moi thu muc (293 file mp3 tong cong).
+==============================================================================
+
+[DIR ] .claude
+       .claude\scheduled_tasks.lock  (0.1 KB)
+       .claude\settings.local.json  (0.1 KB)
+       .gitattributes  (0.4 KB)
+       .gitignore  (1.4 KB)
+[DIR ] _KHAO_SAT
+[DIR ] 01_Build_App
+[DIR ] 01_Build_App\_app_build
+       01_Build_App\_app_build\app_template.html  (108.6 KB)
+       01_Build_App\_app_build\build_app.py  (6.8 KB)
+       01_Build_App\_app_build\segment_reading_audio.py  (9.7 KB)
+[DIR ] 01_Build_App\_feature_requests
+[DIR ] 01_Build_App\_feature_requests\done
+       01_Build_App\_feature_requests\done\FR_002_ui_kaiwa_reading_fix.md  (3.8 KB)
+       01_Build_App\_feature_requests\done\FR_003_multi_theme_it_gyoumuhen.md  (9.3 KB)
+       01_Build_App\_feature_requests\done\FR_004_it_gyoumu_listening_reading.md  (14.3 KB)
+       01_Build_App\_feature_requests\done\FR_005_flashcard_ui_tts_fix.md  (15.2 KB)
+       01_Build_App\_feature_requests\FR_006_focus_bo_nho_nhat.md  (7.5 KB)
+       01_Build_App\_feature_requests\FR_007_reading_real_audio_segments.md  (19.2 KB)
+       01_Build_App\_feature_requests\TEMPLATE.md  (2 KB)
+[DIR ] 01_Build_App\audio
+       └─ (38 file .mp3, 68.62 MB) — khong liet ke tung file
+       01_Build_App\Kokoro_Nihongo.html  (295.8 KB)
+[DIR ] 02_IT_Gyoumuhen
+[DIR ] 02_IT_Gyoumuhen\AudioCD
+       └─ (38 file .mp3, 68.62 MB) — khong liet ke tung file
+       02_IT_Gyoumuhen\IT_Gyoumuhen.pdf  (31644.9 KB)
+       02_IT_Gyoumuhen\IT_Gyoumuhen_AudioCD_Transcript.xlsx  (27.1 KB)
+[DIR ] 02_IT_Gyoumuhen\reading_segments
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track01
+       └─ (5 file .mp3, 0.81 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track02
+       └─ (7 file .mp3, 1.23 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track03
+       └─ (6 file .mp3, 0.77 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track04
+       └─ (7 file .mp3, 1.02 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track05
+       └─ (7 file .mp3, 1.23 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track06
+       └─ (6 file .mp3, 0.93 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track07
+       └─ (6 file .mp3, 0.83 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track08
+       └─ (6 file .mp3, 0.8 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track09
+       └─ (2 file .mp3, 2.71 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track10
+       └─ (7 file .mp3, 1.17 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track11
+       └─ (6 file .mp3, 0.97 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track12
+       └─ (6 file .mp3, 0.78 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track13
+       └─ (6 file .mp3, 0.83 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track14
+       └─ (6 file .mp3, 0.71 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track15
+       └─ (6 file .mp3, 0.9 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track16
+       └─ (5 file .mp3, 0.7 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track17
+       └─ (6 file .mp3, 0.72 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track18
+       └─ (6 file .mp3, 0.92 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track19
+       └─ (5 file .mp3, 0.66 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track20
+       └─ (5 file .mp3, 0.67 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track21
+       └─ (2 file .mp3, 2.54 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track22
+       └─ (5 file .mp3, 0.59 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track23
+       └─ (6 file .mp3, 0.82 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track24
+       └─ (5 file .mp3, 0.66 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track25
+       └─ (6 file .mp3, 0.85 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track26
+       └─ (5 file .mp3, 0.62 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track27
+       └─ (6 file .mp3, 0.82 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track28
+       └─ (6 file .mp3, 0.71 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track29
+       └─ (6 file .mp3, 0.88 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track30
+       └─ (6 file .mp3, 0.75 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track31
+       └─ (5 file .mp3, 0.68 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track32
+       └─ (6 file .mp3, 0.75 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track33
+       └─ (6 file .mp3, 0.99 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track34
+       └─ (6 file .mp3, 0.78 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track35
+       └─ (6 file .mp3, 0.96 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track36
+       └─ (6 file .mp3, 0.87 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track37
+       └─ (7 file .mp3, 1.23 MB) — khong liet ke tung file
+[DIR ] 02_IT_Gyoumuhen\reading_segments\audio\track38
+       └─ (6 file .mp3, 0.9 MB) — khong liet ke tung file
+       02_IT_Gyoumuhen\reading_segments\segments_data.json  (123.3 KB)
+[DIR ] 03_Android_App
+[DIR ] 03_Android_App\android
+       03_Android_App\android\.gitignore  (1.8 KB)
+[DIR ] 03_Android_App\android\app
+       03_Android_App\android\app\.gitignore  (0 KB)
+[DIR ] 03_Android_App\android\app\build
+       03_Android_App\android\app\build.gradle  (2.1 KB)
+       03_Android_App\android\app\capacitor.build.gradle  (0.5 KB)
+       03_Android_App\android\app\proguard-rules.pro  (0.7 KB)
+[DIR ] 03_Android_App\android\app\src
+[DIR ] 03_Android_App\android\build
+       03_Android_App\android\build.gradle  (0.6 KB)
+       03_Android_App\android\capacitor.settings.gradle  (0.6 KB)
+[DIR ] 03_Android_App\android\capacitor-cordova-android-plugins
+[DIR ] 03_Android_App\android\capacitor-cordova-android-plugins\build
+       03_Android_App\android\capacitor-cordova-android-plugins\build.gradle  (1.6 KB)
+       03_Android_App\android\capacitor-cordova-android-plugins\cordova.variables.gradle  (0.3 KB)
+[DIR ] 03_Android_App\android\capacitor-cordova-android-plugins\src
+[DIR ] 03_Android_App\android\gradle
+       03_Android_App\android\gradle.properties  (1.3 KB)
+[DIR ] 03_Android_App\android\gradle\wrapper
+       03_Android_App\android\gradlew  (8.5 KB)
+       03_Android_App\android\gradlew.bat  (2.9 KB)
+       03_Android_App\android\local.properties  (0 KB)
+       03_Android_App\android\settings.gradle  (0.2 KB)
+       03_Android_App\android\variables.gradle  (0.5 KB)
+[DIR ] 03_Android_App\assets
+       03_Android_App\assets\icon.png  (1389.5 KB)
+       03_Android_App\capacitor.config.json  (0.1 KB)
+       03_Android_App\Kokoro_Nihongo.apk  (76122.3 KB)
+       03_Android_App\package.json  (0.6 KB)
+       03_Android_App\package-lock.json  (197 KB)
+[DIR ] 03_Android_App\www
+[DIR ] 03_Android_App\www\audio
+       └─ (38 file .mp3, 68.62 MB) — khong liet ke tung file
+       03_Android_App\www\index.html  (295.8 KB)
+[DIR ] 04_Image
+       04_Image\Logo_Tanpopo.png  (1389.5 KB)
+       Ban_dich_Mail_Request_Spec.md  (9 KB)
+       Ban_dich_WRS2_System_Concept.md  (8.1 KB)
+       CLAUDE.md  (9.9 KB)
+       lock_check.tmp  (0 KB)
+       PROJECT_日本語学習アプリ_Handover.md  (28.8 KB)
+       README.md  (8.3 KB)
+       test_write.tmp  (0 KB)
+       test_write2.tmp  (0 KB)
+       日本語の辞書.xlsx  (77.8 KB)
+
+==============================================================================
+5 THU MUC NANG NHAT (giai thich vi sao du an ~2 GB)
+==============================================================================
+
+TONG DUNG LUONG THU MUC GOC : 2,089.49 MB
+
+ 1. .claude\worktrees                        1,189.43 MB
+ 2. 03_Android_App\android                     302.63 MB
+ 3. 03_Android_App\node_modules                148.28 MB
+ 4. .git                                        98.31 MB
+ 5. 03_Android_App\www                          68.91 MB
+ 6. 02_IT_Gyoumuhen\AudioCD                     68.62 MB
+ 7. 01_Build_App\audio                          68.62 MB
+ 8. 02_IT_Gyoumuhen\reading_segments            35.86 MB
+ 9. 03_Android_App\assets                        1.36 MB
+10. 04_Image                                     1.36 MB
+11. 01_Build_App\_app_build                      0.14 MB
+12. 01_Build_App\_feature_requests               0.07 MB
+
+PHAN TICH:
+  - .claude\worktrees (~1189 MB) : ban sao worktree do Claude Code tao ra, KHONG phai
+    source that. Xoa duoc bang cach go worktree. Day la nguyen nhan LON NHAT cua 2 GB.
+  - 03_Android_App\android (~303 MB) : output build Gradle (.gradle, app\build, APK trung gian).
+  - 03_Android_App\node_modules (~148 MB) : thu vien Capacitor.
+  - Audio mp3 bi nhan ban 4 lan cua cung 38 track goc (68.6 MB moi ban):
+       02_IT_Gyoumuhen\AudioCD        68.62 MB  <- NGUON GOC duy nhat
+       01_Build_App\audio             68.62 MB  <- build_app.py tu copy
+       03_Android_App\www\audio       68.6  MB  <- copy tay truoc khi build APK
+       (+ ban nam trong .apk va trong android\app\build)
+  - 02_IT_Gyoumuhen\reading_segments (~35.9 MB) : 213 doan mp3 cat nho tu 38 track tren.
+
+SOURCE THAT (code + tai lieu + 2 file xlsx, khong tinh mp3/pdf/apk/thu vien/build/worktree):
+  ~ 0.75 MB  (2 file .html, 2 file .py, 12 file .md, 2 file .xlsx, 1 file .json)
+

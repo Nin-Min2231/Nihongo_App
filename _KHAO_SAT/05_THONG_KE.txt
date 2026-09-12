@@ -1,0 +1,125 @@
+==============================================================================
+05_THONG_KE.txt — Kokoro Nihongo
+Sinh ngày: 2026-09-11
+Phạm vi đếm: đã LOẠI node_modules, .git, .gradle, build/, dist/, out/, venv,
+             __pycache__, .next, target, .claude\worktrees, 03_Android_App\www,
+             03_Android_App\android
+==============================================================================
+
+1. TỔNG SỐ FILE SOURCE (không tính thư viện / build)
+----------------------------------------------------
+   Tổng file trong phạm vi trên : 326
+   Trong đó:
+     .mp3   293 file   ← dữ liệu audio, không phải code
+     .md     12 file
+     .json    5 file
+     .html    2 file
+     .py      2 file
+     .png     2 file
+     .xlsx    2 file
+     .pdf     1 file
+     .apk     1 file
+     .tmp     3 file   ← rác test (lock_check.tmp, test_write.tmp, test_write2.tmp)
+     khác     3 file   (.gitignore, .gitattributes, .lock)
+
+   => SỐ FILE CODE THẬT SỰ:  4 file  (2 .html + 2 .py)
+
+2. SỐ DÒNG CODE THEO ĐUÔI FILE
+-------------------------------
+   .html   3.848 dòng   (2 file)
+             ├─ 01_Build_App/_app_build/app_template.html   2.048 dòng  ← SOURCE THẬT
+             ├─ 01_Build_App/Kokoro_Nihongo.html            2.048 dòng  ← OUTPUT build (không sửa tay)
+             └─ (03_Android_App/www/index.html = bản copy y hệt Kokoro_Nihongo.html, đã loại khỏi phép đếm)
+   .py       378 dòng   (2 file)
+             ├─ build_app.py               168 dòng  ← TẦNG ĐỌC EXCEL CHÍNH
+             └─ segment_reading_audio.py   253 dòng  ← đọc Excel transcript + cắt audio
+                (168+253=421; chênh lệch do cách đếm dòng cuối file)
+   .md     1.152 dòng   (12 file — CLAUDE.md, README.md, handover, 6 FR, 2 bản dịch)
+   .json   8.763 dòng   (5 file — chủ yếu 02_IT_Gyoumuhen/reading_segments/segments_data.json)
+   .css        0        KHÔNG CÓ file .css riêng (CSS nằm trong <style> của app_template.html)
+   .js         0        KHÔNG CÓ file .js riêng (JS nằm trong <script> của app_template.html)
+   .ts         0        KHÔNG CÓ
+
+3. 10 FILE ĐƯỢC SỬA GẦN ĐÂY NHẤT
+---------------------------------
+   2026-09-11 15:28  日本語の辞書.xlsx                                    ← MỚI NHẤT (quan trọng, xem mục 4)
+   2026-09-04 08:16  Ban_dich_WRS2_System_Concept.md
+   2026-07-31 08:12  lock_check.tmp
+   2026-07-31 08:12  Ban_dich_Mail_Request_Spec.md
+   2026-07-27 16:17  test_write2.tmp
+   2026-07-27 16:17  test_write.tmp
+   2026-07-26 18:59  01_Build_App\_feature_requests\FR_007_reading_real_audio_segments.md
+   2026-07-26 17:39  01_Build_App\_app_build\segment_reading_audio.py
+   2026-07-26 17:38  .gitignore
+   2026-07-26 17:38  02_IT_Gyoumuhen\reading_segments\segments_data.json
+
+   Ngoài top-10 nhưng cần biết:
+   2026-07-18 19:51  01_Build_App\Kokoro_Nihongo.html          ← lần build app cuối cùng
+   2026-07-18 19:47  01_Build_App\_app_build\app_template.html ← lần sửa template cuối cùng
+
+   => App chưa được build lại kể từ 2026-07-18, trong khi từ điển đã sửa ngày 2026-09-11.
+      App đang chạy vẫn là bản 596 từ; từ điển hiện tại có 667 từ.
+
+4. GIT
+------
+$ git log --oneline -30
+f50468a Clean up project for Phase 2: dedupe FR files, refresh CLAUDE.md, archive done FRs
+ea0143e Fix TTS on Android via native plugin, redesign Flashcard/IT専門/menu, add app icon
+8abfdc4 Rewrite project handover doc to cover Android/Capacitor build and new features
+70e1fab Initial commit: Kokoro Nihongo Japanese IT vocabulary learning app
+
+$ git status --short
+ M .gitignore
+ M 01_Build_App/Kokoro_Nihongo.html
+ M 01_Build_App/_app_build/app_template.html
+ M 03_Android_App/android/app/capacitor.build.gradle
+ M 03_Android_App/android/capacitor.settings.gradle
+ M "\346\227\245\346\234\254\350\252\236\343\201\256\350\276\236\346\233\270.xlsx"
+?? 01_Build_App/_app_build/segment_reading_audio.py
+?? 01_Build_App/_feature_requests/FR_006_focus_bo_nho_nhat.md
+?? 01_Build_App/_feature_requests/FR_007_reading_real_audio_segments.md
+?? 02_IT_Gyoumuhen/reading_segments/
+?? Ban_dich_Mail_Request_Spec.md
+?? Ban_dich_WRS2_System_Concept.md
+?? _KHAO_SAT/
+?? lock_check.tmp
+?? test_write.tmp
+?? test_write2.tmp
+
+   Diễn giải git status:
+     M  .gitignore                                     — sửa chưa commit
+     M  01_Build_App/Kokoro_Nihongo.html               — output build chưa commit
+     M  01_Build_App/_app_build/app_template.html      — SOURCE template chưa commit
+     M  03_Android_App/android/... (2 file gradle)     — Capacitor tự sinh
+     M  日本語の辞書.xlsx                                — TỪ ĐIỂN đã đổi, chưa commit
+     ?? 01_Build_App/_app_build/segment_reading_audio.py       — file mới chưa add
+     ?? 01_Build_App/_feature_requests/FR_006_*.md             — FR đang chờ làm
+     ?? 01_Build_App/_feature_requests/FR_007_*.md             — FR đang chờ làm
+     ?? 02_IT_Gyoumuhen/reading_segments/                      — 213 đoạn mp3 + manifest, chưa dùng
+     ?? Ban_dich_*.md (2 file)                                 — tài liệu dịch, không liên quan app
+     ?? lock_check.tmp, test_write.tmp, test_write2.tmp        — file rác
+
+   Repo chỉ có 4 commit, toàn bộ nằm trên nhánh `main`.
+   Có 1 git worktree phụ do Claude Code tạo: .claude\worktrees\japanese-learning-app-handover-e2f2a1
+   (nhánh claude/khao-sat-app-request-0bd6bf) — chiếm ~1.19 GB, KHÔNG phải source thật.
+
+5. THỐNG KÊ DỮ LIỆU
+--------------------
+   日本語の辞書.xlsx (hiện tại, 2026-09-11)
+     - 1 sheet duy nhất, tên "日本語の辞書"
+     - Vùng dữ liệu: B1:P671, dữ liệu từ vựng bắt đầu dòng 5, kết thúc dòng 671
+     - 667 từ vựng, STT 1..667, KHÔNG trùng, KHÔNG thiếu số nào
+     - 6 cột dùng: B=STT, C=Từ vựng, D=読み方, E=Nghĩa tiếng Việt, F=Tiếng Anh, G=Câu hội thoại
+     - 0 ô rỗng ở cả 5 cột C,D,E,F,G
+     - Định dạng chuỗi: inlineStr (KHÔNG có xl/sharedStrings.xml)  ← ĐIỂM GÃY, xem 01_KHAO_SAT_APP.md mục B
+
+   日本語の辞書.xlsx (bản đang commit trong git, 2026-07-18)
+     - 600 dòng sheet, 596 từ, dùng xl/sharedStrings.xml
+
+   02_IT_Gyoumuhen/IT_Gyoumuhen_AudioCD_Transcript.xlsx
+     - 1 sheet "AudioCD_Transcript", 41 dòng, dữ liệu từ dòng 4, 38 track
+     - Vẫn dùng sharedStrings (chưa bị đổi định dạng)
+
+   02_IT_Gyoumuhen/AudioCD : 38 file mp3, 68.62 MB
+   02_IT_Gyoumuhen/reading_segments : 213 đoạn mp3 (+2 file _full cho track 9 và 21
+                                      là 2 track thiếu transcript), 35.86 MB

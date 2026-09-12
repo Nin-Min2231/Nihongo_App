@@ -1,0 +1,3307 @@
+{
+  "generatedBy": "segment.py (silence-detection + text-balanced grouping)",
+  "sourceTranscript": "IT_Gyoumuhen_AudioCD_Transcript.xlsx",
+  "sourceAudioDir": "02_IT_Gyoumuhen/AudioCD",
+  "trackCount": 38,
+  "tracks": [
+    {
+      "track": 1,
+      "chapter": "Chương 1",
+      "unit": "Unit 1",
+      "unitJa": "求人ポスター",
+      "unitVi": "Bảng tin tuyển dụng",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "DJ (quảng cáo radio)",
+      "sourceAudioFile": "01 Track 1.mp3",
+      "sourceDurationSec": 63.95,
+      "transcriptAvailable": true,
+      "segmentCount": 5,
+      "segments": [
+        {
+          "id": "T01-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 20.55,
+          "durationSec": 20.55,
+          "audioFile": "track01/track01_seg01.mp3",
+          "speakers": [
+            "DJ"
+          ],
+          "text": "夢の世界へようこそ！\nアルクテクノロジー社は秋葉原に本社があり、シリコンバレーにも支社のあるロボット開発企業です。"
+        },
+        {
+          "id": "T01-S02",
+          "order": 2,
+          "startTime": 20.55,
+          "endTime": 30.37,
+          "durationSec": 9.82,
+          "audioFile": "track01/track01_seg02.mp3",
+          "speakers": [
+            "DJ"
+          ],
+          "text": "日本とアメリカで活躍するエンジニアたちは合計3,500人！"
+        },
+        {
+          "id": "T01-S03",
+          "order": 3,
+          "startTime": 30.37,
+          "endTime": 44.19,
+          "durationSec": 13.82,
+          "audioFile": "track01/track01_seg03.mp3",
+          "speakers": [
+            "DJ"
+          ],
+          "text": "あなたもここで未来を作る仲間に入りませんか。"
+        },
+        {
+          "id": "T01-S04",
+          "order": 4,
+          "startTime": 44.19,
+          "endTime": 54.76,
+          "durationSec": 10.57,
+          "audioFile": "track01/track01_seg04.mp3",
+          "speakers": [
+            "DJ"
+          ],
+          "text": "私たちは、夢のある若い技術者たちを応援しています。\nあなたに熱い夢があるなら、ぜひ、当社へ！"
+        },
+        {
+          "id": "T01-S05",
+          "order": 5,
+          "startTime": 54.76,
+          "endTime": 63.95,
+          "durationSec": 9.19,
+          "audioFile": "track01/track01_seg05.mp3",
+          "speakers": [
+            "DJ"
+          ],
+          "text": "「ロボットとともに明るい未来を」。\nアルクテクノロジー。"
+        }
+      ]
+    },
+    {
+      "track": 2,
+      "chapter": "Chương 1",
+      "unit": "Unit 2",
+      "unitJa": "電話で問い合わせる",
+      "unitVi": "Gọi điện hỏi thông tin tuyển dụng",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "受付 (Lễ tân) / リー (Li) / 田口 (Taguchi)",
+      "sourceAudioFile": "02 Track 2.mp3",
+      "sourceDurationSec": 117.29,
+      "transcriptAvailable": true,
+      "segmentCount": 7,
+      "segments": [
+        {
+          "id": "T02-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 14.64,
+          "durationSec": 14.64,
+          "audioFile": "track02/track02_seg01.mp3",
+          "speakers": [
+            "リー",
+            "受付"
+          ],
+          "text": "受付：はい、未来創造社でございます。\nリー：私、リーと申しますが、御社の求人ポスターを拝見しまして……。エンジニアの募集について、お尋ねしてもよろしいでしょうか。"
+        },
+        {
+          "id": "T02-S02",
+          "order": 2,
+          "startTime": 14.64,
+          "endTime": 38.33,
+          "durationSec": 23.69,
+          "audioFile": "track02/track02_seg02.mp3",
+          "speakers": [
+            "リー",
+            "受付",
+            "田口"
+          ],
+          "text": "受付：求人の件ですね。担当の者に代わりますので、少々お待ちください。\n田口：お電話代わりました。人事部の田口と申します。\nリー：お忙しいところ失礼いたします。リーと申しますが、エンジニアの応募資格の件で、質問させていただけますか。"
+        },
+        {
+          "id": "T02-S03",
+          "order": 3,
+          "startTime": 38.33,
+          "endTime": 53.78,
+          "durationSec": 15.45,
+          "audioFile": "track02/track02_seg03.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "田口：はい、どうぞ。\nリー：あの、日本の情報処理技術者試験を受けたことがないんですが、日本で働くには、この試験に合格していなければなりませんか。"
+        },
+        {
+          "id": "T02-S04",
+          "order": 4,
+          "startTime": 53.78,
+          "endTime": 65.01,
+          "durationSec": 11.23,
+          "audioFile": "track02/track02_seg04.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "田口：失礼ですが、どちらからおかけですか。\nリー：中国の大連です。\n田口：ああ、中国の場合は、情報産業部の試験に合格していれば大丈夫ですよ。"
+        },
+        {
+          "id": "T02-S05",
+          "order": 5,
+          "startTime": 65.01,
+          "endTime": 84.46,
+          "durationSec": 19.45,
+          "audioFile": "track02/track02_seg05.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "リー：そうですか。プログラマーの部門でもいいですか。\n田口：プログラマー部門でもビザは出ます。でも、採用試験には技術関連の問題がありますから、まずはそれに合格しなければなりませんね。"
+        },
+        {
+          "id": "T02-S06",
+          "order": 6,
+          "startTime": 84.46,
+          "endTime": 104.47,
+          "durationSec": 20.01,
+          "audioFile": "track02/track02_seg06.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "リー：技術的な内容も試験されるんですね。ほかにどんな試験がありますか。\n田口：一次試験では、技術試験のほかに、日本語テストがあります。それに合格したら2次試験の面接を受けてもらいます。2次試験に合格すれば採用です。"
+        },
+        {
+          "id": "T02-S07",
+          "order": 7,
+          "startTime": 104.47,
+          "endTime": 117.29,
+          "durationSec": 12.82,
+          "audioFile": "track02/track02_seg07.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "リー：そうですか。応募書類は郵送するのでしょうか。\n田口：メールに添付してもいいですよ。\nリー：よくわかりました。ありがとうございました。"
+        }
+      ]
+    },
+    {
+      "track": 3,
+      "chapter": "Chương 1",
+      "unit": "Unit 2",
+      "unitJa": "電話で問い合わせる",
+      "unitVi": "Gọi điện hỏi thông tin tuyển dụng",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "田口 (Taguchi) / ラジュ (Raju)",
+      "sourceAudioFile": "03 Track 3.mp3",
+      "sourceDurationSec": 72.54,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T03-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 14.06,
+          "durationSec": 14.06,
+          "audioFile": "track03/track03_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "田口：はい、お電話替わりました。人事部の田口です。\nラジュ：あ、おはようございます。ラジュと申します。求人の件でお聞きしたいことがあるんですが。"
+        },
+        {
+          "id": "T03-S02",
+          "order": 2,
+          "startTime": 14.06,
+          "endTime": 24.62,
+          "durationSec": 10.56,
+          "audioFile": "track03/track03_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "田口：何でしょうか。\nラジュ：私はインドのバンガロールで働いているんですが、こちらの資格は日本でも有効ですか。"
+        },
+        {
+          "id": "T03-S03",
+          "order": 3,
+          "startTime": 24.62,
+          "endTime": 34.76,
+          "durationSec": 10.14,
+          "audioFile": "track03/track03_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "田口：インドの資格というとドアックですか。\nラジュ：そうです。\n田口：どのレベルですか。\nラジュ：レベルCです。"
+        },
+        {
+          "id": "T03-S04",
+          "order": 4,
+          "startTime": 34.76,
+          "endTime": 51.41,
+          "durationSec": 16.65,
+          "audioFile": "track03/track03_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "田口：レベルCなら日本の資格と同じように扱われますから、大丈夫ですよ。\nラジュ：そうですか。安心しました。\n田口：うちのウェブサイトから資料はダウンロードしましたか。"
+        },
+        {
+          "id": "T03-S05",
+          "order": 5,
+          "startTime": 51.41,
+          "endTime": 57.82,
+          "durationSec": 6.41,
+          "audioFile": "track03/track03_seg05.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "ラジュ：はい、しました。でも、まだ資格のところまでしか読んでいないんです。"
+        },
+        {
+          "id": "T03-S06",
+          "order": 6,
+          "startTime": 57.82,
+          "endTime": 72.54,
+          "durationSec": 14.72,
+          "audioFile": "track03/track03_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "田口：じゃあ、半分ぐらい読んだんですね。まずは全部読んでみて、わからないことがあったら、また電話してください。\nラジュ：わかりました。ありがとうございます。"
+        }
+      ]
+    },
+    {
+      "track": 4,
+      "chapter": "Chương 1",
+      "unit": "Unit 3",
+      "unitJa": "職務経歴書",
+      "unitVi": "Sơ yếu lý lịch làm việc (Résumé)",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "リー (Li) - độc thoại",
+      "sourceAudioFile": "04 Track 4.mp3",
+      "sourceDurationSec": 96.99,
+      "transcriptAvailable": true,
+      "segmentCount": 7,
+      "segments": [
+        {
+          "id": "T04-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 16.35,
+          "durationSec": 16.35,
+          "audioFile": "track04/track04_seg01.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "私は御社でシステムエンジニアとしてのキャリアを積みたいと考えております。\n私は2001年に大連情報技術大学ソフトウェア工学学院に入学しました。"
+        },
+        {
+          "id": "T04-S02",
+          "order": 2,
+          "startTime": 16.35,
+          "endTime": 32.9,
+          "durationSec": 16.55,
+          "audioFile": "track04/track04_seg02.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "専攻はプログラミングでしたが、2年生の時に日本語強化コースが開設されるのと同時に、日本語を履修し始めました。"
+        },
+        {
+          "id": "T04-S03",
+          "order": 3,
+          "startTime": 32.9,
+          "endTime": 42.76,
+          "durationSec": 9.86,
+          "audioFile": "track04/track04_seg03.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "2005年に同大学を卒業し、大連市にある大連e-コマースシステムズに入社しました。"
+        },
+        {
+          "id": "T04-S04",
+          "order": 4,
+          "startTime": 42.76,
+          "endTime": 50.24,
+          "durationSec": 7.48,
+          "audioFile": "track04/track04_seg04.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "主な案件は中国企業の日本市場向け広報サイトの製作でした。"
+        },
+        {
+          "id": "T04-S05",
+          "order": 5,
+          "startTime": 50.24,
+          "endTime": 62.66,
+          "durationSec": 12.42,
+          "audioFile": "track04/track04_seg05.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "2006年から現在まで、オフショア部門に配属され、日本企業のオンラインショップの開発に関わっています。"
+        },
+        {
+          "id": "T04-S06",
+          "order": 6,
+          "startTime": 62.66,
+          "endTime": 85.72,
+          "durationSec": 23.06,
+          "audioFile": "track04/track04_seg06.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "ここではPHPによるe-コマースの技術のみならず、日本の基礎的な商習慣を身に付けることができました。\nこのように、これまでずっと日本市場向けウェブサイトの開発に関わって参りました。"
+        },
+        {
+          "id": "T04-S07",
+          "order": 7,
+          "startTime": 85.72,
+          "endTime": 96.99,
+          "durationSec": 11.27,
+          "audioFile": "track04/track04_seg07.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "そのため、日本市場に最適で実用的なシステム開発に貢献することができると自負しています。"
+        }
+      ]
+    },
+    {
+      "track": 5,
+      "chapter": "Chương 1",
+      "unit": "Unit 4",
+      "unitJa": "面接",
+      "unitVi": "Phỏng vấn",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "田口 (Taguchi) / リー (Li)",
+      "sourceAudioFile": "05 Track 5.mp3",
+      "sourceDurationSec": 115.02,
+      "transcriptAvailable": true,
+      "segmentCount": 7,
+      "segments": [
+        {
+          "id": "T05-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 13.77,
+          "durationSec": 13.77,
+          "audioFile": "track05/track05_seg01.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "田口：次の方、どうぞ。\nリー：はい、失礼します。\n田口：おかけください。少し緊張しているようですね。大丈夫ですか。\nリー：はい、大丈夫です。"
+        },
+        {
+          "id": "T05-S02",
+          "order": 2,
+          "startTime": 13.77,
+          "endTime": 29.98,
+          "durationSec": 16.21,
+          "audioFile": "track05/track05_seg02.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "田口：まず、今の仕事ですが、大連で日本向けのシステムを開発しているんですね。\nリー：そうです。大連e-コマースシステムズという会社に勤めています。\n田口：開発環境を教えてください。"
+        },
+        {
+          "id": "T05-S03",
+          "order": 3,
+          "startTime": 29.98,
+          "endTime": 51.07,
+          "durationSec": 21.09,
+          "audioFile": "track05/track05_seg03.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "リー：主にエクリプスで開発しています。ソースはPHPで書いています。\n田口：うーん、PHPですか。Javaはどうですか。\nリー：あまり使っていません。\n田口：日本で働くのなら、Javaも勉強しておいた方がいいですよ。"
+        },
+        {
+          "id": "T05-S04",
+          "order": 4,
+          "startTime": 51.07,
+          "endTime": 67.33,
+          "durationSec": 16.26,
+          "audioFile": "track05/track05_seg04.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "リー：はい、がんばります。\n田口：日本に行きたいという希望は、もうご家族に話してありますか。\nリー：はい、話してあります。\n田口：日本で働きたいというのは、どうしてですか。"
+        },
+        {
+          "id": "T05-S05",
+          "order": 5,
+          "startTime": 67.33,
+          "endTime": 84.86,
+          "durationSec": 17.53,
+          "audioFile": "track05/track05_seg05.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "リー：私は大学でプログラミングと日本語を勉強しましたので、これからも日本向けのサービスに関わっていきたいと思います。そのためにも、20代のうちに日本で働くことを経験しておきたいのです。"
+        },
+        {
+          "id": "T05-S06",
+          "order": 6,
+          "startTime": 84.86,
+          "endTime": 92.37,
+          "durationSec": 7.51,
+          "audioFile": "track05/track05_seg06.mp3",
+          "speakers": [
+            "田口"
+          ],
+          "text": "田口：中国にある日系企業でも、役に立つ経験は得られるのではありませんか。"
+        },
+        {
+          "id": "T05-S07",
+          "order": 7,
+          "startTime": 92.37,
+          "endTime": 115.02,
+          "durationSec": 22.65,
+          "audioFile": "track05/track05_seg07.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "リー：もちろん、中国にある日系企業でも、日本の会社のことは勉強できると思います。ただ、私は会社の中のことだけでなく、お客さまのことも知りたいのです。そのためには日本へ行って生活してみることが必要だと思っています。\n田口：なるほど。"
+        }
+      ]
+    },
+    {
+      "track": 6,
+      "chapter": "Chương 1",
+      "unit": "Unit 4",
+      "unitJa": "面接",
+      "unitVi": "Phỏng vấn",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "田口 (Taguchi) / ラジュ (Raju)",
+      "sourceAudioFile": "06 Track 6.mp3",
+      "sourceDurationSec": 86.13,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T06-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 16.57,
+          "durationSec": 16.57,
+          "audioFile": "track06/track06_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：失礼します。ラジュ・タルクダールと申します。よろしくお願いいたします。\n田口：はい、どうぞ。おかけください。さて、まず筆記試験ですが、どうでしたか。"
+        },
+        {
+          "id": "T06-S02",
+          "order": 2,
+          "startTime": 16.57,
+          "endTime": 26.59,
+          "durationSec": 10.02,
+          "audioFile": "track06/track06_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：技術試験はそれほど難しくありませんでしたが、日本語のテストは難しかったです。\n田口：日本語はどちらで勉強したんですか。"
+        },
+        {
+          "id": "T06-S03",
+          "order": 3,
+          "startTime": 26.59,
+          "endTime": 46.93,
+          "durationSec": 20.34,
+          "audioFile": "track06/track06_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：自分で勉強しました。\n田口：それはすごいですね。では、どうして日本で働きたいんですか。\nラジュ：私が昔やっていた研究が日本で実用化されてきたので、その現場に行って、この目で見てみたいんです。"
+        },
+        {
+          "id": "T06-S04",
+          "order": 4,
+          "startTime": 46.93,
+          "endTime": 54.74,
+          "durationSec": 7.81,
+          "audioFile": "track06/track06_seg04.mp3",
+          "speakers": [
+            "田口"
+          ],
+          "text": "田口：ご研究というのはグリッドコンピューティングのことですよね。"
+        },
+        {
+          "id": "T06-S05",
+          "order": 5,
+          "startTime": 54.74,
+          "endTime": 76.79,
+          "durationSec": 22.05,
+          "audioFile": "track06/track06_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：はい。今は特に、御社のネット銀行のプロジェクトに注目しています。\n田口：なるほど。ただ、うちはいろいろなプロジェクトがあって、ネット銀行のプロジェクト以外にも参加していただきたいと思っているんですよ。そのあたりはいかがですか。"
+        },
+        {
+          "id": "T06-S06",
+          "order": 6,
+          "startTime": 76.79,
+          "endTime": 86.13,
+          "durationSec": 9.34,
+          "audioFile": "track06/track06_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：もちろん、ほかの仕事もやらせていただきます。\n田口：そうですか。それは頼もしいです。"
+        }
+      ]
+    },
+    {
+      "track": 7,
+      "chapter": "Chương 1",
+      "unit": "Unit 5",
+      "unitJa": "ビザの取得",
+      "unitVi": "Xin thị thực (Visa)",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "田口 (Taguchi) / ラジュ (Raju)",
+      "sourceAudioFile": "07 Track 7.mp3",
+      "sourceDurationSec": 81.45,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T07-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 14.1,
+          "durationSec": 14.1,
+          "audioFile": "track07/track07_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "田口：はい、お電話替わりました。田口です。\nラジュ：あ、田口さん。ラジュです。\n田口：ああ、ラジュさん。ドアックの証明書はもう出ましたか。"
+        },
+        {
+          "id": "T07-S02",
+          "order": 2,
+          "startTime": 14.1,
+          "endTime": 27.63,
+          "durationSec": 13.53,
+          "audioFile": "track07/track07_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：ええ。IT省の友達が手配してくれました。\n田口：そうですか。それはよかった。じゃあ、渡航手続きは順調に進んでいますね。"
+        },
+        {
+          "id": "T07-S03",
+          "order": 3,
+          "startTime": 27.63,
+          "endTime": 41.18,
+          "durationSec": 13.55,
+          "audioFile": "track07/track07_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：それが、一つ問題がありまして……。実は、日本大使館から会社の書類が足りないと言われています。\n田口：え、本当？ どんな書類ですか。"
+        },
+        {
+          "id": "T07-S04",
+          "order": 4,
+          "startTime": 41.18,
+          "endTime": 49.89,
+          "durationSec": 8.71,
+          "audioFile": "track07/track07_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：法人登記簿の謄本だそうです。\n田口：法人登記簿？ この前の封筒に入っていませんでしたか。"
+        },
+        {
+          "id": "T07-S05",
+          "order": 5,
+          "startTime": 49.89,
+          "endTime": 66.58,
+          "durationSec": 16.69,
+          "audioFile": "track07/track07_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：入っていましたが、あれは抄本でした。大使館では法人登記簿の謄本が必要なんだそうです。\n田口：ああ、そうなんですか。それは困ったなあ。"
+        },
+        {
+          "id": "T07-S06",
+          "order": 6,
+          "startTime": 66.58,
+          "endTime": 81.45,
+          "durationSec": 14.87,
+          "audioFile": "track07/track07_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "田口"
+          ],
+          "text": "ラジュ：謄本がないと、ビザが出せないそうです。お手数ですが、送っていただけませんか。\n田口：わかりました。急いで送ります。\nラジュ：ありがとうございます。"
+        }
+      ]
+    },
+    {
+      "track": 8,
+      "chapter": "Chương 1",
+      "unit": "Unit 5",
+      "unitJa": "ビザの取得",
+      "unitVi": "Xin thị thực (Visa)",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "田口 (Taguchi) / リー (Li)",
+      "sourceAudioFile": "08 Track 8.mp3",
+      "sourceDurationSec": 76.02,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T08-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 14.35,
+          "durationSec": 14.35,
+          "audioFile": "track08/track08_seg01.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "田口：はい、お電話替わりました。人事部の田口です。\nリー：あ、田口さんですね。大連のリーです。\n田口：ああ、リーさん。渡航手続きは無事に進んでいますか。"
+        },
+        {
+          "id": "T08-S02",
+          "order": 2,
+          "startTime": 14.35,
+          "endTime": 27.61,
+          "durationSec": 13.26,
+          "audioFile": "track08/track08_seg02.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "リー：それが……。今日、領事館に行ったら、会社の書類が足りないって言われたんです。\n田口：足りないのは法人登記簿の謄本ですか。"
+        },
+        {
+          "id": "T08-S03",
+          "order": 3,
+          "startTime": 27.61,
+          "endTime": 41.07,
+          "durationSec": 13.46,
+          "audioFile": "track08/track08_seg03.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "リー：いえ、それはちゃんとありました。足りないのは会社の決算書です。\n田口：決算書？ おかしいなあ。決算書は確かに封筒に入れたはずですが……。"
+        },
+        {
+          "id": "T08-S04",
+          "order": 4,
+          "startTime": 41.07,
+          "endTime": 53.65,
+          "durationSec": 12.58,
+          "audioFile": "track08/track08_seg04.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "リー：でも、見つからなくて……。決算書がないと、ビザが出せないそうです。\n田口：そうですよね。とにかく、すぐに送りますから。"
+        },
+        {
+          "id": "T08-S05",
+          "order": 5,
+          "startTime": 53.65,
+          "endTime": 68.41,
+          "durationSec": 14.76,
+          "audioFile": "track08/track08_seg05.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "リー：あ、でも時間がないので、ウェブサイトからダウンロードしたものでも、特別に受け取ってくれるそうです。でも、ちょっとサイトが探せないんです……。"
+        },
+        {
+          "id": "T08-S06",
+          "order": 6,
+          "startTime": 68.41,
+          "endTime": 76.02,
+          "durationSec": 7.61,
+          "audioFile": "track08/track08_seg06.mp3",
+          "speakers": [
+            "リー",
+            "田口"
+          ],
+          "text": "田口：じゃ、すぐにこちらからメールでURLを知らせます。\nリー：ありがとうございます。"
+        }
+      ]
+    },
+    {
+      "track": 9,
+      "chapter": "Chương 2",
+      "unit": "Unit 1",
+      "unitJa": "自己紹介",
+      "unitVi": "Tự giới thiệu bản thân",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": null,
+      "sourceAudioFile": "09 Track 9.mp3",
+      "sourceDurationSec": 80.93,
+      "transcriptAvailable": false,
+      "gapNote": "KHÔNG CÓ trong file PDF được cung cấp (trang bị thiếu trong bản scan, PDF nhảy từ trang 31 sang trang 38). Không thể trích transcript cho track này.",
+      "segmentCount": 0,
+      "segments": []
+    },
+    {
+      "track": 10,
+      "chapter": "Chương 2",
+      "unit": "Unit 1",
+      "unitJa": "自己紹介",
+      "unitVi": "Tự giới thiệu bản thân",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "リー (Li) / 大沢 (Osawa)",
+      "sourceAudioFile": "10 Track 10.mp3",
+      "sourceDurationSec": 107.73,
+      "transcriptAvailable": true,
+      "segmentCount": 7,
+      "segments": [
+        {
+          "id": "T10-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 15.3,
+          "durationSec": 15.3,
+          "audioFile": "track10/track10_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：すみません、ちょっとよろしいですか。\n大沢：はい、何か。\nリー：私、リーと申します。本日よりこちらでお世話になります。よろしくお願いいたします。"
+        },
+        {
+          "id": "T10-S02",
+          "order": 2,
+          "startTime": 15.3,
+          "endTime": 29.75,
+          "durationSec": 14.45,
+          "audioFile": "track10/track10_seg02.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：新入社員の方ですね。私は上級SEの大沢です。よろしく。\nリー：大沢さんですね。\n大沢：そうです。リーさん、ご出身はどちらですか。\nリー：中国の大連です。"
+        },
+        {
+          "id": "T10-S03",
+          "order": 3,
+          "startTime": 29.75,
+          "endTime": 47.1,
+          "durationSec": 17.35,
+          "audioFile": "track10/track10_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：大連ですか。日本の企業がたくさん進出していますよね。大連では、どんな言語で開発していたんですか。\nリー：PHPが多かったですが、最近はJavaの仕事が多くなってきましたね。"
+        },
+        {
+          "id": "T10-S04",
+          "order": 4,
+          "startTime": 47.1,
+          "endTime": 62.48,
+          "durationSec": 15.38,
+          "audioFile": "track10/track10_seg04.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：なるほど。では、OSは？ こちらはUNIXの仕事が多いんですが、大丈夫ですか。\nリー：UNIXで動くアプリは、今までもたくさん作ってきました。"
+        },
+        {
+          "id": "T10-S05",
+          "order": 5,
+          "startTime": 62.48,
+          "endTime": 77.2,
+          "durationSec": 14.72,
+          "audioFile": "track10/track10_seg05.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：そうですか。データベースは？ こちらでは、オラクルのものが多いんですが。\nリー：オラクルはまだ勉強中です。PostgreSQLならだいたいわかるんですが。"
+        },
+        {
+          "id": "T10-S06",
+          "order": 6,
+          "startTime": 77.2,
+          "endTime": 91.9,
+          "durationSec": 14.7,
+          "audioFile": "track10/track10_seg06.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：じゃあ、すぐ慣れるでしょう。PostgreSQLはどんなシステムで使ったんですか。\nリー：食品会社のオンラインショップなんかで使っていました。"
+        },
+        {
+          "id": "T10-S07",
+          "order": 7,
+          "startTime": 91.9,
+          "endTime": 107.73,
+          "durationSec": 15.83,
+          "audioFile": "track10/track10_seg07.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：そうですか。じゃあ、うちのプロジェクトでも大丈夫ですね。でも、何かあったら、いつでも聞いてください。\nリー：ありがとうございます。よろしくお願いします。"
+        }
+      ]
+    },
+    {
+      "track": 11,
+      "chapter": "Chương 2",
+      "unit": "Unit 2",
+      "unitJa": "要件定義書の読解",
+      "unitVi": "Đọc hiểu tài liệu định nghĩa yêu cầu",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "井出 (Ide) / リー (Li)",
+      "sourceAudioFile": "11 Track 11.mp3",
+      "sourceDurationSec": 89.21,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T11-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 16.57,
+          "durationSec": 16.57,
+          "audioFile": "track11/track11_seg01.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "井出：リーさん、今、ちょっといい？\nリー：はい、3時の定例会議までは空いています。\n井出：では、手短に。これは今度のプロジェクトの資料で、要件定義書と外部設計書です。"
+        },
+        {
+          "id": "T11-S02",
+          "order": 2,
+          "startTime": 16.57,
+          "endTime": 26.07,
+          "durationSec": 9.5,
+          "audioFile": "track11/track11_seg02.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "リー：はい。これに目を通しておくんですね。期限はいつですか。\n井出：明日です。内部設計書ももうできますから。"
+        },
+        {
+          "id": "T11-S03",
+          "order": 3,
+          "startTime": 26.07,
+          "endTime": 44.11,
+          "durationSec": 18.04,
+          "audioFile": "track11/track11_seg03.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "リー：明日ですか。すみません、私の日本語力では、かなり厳しいのですが……。\n井出：そうですか。じゃあ、三日でお願いします。\nリー：三日ですか。ちょっと心配ですが、がんばります。"
+        },
+        {
+          "id": "T11-S04",
+          "order": 4,
+          "startTime": 44.11,
+          "endTime": 54.59,
+          "durationSec": 10.48,
+          "audioFile": "track11/track11_seg04.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "井出：リーさんなら大丈夫ですよ。みんなも協力するし。\nリー：読んでもわからないところは、どうすればいいでしょうか。"
+        },
+        {
+          "id": "T11-S05",
+          "order": 5,
+          "startTime": 54.59,
+          "endTime": 75.43,
+          "durationSec": 20.84,
+          "audioFile": "track11/track11_seg05.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "井出：まず、自分で推測してみてください。自信がなかったら本棚に辞書もあります。辞書にない言葉は、大沢さんに聞いてください。大沢さんが席を外しているときは、私に聞いてください。\nリー：はい、わかりました。ありがとうございます。"
+        },
+        {
+          "id": "T11-S06",
+          "order": 6,
+          "startTime": 75.43,
+          "endTime": 89.21,
+          "durationSec": 13.78,
+          "audioFile": "track11/track11_seg06.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "井出：くれぐれも、設計の理解があやふやなまま実装の段階に入らないようにね。じゃあ、大変だけど、よろしく。\nリー：はい、がんばります。"
+        }
+      ]
+    },
+    {
+      "track": 12,
+      "chapter": "Chương 2",
+      "unit": "Unit 2",
+      "unitJa": "要件定義書の読解",
+      "unitVi": "Đọc hiểu tài liệu định nghĩa yêu cầu",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "大沢 (Osawa) / ラジュ (Raju)",
+      "sourceAudioFile": "12 Track 12.mp3",
+      "sourceDurationSec": 72.72,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T12-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 14.38,
+          "durationSec": 14.38,
+          "audioFile": "track12/track12_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：ラジュさん、ちょっといいですか。\nラジュ：はい。\n大沢：内部設計書、届いていますよ。\nラジュ：あ、はい。これを読むんですね。いつまでですか。"
+        },
+        {
+          "id": "T12-S02",
+          "order": 2,
+          "startTime": 14.38,
+          "endTime": 21.63,
+          "durationSec": 7.25,
+          "audioFile": "track12/track12_seg02.mp3",
+          "speakers": [
+            "大沢"
+          ],
+          "text": "大沢：明日から実装だから、今日中に読んでおいた方がいいんじゃないかな。"
+        },
+        {
+          "id": "T12-S03",
+          "order": 3,
+          "startTime": 21.63,
+          "endTime": 35.77,
+          "durationSec": 14.14,
+          "audioFile": "track12/track12_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：え、今日中ですか。実は私、話すのは大丈夫なんですが、読むのは苦手で……。\n大沢：じゃあ、今週中ぐらいには読めそうですか。"
+        },
+        {
+          "id": "T12-S04",
+          "order": 4,
+          "startTime": 35.77,
+          "endTime": 49.13,
+          "durationSec": 13.36,
+          "audioFile": "track12/track12_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：はい、それなら何とかできると思います。\n大沢：でも、実装はスケジュールどおりに始まりますから、とりあえず最初の方は読んでおいてくださいね。"
+        },
+        {
+          "id": "T12-S05",
+          "order": 5,
+          "startTime": 49.13,
+          "endTime": 57.28,
+          "durationSec": 8.15,
+          "audioFile": "track12/track12_seg05.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "ラジュ：わかりました。知らない言葉があったらお聞きしてもいいですか。"
+        },
+        {
+          "id": "T12-S06",
+          "order": 6,
+          "startTime": 57.28,
+          "endTime": 72.72,
+          "durationSec": 15.44,
+          "audioFile": "track12/track12_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：もちろん。でも、まずは辞書を見てくださいね。辞書にない言葉は、私に聞けばいいですから。\nラジュ：ありがとうございます。よろしくお願いします。"
+        }
+      ]
+    },
+    {
+      "track": 13,
+      "chapter": "Chương 2",
+      "unit": "Unit 3",
+      "unitJa": "内容確認",
+      "unitVi": "Xác nhận nội dung",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "リー (Li) / 新山 (Niiyama)",
+      "sourceAudioFile": "13 Track 13.mp3",
+      "sourceDurationSec": 82.52,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T13-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 14.11,
+          "durationSec": 14.11,
+          "audioFile": "track13/track13_seg01.mp3",
+          "speakers": [
+            "リー",
+            "新山"
+          ],
+          "text": "リー：新山さん、今ちょっとよろしいでしょうか。実は外部設計書で、わからないところがあるんですが……。\n新山：あ、はい。要件定義書はもう読みましたか。"
+        },
+        {
+          "id": "T13-S02",
+          "order": 2,
+          "startTime": 14.11,
+          "endTime": 28.3,
+          "durationSec": 14.19,
+          "audioFile": "track13/track13_seg02.mp3",
+          "speakers": [
+            "リー",
+            "新山"
+          ],
+          "text": "リー：はい、読みました。\n新山：わからないところはどこですか。\nリー：この言葉です。この漢字は何と読みますか。\n新山：「にゅうしゅつりょく」と読みます。"
+        },
+        {
+          "id": "T13-S03",
+          "order": 3,
+          "startTime": 28.3,
+          "endTime": 44.91,
+          "durationSec": 16.61,
+          "audioFile": "track13/track13_seg03.mp3",
+          "speakers": [
+            "リー",
+            "新山"
+          ],
+          "text": "リー：え、「にゅうしゅつりょく」って何ですか。\n新山：ちょっと見せて。ああ、「入出力インターフェース」ですね。これは、ほかのシステムと情報をやりとりするときの規格のことです。"
+        },
+        {
+          "id": "T13-S04",
+          "order": 4,
+          "startTime": 44.91,
+          "endTime": 58.57,
+          "durationSec": 13.66,
+          "audioFile": "track13/track13_seg04.mp3",
+          "speakers": [
+            "リー",
+            "新山"
+          ],
+          "text": "リー：うーん……。\n新山：たとえば、ほら、APIとか。\nリー：なるほど！ インプットとアウトプットのインターフェースということですね。"
+        },
+        {
+          "id": "T13-S05",
+          "order": 5,
+          "startTime": 58.57,
+          "endTime": 68.41,
+          "durationSec": 9.84,
+          "audioFile": "track13/track13_seg05.mp3",
+          "speakers": [
+            "リー",
+            "新山"
+          ],
+          "text": "新山：そうです。\nリー：それから、この漢字は何と読みますか。\n新山：「上書き」と読みます。オーバーライトのことですね。"
+        },
+        {
+          "id": "T13-S06",
+          "order": 6,
+          "startTime": 68.41,
+          "endTime": 82.52,
+          "durationSec": 14.11,
+          "audioFile": "track13/track13_seg06.mp3",
+          "speakers": [
+            "リー",
+            "新山"
+          ],
+          "text": "リー：なるほど。ありがとうございました。よくわかりました。\n新山：また何かあったら、何でも遠慮なく聞いてください。\nリー：はい、よろしくお願いします。"
+        }
+      ]
+    },
+    {
+      "track": 14,
+      "chapter": "Chương 2",
+      "unit": "Unit 3",
+      "unitJa": "内容確認",
+      "unitVi": "Xác nhận nội dung",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "ラジュ (Raju) / 新山 (Niiyama)",
+      "sourceAudioFile": "14 Track 14.mp3",
+      "sourceDurationSec": 69.69,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T14-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 6.21,
+          "durationSec": 6.21,
+          "audioFile": "track14/track14_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "ラジュ：新山さん、ちょっと時間ありますか。\n新山：あ、はい。"
+        },
+        {
+          "id": "T14-S02",
+          "order": 2,
+          "startTime": 6.21,
+          "endTime": 26.71,
+          "durationSec": 20.5,
+          "audioFile": "track14/track14_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "ラジュ：実は、外部設計書を読んでいるんですが、辞書を見てもわからない言葉があって。これなんですが……。\n新山：ああ、「親クラス」ですね。これはね、継承する基のクラスっていうことです。"
+        },
+        {
+          "id": "T14-S03",
+          "order": 3,
+          "startTime": 26.71,
+          "endTime": 32.45,
+          "durationSec": 5.74,
+          "audioFile": "track14/track14_seg03.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "ラジュ：え、けいしょう、ですか。うーん……。"
+        },
+        {
+          "id": "T14-S04",
+          "order": 4,
+          "startTime": 32.45,
+          "endTime": 47.1,
+          "durationSec": 14.65,
+          "audioFile": "track14/track14_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "新山：例えば、そうだなあ……ルートクラスってわかります？\nラジュ：はい、わかります。\n新山：ルートクラスには親クラスがないんですよ。"
+        },
+        {
+          "id": "T14-S05",
+          "order": 5,
+          "startTime": 47.1,
+          "endTime": 60.91,
+          "durationSec": 13.81,
+          "audioFile": "track14/track14_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "ラジュ：ん？ ということは、親クラスってスーパークラスのことですか。\n新山：あ、そうそう。英語で言うとスーパークラスです。"
+        },
+        {
+          "id": "T14-S06",
+          "order": 6,
+          "startTime": 60.91,
+          "endTime": 69.69,
+          "durationSec": 8.78,
+          "audioFile": "track14/track14_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "ラジュ：じゃあ、子クラスっていうのはサブクラスのことですね。\n新山：その通りです。"
+        }
+      ]
+    },
+    {
+      "track": 15,
+      "chapter": "Chương 2",
+      "unit": "Unit 4",
+      "unitJa": "担当業務の通知",
+      "unitVi": "Thông báo công việc phụ trách",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "大沢 (Osawa) / ラジュ (Raju)",
+      "sourceAudioFile": "15 Track 15.mp3",
+      "sourceDurationSec": 82.7,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T15-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 13.75,
+          "durationSec": 13.75,
+          "audioFile": "track15/track15_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：ラジュさん、仕事の内容は、もう聞いていますか。\nラジュ：はい、だいたいは。\n大沢：要件定義書と基本設計書はもう読んでいますね。\nラジュ：はい。"
+        },
+        {
+          "id": "T15-S02",
+          "order": 2,
+          "startTime": 13.75,
+          "endTime": 29.69,
+          "durationSec": 15.94,
+          "audioFile": "track15/track15_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：では、予定どおり仕入管理モジュールの発注データを担当してもらうことになります。\nラジュ：はい。えーっと、発注データは四つの機能がありますが、これを全部やるんですね。"
+        },
+        {
+          "id": "T15-S03",
+          "order": 3,
+          "startTime": 29.69,
+          "endTime": 41.24,
+          "durationSec": 11.55,
+          "audioFile": "track15/track15_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：そうです。仕入管理の開発は、やったことがありますか。\nラジュ：はい、あります。詳細設計書はもうできていますか。"
+        },
+        {
+          "id": "T15-S04",
+          "order": 4,
+          "startTime": 41.24,
+          "endTime": 59.86,
+          "durationSec": 18.62,
+          "audioFile": "track15/track15_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：はい、できています。これです。\nラジュ：拝見します。どれから始めてもいいのですか。\n大沢：どれから始めてもいいですが、発注伝票出力だけ締め切りが早いですから、遅れないようにしてください。"
+        },
+        {
+          "id": "T15-S05",
+          "order": 5,
+          "startTime": 59.86,
+          "endTime": 71.59,
+          "durationSec": 11.73,
+          "audioFile": "track15/track15_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：発注伝票出力ですね。では、この機能から始めます。\n大沢：じゃあ、発注伝票出力だけでも終わったら報告してください。"
+        },
+        {
+          "id": "T15-S06",
+          "order": 6,
+          "startTime": 71.59,
+          "endTime": 82.7,
+          "durationSec": 11.11,
+          "audioFile": "track15/track15_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：わかりました。ほかの機能ができていなくても、ご報告するんですね。\n大沢：そのとおりです。よろしくお願いします。"
+        }
+      ]
+    },
+    {
+      "track": 16,
+      "chapter": "Chương 2",
+      "unit": "Unit 4",
+      "unitJa": "担当業務の通知",
+      "unitVi": "Thông báo công việc phụ trách",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "大沢 (Osawa) / リー (Li)",
+      "sourceAudioFile": "16 Track 16.mp3",
+      "sourceDurationSec": 64.44,
+      "transcriptAvailable": true,
+      "segmentCount": 5,
+      "segments": [
+        {
+          "id": "T16-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 15.96,
+          "durationSec": 15.96,
+          "audioFile": "track16/track16_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：リーさん、今、いいですか。\nリー：はい、大丈夫です。\n大沢：詳細設計書ができたので、リーさんは顧客管理モジュールの取引履歴のところをお願いします。"
+        },
+        {
+          "id": "T16-S02",
+          "order": 2,
+          "startTime": 15.96,
+          "endTime": 23.11,
+          "durationSec": 7.15,
+          "audioFile": "track16/track16_seg02.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "リー：わかりました。顧客管理の、取引履歴ですね。"
+        },
+        {
+          "id": "T16-S03",
+          "order": 3,
+          "startTime": 23.11,
+          "endTime": 38.99,
+          "durationSec": 15.88,
+          "audioFile": "track16/track16_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：そうです。顧客管理系の開発はしたことがありますか。\nリー：はい。中国にいたときに、顧客関連モジュールに関わったことがあります。"
+        },
+        {
+          "id": "T16-S04",
+          "order": 4,
+          "startTime": 38.99,
+          "endTime": 48.59,
+          "durationSec": 9.6,
+          "audioFile": "track16/track16_seg04.mp3",
+          "speakers": [
+            "大沢"
+          ],
+          "text": "大沢：じゃ、安心ですね。ただ、今回は帳票の仕様に変更が出そうなので、帳票出力は最後にしてください。"
+        },
+        {
+          "id": "T16-S05",
+          "order": 5,
+          "startTime": 48.59,
+          "endTime": 64.44,
+          "durationSec": 15.85,
+          "audioFile": "track16/track16_seg05.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：わかりました。帳票出力以外から始めるんですね。締め切りはいつですか。\n大沢：今月中にお願いします。\nリー：今月中ですね。わかりました。"
+        }
+      ]
+    },
+    {
+      "track": 17,
+      "chapter": "Chương 2",
+      "unit": "Unit 5",
+      "unitJa": "詳細設計書を書く",
+      "unitVi": "Viết tài liệu thiết kế chi tiết",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "ラジュ (Raju) / 新山 (Niiyama)",
+      "sourceAudioFile": "17 Track 17.mp3",
+      "sourceDurationSec": 69.98,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T17-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 10.31,
+          "durationSec": 10.31,
+          "audioFile": "track17/track17_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "ラジュ：新山さん、ちょっといいですか。\n新山：はい、どうぞ。\nラジュ：実は、詳細設計書を書いたんですが……。\n新山：はい。"
+        },
+        {
+          "id": "T17-S02",
+          "order": 2,
+          "startTime": 10.31,
+          "endTime": 24.91,
+          "durationSec": 14.6,
+          "audioFile": "track17/track17_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "ラジュ：どうも日本語に自信がないんです。\n新山：辞書は引いたんですか。\nラジュ：もちろん引きました。\n新山：そうですか。じゃあ、私が見てみましょうか。"
+        },
+        {
+          "id": "T17-S03",
+          "order": 3,
+          "startTime": 24.91,
+          "endTime": 38.16,
+          "durationSec": 13.25,
+          "audioFile": "track17/track17_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "ラジュ：いいですか？ 助かります。\n新山：えーっと、この「店」っていうのは、なんか変ですね。こういうときは「店舗」と書くことが多いですよ。"
+        },
+        {
+          "id": "T17-S04",
+          "order": 4,
+          "startTime": 38.16,
+          "endTime": 47.29,
+          "durationSec": 9.13,
+          "audioFile": "track17/track17_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "ラジュ：そうですか。\n新山：基本設計書では、どうなっていましたっけ。\nラジュ：あ、まだ確認していません。"
+        },
+        {
+          "id": "T17-S05",
+          "order": 5,
+          "startTime": 47.29,
+          "endTime": 58.69,
+          "durationSec": 11.4,
+          "audioFile": "track17/track17_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "新山：え、まだなんですか。じゃあ、まず基本設計書を確認した方がいいですね。\nラジュ：そうですね。うっかりしていました。"
+        },
+        {
+          "id": "T17-S06",
+          "order": 6,
+          "startTime": 58.69,
+          "endTime": 69.98,
+          "durationSec": 11.29,
+          "audioFile": "track17/track17_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "新山"
+          ],
+          "text": "新山：確認して、まだ心配だったら声をかけてください。また見てあげますから。\nラジュ：ありがとうございます。よろしくお願いします。"
+        }
+      ]
+    },
+    {
+      "track": 18,
+      "chapter": "Chương 2",
+      "unit": "Unit 5",
+      "unitJa": "詳細設計書を書く",
+      "unitVi": "Viết tài liệu thiết kế chi tiết",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "リー (Li) / 大沢 (Osawa)",
+      "sourceAudioFile": "18 Track 18.mp3",
+      "sourceDurationSec": 84.61,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T18-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 15.88,
+          "durationSec": 15.88,
+          "audioFile": "track18/track18_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：大沢さん、ちょっとお聞きしたいことがあるんですが……。\n大沢：はい、何でしょう。\nリー：実は今、内部設計書を書いているんですが、日本語を見ていただけませんか。"
+        },
+        {
+          "id": "T18-S02",
+          "order": 2,
+          "startTime": 15.88,
+          "endTime": 25.41,
+          "durationSec": 9.53,
+          "audioFile": "track18/track18_seg02.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：ああ、いいですよ。国語辞典とかは見ました？\nリー：はい、一応、見ながら書きました。"
+        },
+        {
+          "id": "T18-S03",
+          "order": 3,
+          "startTime": 25.41,
+          "endTime": 42.75,
+          "durationSec": 17.34,
+          "audioFile": "track18/track18_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：そうですか。どれどれ。えーっと、この「お客さま」っていうのはシステムの発注者のことじゃないですよね。\nリー：あ、それは、このシステムで管理するお客さまです。"
+        },
+        {
+          "id": "T18-S04",
+          "order": 4,
+          "startTime": 42.75,
+          "endTime": 53.07,
+          "durationSec": 10.32,
+          "audioFile": "track18/track18_seg04.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：それじゃ、「顧客」っていうのが普通ですね。\nリー：あ、そうですね。\n大沢：外部設計書でもそうなっていると思いますよ。見ました？"
+        },
+        {
+          "id": "T18-S05",
+          "order": 5,
+          "startTime": 53.07,
+          "endTime": 71.37,
+          "durationSec": 18.3,
+          "audioFile": "track18/track18_seg05.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：あ、まだです。うっかりしてました。\n大沢：「顧客」で間違いないと思いますけど、念のため、確認しておいてください。\nリー：わかりました。ありがとうございます。"
+        },
+        {
+          "id": "T18-S06",
+          "order": 6,
+          "startTime": 71.37,
+          "endTime": 84.61,
+          "durationSec": 13.24,
+          "audioFile": "track18/track18_seg06.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：いえいえ。ほかにもありそうだから、午後のミーティングの後で、また見てあげますよ。\nリー：ありがとうございます。よろしくお願いします。"
+        }
+      ]
+    },
+    {
+      "track": 19,
+      "chapter": "Chương 2",
+      "unit": "Unit 6",
+      "unitJa": "仕様変更",
+      "unitVi": "Thay đổi yêu cầu (spec)",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "井出 (Ide) / ラジュ (Raju)",
+      "sourceAudioFile": "19 Track 19.mp3",
+      "sourceDurationSec": 63.95,
+      "transcriptAvailable": true,
+      "segmentCount": 5,
+      "segments": [
+        {
+          "id": "T19-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 12.9,
+          "durationSec": 12.9,
+          "audioFile": "track19/track19_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：ラジュさん、ちょっといい？\nラジュ：はい。\n井出：実は、また仕様が変更になりました。\nラジュ：え、またですか。どんな変更ですか。"
+        },
+        {
+          "id": "T19-S02",
+          "order": 2,
+          "startTime": 12.9,
+          "endTime": 28.19,
+          "durationSec": 15.29,
+          "audioFile": "track19/track19_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：従業員マスターの主キーのデータ桁数を一つ増やすんだそうです。\nラジュ：つまり、9桁にするということですね。でも、それでは従業員マスターを参照するすべてのモジュールに影響が出ますね。"
+        },
+        {
+          "id": "T19-S03",
+          "order": 3,
+          "startTime": 28.19,
+          "endTime": 37.86,
+          "durationSec": 9.67,
+          "audioFile": "track19/track19_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：そうですね。\nラジュ：単体テストだって、もうほとんど終わっていますし……。"
+        },
+        {
+          "id": "T19-S04",
+          "order": 4,
+          "startTime": 37.86,
+          "endTime": 52.43,
+          "durationSec": 14.57,
+          "audioFile": "track19/track19_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：気持ちはわかります。\nラジュ：納期は延びるのでしょうか。\n井出：いや、契約どおりです。\nラジュ：それはちょっと……。今だって毎日残業ですし……。"
+        },
+        {
+          "id": "T19-S05",
+          "order": 5,
+          "startTime": 52.43,
+          "endTime": 63.95,
+          "durationSec": 11.52,
+          "audioFile": "track19/track19_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：大変なのはわかります。でも、やるしかないんです。人員は増やしますから、がんばってください。\nラジュ：わかりました……。"
+        }
+      ]
+    },
+    {
+      "track": 20,
+      "chapter": "Chương 2",
+      "unit": "Unit 6",
+      "unitJa": "仕様変更",
+      "unitVi": "Thay đổi yêu cầu (spec)",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "リー (Li) / 大沢 (Osawa)",
+      "sourceAudioFile": "20 Track 20.mp3",
+      "sourceDurationSec": 61.62,
+      "transcriptAvailable": true,
+      "segmentCount": 5,
+      "segments": [
+        {
+          "id": "T20-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 6.21,
+          "durationSec": 6.21,
+          "audioFile": "track20/track20_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：リーさん、悪いニュースです。\nリー：もしかして……仕様変更ですか。"
+        },
+        {
+          "id": "T20-S02",
+          "order": 2,
+          "startTime": 6.21,
+          "endTime": 25.66,
+          "durationSec": 19.45,
+          "audioFile": "track20/track20_seg02.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：その通りです。金額のデータ型を、倍精度実数型にしたいそうです。\nリー：それだと、テストの仕様も変えなくてはなりませんね。\n大沢：そうですね。"
+        },
+        {
+          "id": "T20-S03",
+          "order": 3,
+          "startTime": 25.66,
+          "endTime": 37.52,
+          "durationSec": 11.86,
+          "audioFile": "track20/track20_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：でも、テストデータももう作ってしまいましたし……。納期は延びるんですか。\n大沢：いや、契約通りです。"
+        },
+        {
+          "id": "T20-S04",
+          "order": 4,
+          "startTime": 37.52,
+          "endTime": 45.9,
+          "durationSec": 8.38,
+          "audioFile": "track20/track20_seg04.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "リー：それはちょっと……。今だってほとんど家に帰っていないんです。"
+        },
+        {
+          "id": "T20-S05",
+          "order": 5,
+          "startTime": 45.9,
+          "endTime": 61.62,
+          "durationSec": 15.72,
+          "audioFile": "track20/track20_seg05.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：気持ちはわかりますが、やるしかないんです。テストの日程は1日だけ延ばしてもいいですから、がんばってください。\nリー：わかりました……。"
+        }
+      ]
+    },
+    {
+      "track": 21,
+      "chapter": "Chương 2",
+      "unit": "Unit 7",
+      "unitJa": "単体テスト終了報告",
+      "unitVi": "Báo cáo hoàn thành Unit Test",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": null,
+      "sourceAudioFile": "21 Track 21.mp3",
+      "sourceDurationSec": 75.6,
+      "transcriptAvailable": false,
+      "gapNote": "KHÔNG CÓ trong file PDF được cung cấp (2 trang - hội thoại mẫu và giải thích - bị thiếu trong bản scan, PDF nhảy từ trang 57 sang trang 60). Không thể trích transcript cho track này.",
+      "segmentCount": 0,
+      "segments": []
+    },
+    {
+      "track": 22,
+      "chapter": "Chương 2",
+      "unit": "Unit 7",
+      "unitJa": "単体テスト終了報告",
+      "unitVi": "Báo cáo hoàn thành Unit Test",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "ラジュ (Raju) / 大沢 (Osawa)",
+      "sourceAudioFile": "22 Track 22.mp3",
+      "sourceDurationSec": 55.17,
+      "transcriptAvailable": true,
+      "segmentCount": 5,
+      "segments": [
+        {
+          "id": "T22-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 10.85,
+          "durationSec": 10.85,
+          "audioFile": "track22/track22_seg01.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "ラジュ：大沢さん、すみません。発注データ処理のモジュールなんですが、ようやく単体テストが終わりました。"
+        },
+        {
+          "id": "T22-S02",
+          "order": 2,
+          "startTime": 10.85,
+          "endTime": 19.31,
+          "durationSec": 8.46,
+          "audioFile": "track22/track22_seg02.mp3",
+          "speakers": [
+            "大沢"
+          ],
+          "text": "大沢：ああ、終わりましたか。まあ、1日しか遅れていないので、まだ取り返せるでしょう。"
+        },
+        {
+          "id": "T22-S03",
+          "order": 3,
+          "startTime": 19.31,
+          "endTime": 34.26,
+          "durationSec": 14.95,
+          "audioFile": "track22/track22_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：はい、がんばります。それと、ソースはサブバージョンにチェックインしておきました。\n大沢：ありがとう。では、新山さんにもそう伝えておきます。"
+        },
+        {
+          "id": "T22-S04",
+          "order": 4,
+          "startTime": 34.26,
+          "endTime": 39.69,
+          "durationSec": 5.43,
+          "audioFile": "track22/track22_seg04.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "ラジュ：次はどのモジュールを作りましょうか。"
+        },
+        {
+          "id": "T22-S05",
+          "order": 5,
+          "startTime": 39.69,
+          "endTime": 55.17,
+          "durationSec": 15.48,
+          "audioFile": "track22/track22_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：勘定コード表をお願いします。勘定コード体系編集モジュールが依存していますので。\nラジュ：わかりました。では、すぐに始めます。\n大沢：よろしく。"
+        }
+      ]
+    },
+    {
+      "track": 23,
+      "chapter": "Chương 2",
+      "unit": "Unit 8",
+      "unitJa": "進捗状況の報告",
+      "unitVi": "Báo cáo tiến độ",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "大沢 (Osawa) / リー (Li)",
+      "sourceAudioFile": "23 Track 23.mp3",
+      "sourceDurationSec": 74.63,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T23-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 10.3,
+          "durationSec": 10.3,
+          "audioFile": "track23/track23_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：リーさん、進捗状況はどうですか。\nリー：えーっと、担当モジュール四つのうち、半分は終わっています。"
+        },
+        {
+          "id": "T23-S02",
+          "order": 2,
+          "startTime": 10.3,
+          "endTime": 27.12,
+          "durationSec": 16.82,
+          "audioFile": "track23/track23_seg02.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：そうでしたね。三つ目のモジュールはどうですか。\nリー：全体のコーディングは終わったんですが、単体テストはまだまだです。\n大沢：試験項目は、どのぐらい終わりましたか。"
+        },
+        {
+          "id": "T23-S03",
+          "order": 3,
+          "startTime": 27.12,
+          "endTime": 33.32,
+          "durationSec": 6.2,
+          "audioFile": "track23/track23_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：だいたい3割ぐらいです。\n大沢：じゃ、実装段階は予定どおりに終われそうですね。"
+        },
+        {
+          "id": "T23-S04",
+          "order": 4,
+          "startTime": 33.32,
+          "endTime": 49.96,
+          "durationSec": 16.64,
+          "audioFile": "track23/track23_seg04.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：そうですねえ。今のところ大きなバグも出ていないので、何とか間に合うと思います。\n大沢：いいですね。その調子でがんばってください。何か困っていることはありますか。"
+        },
+        {
+          "id": "T23-S05",
+          "order": 5,
+          "startTime": 49.96,
+          "endTime": 62.71,
+          "durationSec": 12.75,
+          "audioFile": "track23/track23_seg05.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "リー：実はエクリプスに新しいプラグインを入れたら、ときどき落ちるようになってしまいました。こういう状況が続くようでしたら、外してみます。"
+        },
+        {
+          "id": "T23-S06",
+          "order": 6,
+          "startTime": 62.71,
+          "endTime": 74.63,
+          "durationSec": 11.92,
+          "audioFile": "track23/track23_seg06.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：そうですか。もし、スケジュールに影響しそうだと思ったら、遅れが出る前に教えてくださいね。\nリー：わかりました。"
+        }
+      ]
+    },
+    {
+      "track": 24,
+      "chapter": "Chương 2",
+      "unit": "Unit 8",
+      "unitJa": "進捗状況の報告",
+      "unitVi": "Báo cáo tiến độ",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "ラジュ (Raju) / 井出 (Ide)",
+      "sourceAudioFile": "24 Track 24.mp3",
+      "sourceDurationSec": 60.84,
+      "transcriptAvailable": true,
+      "segmentCount": 5,
+      "segments": [
+        {
+          "id": "T24-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 10.59,
+          "durationSec": 10.59,
+          "audioFile": "track24/track24_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：ラジュさん、どのぐらい進んでいますか。\nラジュ：最初のモジュールは、試験項目が2割ほど残っているだけです。"
+        },
+        {
+          "id": "T24-S02",
+          "order": 2,
+          "startTime": 10.59,
+          "endTime": 21.62,
+          "durationSec": 11.03,
+          "audioFile": "track24/track24_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：そうですか。早いですね。\nラジュ：モジュールはあと二つありますが、それほど時間はかからないと思います。"
+        },
+        {
+          "id": "T24-S03",
+          "order": 3,
+          "startTime": 21.62,
+          "endTime": 35.99,
+          "durationSec": 14.37,
+          "audioFile": "track24/track24_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：全部終わるのに、どのぐらい掛かりそうですか。\nラジュ：予定より三日ぐらい早く終われると思います。\n井出：それはよかった。何か問題はありませんか。"
+        },
+        {
+          "id": "T24-S04",
+          "order": 4,
+          "startTime": 35.99,
+          "endTime": 48.57,
+          "durationSec": 12.58,
+          "audioFile": "track24/track24_seg04.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "ラジュ：実はビジュアルスタジオのメニューがわかりにくくて少し困っているんですが、でも、まあ、すぐに慣れると思います。"
+        },
+        {
+          "id": "T24-S05",
+          "order": 5,
+          "startTime": 48.57,
+          "endTime": 60.84,
+          "durationSec": 12.27,
+          "audioFile": "track24/track24_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：そうですね。ラジュさんなら大丈夫ですよ。でも、どうしてもわからないところは言ってください。\nラジュ：はい、お願いします。"
+        }
+      ]
+    },
+    {
+      "track": 25,
+      "chapter": "Chương 2",
+      "unit": "Unit 9",
+      "unitJa": "遅延報告",
+      "unitVi": "Báo cáo chậm tiến độ",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "リー (Li) / 井出 (Ide)",
+      "sourceAudioFile": "25 Track 25.mp3",
+      "sourceDurationSec": 77.77,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T25-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 12.23,
+          "durationSec": 12.23,
+          "audioFile": "track25/track25_seg01.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "リー：あのう、ちょっとよろしいでしょうか。\n井出：はい、何でしょうか。\nリー：実は、申し訳ありませんが、今のままでは予定に遅れそうなんです。"
+        },
+        {
+          "id": "T25-S02",
+          "order": 2,
+          "startTime": 12.23,
+          "endTime": 25.58,
+          "durationSec": 13.35,
+          "audioFile": "track25/track25_seg02.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "井出：原因は何ですか。\nリー：依存先のモジュールがまだ上がってこないんです。\n井出：ああ、それは困りましたね。では、増員しましょう。どんな要員が必要ですか。"
+        },
+        {
+          "id": "T25-S03",
+          "order": 3,
+          "startTime": 25.58,
+          "endTime": 36.75,
+          "durationSec": 11.17,
+          "audioFile": "track25/track25_seg03.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "リー：スタブとテストデータだけでも作ってくれる人がいたら助かります。コーディングは、私一人でやるしかありませんので。"
+        },
+        {
+          "id": "T25-S04",
+          "order": 4,
+          "startTime": 36.75,
+          "endTime": 48.17,
+          "durationSec": 11.42,
+          "audioFile": "track25/track25_seg04.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "井出：スタブとテストデータですね。わかりました。この二つがあれば、予定どおりに終わりそうですか。\nリー：はい。何とか終わると思います。"
+        },
+        {
+          "id": "T25-S05",
+          "order": 5,
+          "startTime": 48.17,
+          "endTime": 61.3,
+          "durationSec": 13.13,
+          "audioFile": "track25/track25_seg05.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "井出：では、スタブは、簡単な仕様だったら私が作りましょう。気分転換にいいしね。テストデータは、誰かに頼んでみます。\nリー：すみません。すごく助かります。"
+        },
+        {
+          "id": "T25-S06",
+          "order": 6,
+          "startTime": 61.3,
+          "endTime": 77.77,
+          "durationSec": 16.47,
+          "audioFile": "track25/track25_seg06.mp3",
+          "speakers": [
+            "リー",
+            "井出"
+          ],
+          "text": "井出：まあ、この遅れはリーさんのせいじゃないから心配しないで。じゃあ、スタブとテストデータのことは昼食後に連絡しますので。\nリー：ありがとうございます。よろしくお願いします。"
+        }
+      ]
+    },
+    {
+      "track": 26,
+      "chapter": "Chương 2",
+      "unit": "Unit 9",
+      "unitJa": "遅延報告",
+      "unitVi": "Báo cáo chậm tiến độ",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "ラジュ (Raju) / 井出 (Ide)",
+      "sourceAudioFile": "26 Track 26.mp3",
+      "sourceDurationSec": 59.72,
+      "transcriptAvailable": true,
+      "segmentCount": 5,
+      "segments": [
+        {
+          "id": "T26-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 12.6,
+          "durationSec": 12.6,
+          "audioFile": "track26/track26_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "ラジュ：井出さん、ちょっとよろしいですか。\n井出：はい、何でしょうか。\nラジュ：実は、少し遅れが出そうで……。"
+        },
+        {
+          "id": "T26-S02",
+          "order": 2,
+          "startTime": 12.6,
+          "endTime": 28.18,
+          "durationSec": 15.58,
+          "audioFile": "track26/track26_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：先週は風邪で二日も休みましたからね。どのぐらい遅れそうですか。\nラジュ：週末までの締め切りを、週明けにしていただければ助かります。"
+        },
+        {
+          "id": "T26-S03",
+          "order": 3,
+          "startTime": 28.18,
+          "endTime": 37.37,
+          "durationSec": 9.19,
+          "audioFile": "track26/track26_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：土日も働くんですか。体調はもういいの？\nラジュ：まだよくないんですが、私の責任ですから。"
+        },
+        {
+          "id": "T26-S04",
+          "order": 4,
+          "startTime": 37.37,
+          "endTime": 49.55,
+          "durationSec": 12.18,
+          "audioFile": "track26/track26_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：いや、週末はよく休んでください。締め切りは水曜日まで延ばせますから。\nラジュ：すみません、助かります。"
+        },
+        {
+          "id": "T26-S05",
+          "order": 5,
+          "startTime": 49.55,
+          "endTime": 59.72,
+          "durationSec": 10.17,
+          "audioFile": "track26/track26_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "井出"
+          ],
+          "text": "井出：でも、今後は体調管理をしっかりやってくださいね。\nラジュ：わかりました。気を付けます。"
+        }
+      ]
+    },
+    {
+      "track": 27,
+      "chapter": "Chương 2",
+      "unit": "Unit 10",
+      "unitJa": "担当モジュール完成報告",
+      "unitVi": "Báo cáo hoàn thành module phụ trách",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "リー (Li) / 大沢 (Osawa)",
+      "sourceAudioFile": "27 Track 27.mp3",
+      "sourceDurationSec": 74.89,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T27-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 11.74,
+          "durationSec": 11.74,
+          "audioFile": "track27/track27_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：大沢さん、すみません。\n大沢：はい。\nリー：私が担当していた四つのモジュールですが、すべて単体テストが終わりました。"
+        },
+        {
+          "id": "T27-S02",
+          "order": 2,
+          "startTime": 11.74,
+          "endTime": 22.95,
+          "durationSec": 11.21,
+          "audioFile": "track27/track27_seg02.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：お疲れさまでした。早かったですね。えーっと、リーさんの担当はどこでしたっけ。\nリー：店舗情報管理です。"
+        },
+        {
+          "id": "T27-S03",
+          "order": 3,
+          "startTime": 22.95,
+          "endTime": 38.7,
+          "durationSec": 15.75,
+          "audioFile": "track27/track27_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：そうでしたね。では、テスト結果報告書とバグ票の提出をお願いします。\nリー：はい、これです。\n大沢：それから、ラジュさんがちょっと遅れているので、彼の担当を手伝ってください。"
+        },
+        {
+          "id": "T27-S04",
+          "order": 4,
+          "startTime": 38.7,
+          "endTime": 55.3,
+          "durationSec": 16.6,
+          "audioFile": "track27/track27_seg04.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：わかりました。ラジュさんの担当はどこですか。\n大沢：仕入管理機能です。仕入マスタ処理はラジュさんが終わらせますから、発注データ処理の方をお願いします。"
+        },
+        {
+          "id": "T27-S05",
+          "order": 5,
+          "startTime": 55.3,
+          "endTime": 62.27,
+          "durationSec": 6.97,
+          "audioFile": "track27/track27_seg05.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "リー：仕入管理機能の発注データ処理のモジュールですね。詳細設計書をいただけますか。"
+        },
+        {
+          "id": "T27-S06",
+          "order": 6,
+          "startTime": 62.27,
+          "endTime": 74.89,
+          "durationSec": 12.62,
+          "audioFile": "track27/track27_seg06.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：ちょっと手元にないので、ラジュさんが持っているのを、自分でコピーしてください。\nリー：わかりました。\n大沢：じゃ、よろしく。"
+        }
+      ]
+    },
+    {
+      "track": 28,
+      "chapter": "Chương 2",
+      "unit": "Unit 10",
+      "unitJa": "担当モジュール完成報告",
+      "unitVi": "Báo cáo hoàn thành module phụ trách",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "ラジュ (Raju) / 大沢 (Osawa)",
+      "sourceAudioFile": "28 Track 28.mp3",
+      "sourceDurationSec": 67.42,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T28-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 10.84,
+          "durationSec": 10.84,
+          "audioFile": "track28/track28_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：大沢さん、ちょっとよろしいですか。\n大沢：はい。\nラジュ：ようやくできました。\n大沢：お疲れさま。"
+        },
+        {
+          "id": "T28-S02",
+          "order": 2,
+          "startTime": 10.84,
+          "endTime": 29.45,
+          "durationSec": 18.61,
+          "audioFile": "track28/track28_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：1日遅れてしまいまして、申し訳ありません。\n大沢：いや、体調が悪かったのに、よくがんばりましたよ。担当は仕入管理でしたよね。テスト結果報告書とバグ票をお願いします。"
+        },
+        {
+          "id": "T28-S03",
+          "order": 3,
+          "startTime": 29.45,
+          "endTime": 34.36,
+          "durationSec": 4.91,
+          "audioFile": "track28/track28_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：はい。こちらです。\n大沢：あれ？ 発注データ処理は？"
+        },
+        {
+          "id": "T28-S04",
+          "order": 4,
+          "startTime": 34.36,
+          "endTime": 40.87,
+          "durationSec": 6.51,
+          "audioFile": "track28/track28_seg04.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "ラジュ：発注データ処理はリーさんがやってくれました。"
+        },
+        {
+          "id": "T28-S05",
+          "order": 5,
+          "startTime": 40.87,
+          "endTime": 53.81,
+          "durationSec": 12.94,
+          "audioFile": "track28/track28_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：ああ、そうそう。そうでしたね。じゃ、次は結合テストなので、とりあえずテスト仕様書を読んでおいてください。\nラジュ：はい。"
+        },
+        {
+          "id": "T28-S06",
+          "order": 6,
+          "startTime": 53.81,
+          "endTime": 67.42,
+          "durationSec": 13.61,
+          "audioFile": "track28/track28_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：それから、結合テスト結果報告書とバグ票の書式は後でメールで送ります。結合テストの後で持ってきてください。\nラジュ：わかりました。"
+        }
+      ]
+    },
+    {
+      "track": 29,
+      "chapter": "Chương 2",
+      "unit": "Unit 11",
+      "unitJa": "結合テスト",
+      "unitVi": "Kiểm thử tích hợp (Combination Test)",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "大沢 (Osawa) / リー (Li)",
+      "sourceAudioFile": "29 Track 29.mp3",
+      "sourceDurationSec": 80.33,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T29-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 12.05,
+          "durationSec": 12.05,
+          "audioFile": "track29/track29_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：リーさん、ちょっといいですか。\nリー：はい。\n大沢：店舗情報管理機能を担当したのはリーさんでしたよね。\nリー：はい、私です。"
+        },
+        {
+          "id": "T29-S02",
+          "order": 2,
+          "startTime": 12.05,
+          "endTime": 25.44,
+          "durationSec": 13.39,
+          "audioFile": "track29/track29_seg02.mp3",
+          "speakers": [
+            "大沢"
+          ],
+          "text": "大沢：実は今、店舗情報管理機能と販売管理機能の結合テストをしているんですが、店舗マスターを参照するとエラーが出てしまうんです。"
+        },
+        {
+          "id": "T29-S03",
+          "order": 3,
+          "startTime": 25.44,
+          "endTime": 41.43,
+          "durationSec": 15.99,
+          "audioFile": "track29/track29_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：そうなんですか。店舗情報側の問題ですか。\n大沢：そうかもしれません。それでちょっと確認したいんですが、店舗マスターの主キーは店舗コードに設定されていますか。"
+        },
+        {
+          "id": "T29-S04",
+          "order": 4,
+          "startTime": 41.43,
+          "endTime": 53.41,
+          "durationSec": 11.98,
+          "audioFile": "track29/track29_seg04.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：はい、そうしてあります。\n大沢：そうですか。じゃ、店舗コードのデータ型は、どうなっていますか。\nリー：整数型にしてあると思いますが。"
+        },
+        {
+          "id": "T29-S05",
+          "order": 5,
+          "startTime": 53.41,
+          "endTime": 67.63,
+          "durationSec": 14.22,
+          "audioFile": "track29/track29_seg05.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：仕様書ではテキスト型になっているので、仕様書のとおりにしてください。\nリー：え、そうでしたか。すみません。すぐ直します。"
+        },
+        {
+          "id": "T29-S06",
+          "order": 6,
+          "startTime": 67.63,
+          "endTime": 80.33,
+          "durationSec": 12.7,
+          "audioFile": "track29/track29_seg06.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：お願いします。\nリー：つまり、店舗名だけでなく、店舗コードもテキスト型にするということですね。\n大沢：そのとおりです。よろしく。"
+        }
+      ]
+    },
+    {
+      "track": 30,
+      "chapter": "Chương 2",
+      "unit": "Unit 11",
+      "unitJa": "結合テスト",
+      "unitVi": "Kiểm thử tích hợp (Combination Test)",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "大沢 (Osawa) / ラジュ (Raju)",
+      "sourceAudioFile": "30 Track 30.mp3",
+      "sourceDurationSec": 70.48,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T30-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 10.77,
+          "durationSec": 10.77,
+          "audioFile": "track30/track30_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：ラジュさん、いますか。\nラジュ：はい。\n大沢：あ、ラジュさん。ラジュさんは確か、在庫管理の担当でしたよね。"
+        },
+        {
+          "id": "T30-S02",
+          "order": 2,
+          "startTime": 10.77,
+          "endTime": 22.85,
+          "durationSec": 12.08,
+          "audioFile": "track30/track30_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：はい、そうです。\n大沢：実は今、販売管理との結合テストをしているんですが、予想したデータが出てこないときがあるんですよ。"
+        },
+        {
+          "id": "T30-S03",
+          "order": 3,
+          "startTime": 22.85,
+          "endTime": 37.27,
+          "durationSec": 14.42,
+          "audioFile": "track30/track30_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：そうなんですか。\n大沢：で、確認したいんですが、出荷データの個数は整数型にしていますよね。\nラジュ：はい、そうしています。"
+        },
+        {
+          "id": "T30-S04",
+          "order": 4,
+          "startTime": 37.27,
+          "endTime": 47.38,
+          "durationSec": 10.11,
+          "audioFile": "track30/track30_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：ショート？ ロング？\nラジュ：ショートです。\n大沢：ああ、やっぱり。そこはロングにしておいてください。"
+        },
+        {
+          "id": "T30-S05",
+          "order": 5,
+          "startTime": 47.38,
+          "endTime": 55.11,
+          "durationSec": 7.73,
+          "audioFile": "track30/track30_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：え、ロングですか。仕様書でもそうなっていましたっけ。\n大沢：そのはずですよ。"
+        },
+        {
+          "id": "T30-S06",
+          "order": 6,
+          "startTime": 55.11,
+          "endTime": 70.48,
+          "durationSec": 15.37,
+          "audioFile": "track30/track30_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：すみません。すぐ直します。ええっと、つまり、出荷データの個数を64ビットまで扱えるようにするということですね。\n大沢：そのとおりです。よろしく。"
+        }
+      ]
+    },
+    {
+      "track": 31,
+      "chapter": "Chương 2",
+      "unit": "Unit 12",
+      "unitJa": "デバッグ終了報告とシステムテストの準備",
+      "unitVi": "Báo cáo hoàn thành debug và chuẩn bị System Test",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "ラジュ (Raju) / 大沢 (Osawa)",
+      "sourceAudioFile": "31 Track 31.mp3",
+      "sourceDurationSec": 64.03,
+      "transcriptAvailable": true,
+      "segmentCount": 5,
+      "segments": [
+        {
+          "id": "T31-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 12.76,
+          "durationSec": 12.76,
+          "audioFile": "track31/track31_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：大沢さん、すみません。\n大沢：はい。\nラジュ：昨日のバグですが、修正が終わりました。\n大沢：お疲れさま。回帰テストはしましたか。"
+        },
+        {
+          "id": "T31-S02",
+          "order": 2,
+          "startTime": 12.76,
+          "endTime": 25.4,
+          "durationSec": 12.64,
+          "audioFile": "track31/track31_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：はい、やってあります。これがバグ票です。\n大沢：わかりました。最新版はアーカイブにチェックインしてありますね？\nラジュ：あ、まだです。"
+        },
+        {
+          "id": "T31-S03",
+          "order": 3,
+          "startTime": 25.4,
+          "endTime": 38.18,
+          "durationSec": 12.78,
+          "audioFile": "track31/track31_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：結合テストを再開しますから、すぐにチェックインしてください。\nラジュ：わかりました。\n大沢：このバグがつぶせれば、結合テストは終わりです。"
+        },
+        {
+          "id": "T31-S04",
+          "order": 4,
+          "startTime": 38.18,
+          "endTime": 54.27,
+          "durationSec": 16.09,
+          "audioFile": "track31/track31_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：それでは、次はシステムテストですね。\n大沢：そうです。ラジュさんにはストレステストを担当してもらいますから、テストデータを今日中に作っておいてください。"
+        },
+        {
+          "id": "T31-S05",
+          "order": 5,
+          "startTime": 54.27,
+          "endTime": 64.03,
+          "durationSec": 9.76,
+          "audioFile": "track31/track31_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "ラジュ：ストレステスト用のデータですね。システムテストの仕様書はありますか。\n大沢：これです。\nラジュ：拝見します。"
+        }
+      ]
+    },
+    {
+      "track": 32,
+      "chapter": "Chương 2",
+      "unit": "Unit 12",
+      "unitJa": "デバッグ終了報告とシステムテストの準備",
+      "unitVi": "Báo cáo hoàn thành debug và chuẩn bị System Test",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "大沢 (Osawa) / リー (Li)",
+      "sourceAudioFile": "32 Track 32.mp3",
+      "sourceDurationSec": 69.22,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T32-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 10.49,
+          "durationSec": 10.49,
+          "audioFile": "track32/track32_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：リーさん、デバッグは終わりましたか。\nリー：あ、はい、終わりました。\n大沢：回帰テストは？"
+        },
+        {
+          "id": "T32-S02",
+          "order": 2,
+          "startTime": 10.49,
+          "endTime": 21.56,
+          "durationSec": 11.07,
+          "audioFile": "track32/track32_seg02.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：今やっているところです。もう少しで終わります。\n大沢：そうですか。じゃ、まだクリアケースにはコミットしていないんですね。"
+        },
+        {
+          "id": "T32-S03",
+          "order": 3,
+          "startTime": 21.56,
+          "endTime": 37.14,
+          "durationSec": 15.58,
+          "audioFile": "track32/track32_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：ええ、まだです。終わったらすぐに入れます。\n大沢：よろしく。それから、まだいくつかのモジュールで結合テストが終わっていないんですが、来週にはシステムテストに入ります。"
+        },
+        {
+          "id": "T32-S04",
+          "order": 4,
+          "startTime": 37.14,
+          "endTime": 45.01,
+          "durationSec": 7.87,
+          "audioFile": "track32/track32_seg04.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "リー：はい。あ、私はストレステストの担当でしたっけ。"
+        },
+        {
+          "id": "T32-S05",
+          "order": 5,
+          "startTime": 45.01,
+          "endTime": 58.26,
+          "durationSec": 13.25,
+          "audioFile": "track32/track32_seg05.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：いえ、ストレステストはラジュさんです。リーさんには文書テストをしてもらいます。\nリー：わかりました。もうユーザーマニュアルはできているんですか。"
+        },
+        {
+          "id": "T32-S06",
+          "order": 6,
+          "startTime": 58.26,
+          "endTime": 69.22,
+          "durationSec": 10.96,
+          "audioFile": "track32/track32_seg06.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：できていますよ。その後で管理者用マニュアルも見てもらいます。後で両方とも渡しますので。\nリー：わかりました。"
+        }
+      ]
+    },
+    {
+      "track": 33,
+      "chapter": "Chương 2",
+      "unit": "Unit 13",
+      "unitJa": "システムテスト",
+      "unitVi": "Kiểm thử hệ thống (System Test)",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "リー (Li) / 大沢 (Osawa) / 新山 (Niiyama)",
+      "sourceAudioFile": "33 Track 33.mp3",
+      "sourceDurationSec": 94.04,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T33-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 19.55,
+          "durationSec": 19.55,
+          "audioFile": "track33/track33_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：大沢さん、大容量テストが全部終わりました。\n大沢：お疲れさま。バグはありましたか。\nリー：はい、三つほどありました。これがバグ票です。あのう……バグの一つは私が作ったモジュールに原因があるかもしれないんです。"
+        },
+        {
+          "id": "T33-S02",
+          "order": 2,
+          "startTime": 19.55,
+          "endTime": 30.16,
+          "durationSec": 10.61,
+          "audioFile": "track33/track33_seg02.mp3",
+          "speakers": [
+            "大沢"
+          ],
+          "text": "大沢：じゃ、デバッグしてください。あ、でも、コードは今、新山さんがアーカイブからチェックアウトしたままなんですよ。"
+        },
+        {
+          "id": "T33-S03",
+          "order": 3,
+          "startTime": 30.16,
+          "endTime": 48.19,
+          "durationSec": 18.03,
+          "audioFile": "track33/track33_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：そうですか。じゃあ、新山さんのデバッグがいつ終わるのか、確認してみます。\n大沢：よろしく。終わったら、バグ票を戻してください。\nリー：バグ票を戻すんですね。わかりました。\n（リー、新山さんのところへ）"
+        },
+        {
+          "id": "T33-S04",
+          "order": 4,
+          "startTime": 48.19,
+          "endTime": 64.58,
+          "durationSec": 16.39,
+          "audioFile": "track33/track33_seg04.mp3",
+          "speakers": [
+            "リー",
+            "新山"
+          ],
+          "text": "リー：あのう、新山さん。実は、大容量テストが終わったんですが、バグが見つかりまして。私が作ったモジュールに原因があるかもしれないんです。\n新山：そうですか。試験項目は、全部終わったんですか。"
+        },
+        {
+          "id": "T33-S05",
+          "order": 5,
+          "startTime": 64.58,
+          "endTime": 83.02,
+          "durationSec": 18.44,
+          "audioFile": "track33/track33_seg05.mp3",
+          "speakers": [
+            "リー",
+            "新山"
+          ],
+          "text": "リー：はい、終わりました。\n新山：じゃあ、デバッグしたいっていうことですね。\nリー：そうなんです。\n新山：えーっと、こちらのデバッグはあと1時間ぐらいで終わると思いますから、もうちょっと待ってもらえますか。"
+        },
+        {
+          "id": "T33-S06",
+          "order": 6,
+          "startTime": 83.02,
+          "endTime": 94.04,
+          "durationSec": 11.02,
+          "audioFile": "track33/track33_seg06.mp3",
+          "speakers": [
+            "リー",
+            "新山"
+          ],
+          "text": "リー：あと1時間ですね。ではすみませんが、終わったらお知らせいただけませんか。\n新山：わかりました。\nリー：よろしくお願いします。"
+        }
+      ]
+    },
+    {
+      "track": 34,
+      "chapter": "Chương 2",
+      "unit": "Unit 13",
+      "unitJa": "システムテスト",
+      "unitVi": "Kiểm thử hệ thống (System Test)",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "リー (Li) / ラジュ (Raju)",
+      "sourceAudioFile": "34 Track 34.mp3",
+      "sourceDurationSec": 72.62,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T34-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 6.21,
+          "durationSec": 6.21,
+          "audioFile": "track34/track34_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "リー"
+          ],
+          "text": "リー：ラジュさん、おはようございます。\nラジュ：あ、リーさん。おはようございます。"
+        },
+        {
+          "id": "T34-S02",
+          "order": 2,
+          "startTime": 6.21,
+          "endTime": 24.25,
+          "durationSec": 18.04,
+          "audioFile": "track34/track34_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "リー"
+          ],
+          "text": "リー：実は、文書テストをしているところなんですが、私が書いたエラーメッセージが管理者用マニュアルの表記とちょっと違っていたんですよ。\nラジュ：そうですか。あ、今すぐ直したいですか？"
+        },
+        {
+          "id": "T34-S03",
+          "order": 3,
+          "startTime": 24.25,
+          "endTime": 40.09,
+          "durationSec": 15.84,
+          "audioFile": "track34/track34_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "リー"
+          ],
+          "text": "リー：いえ、まだユーザーマニュアルの方が終わっていないので、その後でもいいです。\nラジュ：それはよかった。こちらは同期エラーが出ているんですが、まだちょっと原因が特定できなくてねえ。"
+        },
+        {
+          "id": "T34-S04",
+          "order": 4,
+          "startTime": 40.09,
+          "endTime": 49.57,
+          "durationSec": 9.48,
+          "audioFile": "track34/track34_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "リー"
+          ],
+          "text": "リー：じゃあ、いつ終わるかわかりませんよね。\nラジュ：そうですねえ……。あ、終わったら携帯で教えますよ。"
+        },
+        {
+          "id": "T34-S05",
+          "order": 5,
+          "startTime": 49.57,
+          "endTime": 58.23,
+          "durationSec": 8.66,
+          "audioFile": "track34/track34_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "リー"
+          ],
+          "text": "リー：ありがとうございます。\nラジュ：もし終わらなくても、とりあえず今日は帰る前にチェックインしておきますよ。"
+        },
+        {
+          "id": "T34-S06",
+          "order": 6,
+          "startTime": 58.23,
+          "endTime": 72.62,
+          "durationSec": 14.39,
+          "audioFile": "track34/track34_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "リー"
+          ],
+          "text": "リー：じゃあ、こちらは明日の朝一で直すことにします。\nラジュ：そう？ でも一応、もっと早くデバッグできたら電話しますね。\nリー：はい。お待ちしてます。"
+        }
+      ]
+    },
+    {
+      "track": 35,
+      "chapter": "Chương 2",
+      "unit": "Unit 14",
+      "unitJa": "オペレーションデモの準備",
+      "unitVi": "Chuẩn bị demo vận hành",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "大沢 (Osawa) / リー (Li)",
+      "sourceAudioFile": "35 Track 35.mp3",
+      "sourceDurationSec": 86.28,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T35-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 10.55,
+          "durationSec": 10.55,
+          "audioFile": "track35/track35_seg01.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：リーさん、システムテストが無事に終わりましたよ。来週はオペレーションデモです。\nリー：はい。私はどんなことを担当しますか。"
+        },
+        {
+          "id": "T35-S02",
+          "order": 2,
+          "startTime": 10.55,
+          "endTime": 25.02,
+          "durationSec": 14.47,
+          "audioFile": "track35/track35_seg02.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：リーさんには、在庫管理のところをユーザーさんに説明してもらいます。\nリー：お客様に説明するんですね。説明にはパワーポイントを使ったりするんですか。"
+        },
+        {
+          "id": "T35-S03",
+          "order": 3,
+          "startTime": 25.02,
+          "endTime": 43.47,
+          "durationSec": 18.45,
+          "audioFile": "track35/track35_seg03.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：いや、まずリーさんがデモを見せて、その後にユーザーさんに体験してもらいます。\nリー：でも、システムの移行はまだ先ですよね。うちのコピーマシンはあるんですか。\n大沢：デモ用にこちらから持参します。"
+        },
+        {
+          "id": "T35-S04",
+          "order": 4,
+          "startTime": 43.47,
+          "endTime": 57.7,
+          "durationSec": 14.23,
+          "audioFile": "track35/track35_seg04.mp3",
+          "speakers": [
+            "リー"
+          ],
+          "text": "リー：じゃあ、そのマシンにインストールしておくんですね。それから、在庫管理のデモなら、商品マスターや倉庫マスターのデータが必要だと思うんですが……。"
+        },
+        {
+          "id": "T35-S05",
+          "order": 5,
+          "startTime": 57.7,
+          "endTime": 69.93,
+          "durationSec": 12.23,
+          "audioFile": "track35/track35_seg05.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "大沢：あ、それはね、今コンバートとクレンジングをしていますから。\nリー：実際のデータが使えるんですね。\n大沢：そうです。"
+        },
+        {
+          "id": "T35-S06",
+          "order": 6,
+          "startTime": 69.93,
+          "endTime": 86.28,
+          "durationSec": 16.35,
+          "audioFile": "track35/track35_seg06.mp3",
+          "speakers": [
+            "リー",
+            "大沢"
+          ],
+          "text": "リー：実は、お客さまに会うのは初めてなんです。うまく説明できるかなあ。\n大沢：練習しておけば大丈夫ですよ。心配なら見てあげましょうか。\nリー：すみません。お時間のあるときに、一度お願いします。"
+        }
+      ]
+    },
+    {
+      "track": 36,
+      "chapter": "Chương 2",
+      "unit": "Unit 14",
+      "unitJa": "オペレーションデモの準備",
+      "unitVi": "Chuẩn bị demo vận hành",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "大沢 (Osawa) / ラジュ (Raju)",
+      "sourceAudioFile": "36 Track 36.mp3",
+      "sourceDurationSec": 77.77,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T36-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 12.67,
+          "durationSec": 12.67,
+          "audioFile": "track36/track36_seg01.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：ラジュさん、システムテストが終わりましたよ。来週からユーザー教育が始まります。\nラジュ：はい。私はどんなことを担当しますか。"
+        },
+        {
+          "id": "T36-S02",
+          "order": 2,
+          "startTime": 12.67,
+          "endTime": 26.23,
+          "durationSec": 13.56,
+          "audioFile": "track36/track36_seg02.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：販売管理のところを顧客に説明してもらいます。\nラジュ：顧客に私が説明するんですね。説明にはパワーポイントを使ったりするんですか。"
+        },
+        {
+          "id": "T36-S03",
+          "order": 3,
+          "startTime": 26.23,
+          "endTime": 39.49,
+          "durationSec": 13.26,
+          "audioFile": "track36/track36_seg03.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：はい。パワーポイントと、実際のシステムの画面を入れ替えながら説明します。\nラジュ：パワーポイントでは特別なフォーマットを使うんですか。"
+        },
+        {
+          "id": "T36-S04",
+          "order": 4,
+          "startTime": 39.49,
+          "endTime": 50.81,
+          "durationSec": 11.32,
+          "audioFile": "track36/track36_seg04.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：はい。後でメールで送ります。\nラジュ：ありがとうございます。説明用のスライドを作ったら、一度見てもらえますか。"
+        },
+        {
+          "id": "T36-S05",
+          "order": 5,
+          "startTime": 50.81,
+          "endTime": 59.24,
+          "durationSec": 8.43,
+          "audioFile": "track36/track36_seg05.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：もちろん。スライドはいつまでにできますか。\nラジュ：明日までにはできると思います。"
+        },
+        {
+          "id": "T36-S06",
+          "order": 6,
+          "startTime": 59.24,
+          "endTime": 77.77,
+          "durationSec": 18.53,
+          "audioFile": "track36/track36_seg06.mp3",
+          "speakers": [
+            "ラジュ",
+            "大沢"
+          ],
+          "text": "大沢：じゃあ、あさっての午前中に見てみましょう。パワーポイントのスライドだけではなくて、実際の説明も練習が必要ですから、見てあげますよ。\nラジュ：ありがとうございます。よろしくお願いいたします。"
+        }
+      ]
+    },
+    {
+      "track": 37,
+      "chapter": "Chương 2",
+      "unit": "Unit 15",
+      "unitJa": "オペレーションデモ",
+      "unitVi": "Demo vận hành",
+      "contentType": "モデル会話 (Hội thoại mẫu)",
+      "characters": "リー (Li) / ユーザー (Khách hàng)",
+      "sourceAudioFile": "37 Track 37.mp3",
+      "sourceDurationSec": 114.34,
+      "transcriptAvailable": true,
+      "segmentCount": 7,
+      "segments": [
+        {
+          "id": "T37-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 18.08,
+          "durationSec": 18.08,
+          "audioFile": "track37/track37_seg01.mp3",
+          "speakers": [
+            "ユーザー",
+            "リー"
+          ],
+          "text": "リー：では、次に売上データを追加してみましょうか。まず、メニューバーから「データ追加」をお選びください。画面の左上のところです。\nユーザー：あ、何か出てきましたね。「売上」を選ぶんですか。"
+        },
+        {
+          "id": "T37-S02",
+          "order": 2,
+          "startTime": 18.08,
+          "endTime": 27.46,
+          "durationSec": 9.38,
+          "audioFile": "track37/track37_seg02.mp3",
+          "speakers": [
+            "ユーザー",
+            "リー"
+          ],
+          "text": "リー：そうです。はい、今クリックして出てきたのが「売上データ追加画面」です。\nユーザー：どこから入力するんですか。"
+        },
+        {
+          "id": "T37-S03",
+          "order": 3,
+          "startTime": 27.46,
+          "endTime": 50.79,
+          "durationSec": 23.33,
+          "audioFile": "track37/track37_seg03.mp3",
+          "speakers": [
+            "ユーザー",
+            "リー"
+          ],
+          "text": "リー：得意先から入力してみましょう。今は練習ですので、このプルダウンメニューから、どれでもお好きな得意先になさってください。\nユーザー：じゃあ、「林檎ラボ」にしましょう。（クリック）お、担当者も選べるんですね。とりあえず橋本さんにしておくか。"
+        },
+        {
+          "id": "T37-S04",
+          "order": 4,
+          "startTime": 50.79,
+          "endTime": 65.9,
+          "durationSec": 15.11,
+          "audioFile": "track37/track37_seg04.mp3",
+          "speakers": [
+            "ユーザー",
+            "リー"
+          ],
+          "text": "リー：はい。次は商品コードです。これはバーコードリーダーでも読めるんですが、何かバーコードのついた商品はお手元にございますか。\nユーザー：困ったな。今ちょっとないんですよ。"
+        },
+        {
+          "id": "T37-S05",
+          "order": 5,
+          "startTime": 65.9,
+          "endTime": 86.15,
+          "durationSec": 20.25,
+          "audioFile": "track37/track37_seg05.mp3",
+          "speakers": [
+            "ユーザー",
+            "リー"
+          ],
+          "text": "リー：では、キーボードからも入力できますよ。商品は何になさいますか。\nユーザー：いつもの「冷凍とんかつ」にしておきましょう（コードをキーボードで入力する）。お、コードを入れると、品名と値段も出てくるんですね。"
+        },
+        {
+          "id": "T37-S06",
+          "order": 6,
+          "startTime": 86.15,
+          "endTime": 96.77,
+          "durationSec": 10.62,
+          "audioFile": "track37/track37_seg06.mp3",
+          "speakers": [
+            "ユーザー",
+            "リー"
+          ],
+          "text": "リー：そうです。数量はいくつになさいますか。\nユーザー：じゃあ、いつもどおり5個にしておくかな。お、売上金額が出ましたね。"
+        },
+        {
+          "id": "T37-S07",
+          "order": 7,
+          "startTime": 96.77,
+          "endTime": 114.34,
+          "durationSec": 17.57,
+          "audioFile": "track37/track37_seg07.mp3",
+          "speakers": [
+            "ユーザー",
+            "リー"
+          ],
+          "text": "リー：そうです。もしほかに売上がない場合は、登録ボタンをクリックなさってください。\nユーザー：はい。（クリック）ああ、これでまた別の得意先の売上が登録できるんですね。\nリー：そうです。"
+        }
+      ]
+    },
+    {
+      "track": 38,
+      "chapter": "Chương 2",
+      "unit": "Unit 15",
+      "unitJa": "オペレーションデモ",
+      "unitVi": "Demo vận hành",
+      "contentType": "聞き取り練習 (Luyện nghe)",
+      "characters": "ラジュ (Raju) - độc thoại (thuyết trình)",
+      "sourceAudioFile": "38 Track 38.mp3",
+      "sourceDurationSec": 81.76,
+      "transcriptAvailable": true,
+      "segmentCount": 6,
+      "segments": [
+        {
+          "id": "T38-S01",
+          "order": 1,
+          "startTime": 0.0,
+          "endTime": 6.19,
+          "durationSec": 6.19,
+          "audioFile": "track38/track38_seg01.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "では、仕入データの追加方法をご説明いたします。"
+        },
+        {
+          "id": "T38-S02",
+          "order": 2,
+          "startTime": 6.19,
+          "endTime": 24.22,
+          "durationSec": 18.03,
+          "audioFile": "track38/track38_seg02.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "まず、仕入年月日の欄は、インストールしたパソコンの内部時計を参照していますので、時計が間違って設定されていると、正しく表示されません。\nご注意ください。"
+        },
+        {
+          "id": "T38-S03",
+          "order": 3,
+          "startTime": 24.22,
+          "endTime": 44.21,
+          "durationSec": 19.99,
+          "audioFile": "track38/track38_seg03.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "次の仕入先名の欄は、プルダウンメニューの中から選ぶことができます。\nこのリストは仕入先マスタを参照していますので、マスタが間違っていますと、こちらも正しく表示されません。"
+        },
+        {
+          "id": "T38-S04",
+          "order": 4,
+          "startTime": 44.21,
+          "endTime": 52.8,
+          "durationSec": 8.59,
+          "audioFile": "track38/track38_seg04.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "次に……（※中略）そして最後に、仕入の入力が終わったら、伝票を発行します。"
+        },
+        {
+          "id": "T38-S05",
+          "order": 5,
+          "startTime": 52.8,
+          "endTime": 64.77,
+          "durationSec": 11.97,
+          "audioFile": "track38/track38_seg05.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "見積依頼書の場合は「見積依頼印字」ボタン、受領書の場合は「受領印字」ボタンを押してください。"
+        },
+        {
+          "id": "T38-S06",
+          "order": 6,
+          "startTime": 64.77,
+          "endTime": 81.76,
+          "durationSec": 16.99,
+          "audioFile": "track38/track38_seg06.mp3",
+          "speakers": [
+            "ラジュ"
+          ],
+          "text": "そして最後に「登録」ボタンを押すと、この仕入先の入力が終わり、他の仕入先のデータを入力することができます。\n以上で、仕入データ追加の説明を終わります。"
+        }
+      ]
+    }
+  ]
+}

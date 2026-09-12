@@ -36,6 +36,10 @@ __pycache__/
 # (_id_lock.json thì NGƯỢC LẠI — PHẢI commit, xem CLAUDE.md quy tắc #6)
 01_Build_App/_app_build/_last_build_report.txt
 
+# ─── Bản xuất tiến độ (FR_011) lưu thủ công ra máy — dữ liệu cá nhân của người dùng,
+#     không phải source code, không cần/không nên commit vào repo dùng chung ───
+05_json/
+
 # ─── OS / Editor noise ───
 .DS_Store
 Thumbs.db
