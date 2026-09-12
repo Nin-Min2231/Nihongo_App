@@ -1,5 +1,21 @@
 # FR_007 — IT業務編: Luyện đọc theo audio thật + Layout màn hình Unit gộp
 
+> **Đã triển khai 2026-09-12 — BẢN RÚT GỌN, khác với thiết kế gốc dưới đây ở 1 điểm quan trọng:**
+> Dữ liệu đã cắt sẵn (`segments_data.json` + 213 file mp3 + script `segment_reading_audio.py`, mục 3)
+> **không có trong repo** khi bắt tay triển khai (tạo ở 1 session Cowork riêng, chưa từng commit).
+> PM đã chọn phương án: **bỏ hẳn bước cắt audio theo lượt thoại**, giữ nguyên layout gộp 1 màn hình
+> Unit (mục 4.2-4.4) nhưng phần "🎤 Luyện đọc câu" phát **nguyên file track thật** (nút "🎧 Nghe cả
+> đoạn hội thoại") thay vì đoạn đã cắt riêng từng câu — mỗi câu vẫn có nút 🔊 nghe mẫu bằng TTS như
+> cũ để luyện phát âm chính xác câu đó. Toàn bộ mục 3 (dữ liệu cắt sẵn) và thuật toán silence-detection
+> ở mục 4.1/2b-#1 **không áp dụng** cho bản đã code — giữ lại trong file này chỉ để tham khảo nếu sau
+> này muốn làm lại đúng bản gốc (cắt audio thật theo từng câu). Code: `gyoumuUnitScreen()` trong
+> `app_template.html`, thay thế hoàn toàn `gyoumuTrackList()`/`gyoumuTrackDetail()`/`gyoumuReadingMode()`/
+> `gyoumuReadingFinish()` cũ (đã xoá, không giữ dead code). Đã build + verify + test tay qua HTTP
+> server cục bộ (accordion 1-mở-tại-1-lúc, tab đọc độc lập audio đang mở, hoàn thành lưu đúng
+> `gyStore.read`, track không transcript vẫn nghe được nhưng ẩn khỏi tab đọc).
+>
+> ---
+>
 > Kế thừa toàn bộ dữ liệu đã tạo ở **FR_006** (mục 3 dưới đây, không đổi): 38 track AudioCD đã cắt
 > thành đoạn ngắn bằng silence-detection, khớp transcript theo lượt thoại.
 > FR_007 **thay thế mục 4.2 "Đề xuất tích hợp vào app" của FR_006** bằng layout cụ thể đã chốt lại

@@ -10,7 +10,7 @@ App học tiếng Nhật offline, dùng cho PM/BrSE ngành IT làm việc với 
 
 Đọc file này trước khi sửa code. Muốn hiểu sâu lịch sử quyết định/lý do kỹ thuật: đọc `PROJECT_日本語学習アプリ_Handover.md`. Muốn hướng dẫn build/chạy chi tiết từng bước: đọc `README.md`.
 
-> **Gói Phase 2 (FR_008 → FR_012) đã code xong và test qua trình duyệt.** Xem mục "Feature Requests" cuối file. Còn FR_006/FR_007 để lại đợt sau (chưa code). **Chưa build APK cho gói này** — xem mục ⚠ ngay dưới đây trước khi build.
+> **Gói Phase 2 (FR_008 → FR_012) + FR_006/FR_007 + redesign dashboard (bảng màu "giấy washi" + trang chủ hero) đã code xong và test qua trình duyệt.** Xem mục "Feature Requests" cuối file + mục UI bên dưới. FR_007 code theo **bản rút gọn** (không cắt audio theo lượt thoại — xem ghi chú đầu file `done/FR_007_reading_real_audio_segments.md`). Redesign dashboard: **PM đã duyệt áp dụng cho toàn app** (2026-09-12), gộp từ 1 worktree khác (`japanese-learning-app-handover-e2f2a1`) vào worktree này — 2 việc không đụng chạm cùng chỗ trong code nên gộp bằng `git apply` sạch, không conflict. **Chưa build APK cho gói này** — xem mục ⚠ ngay dưới đây trước khi build.
 
 ## Cấu trúc thư mục
 
@@ -31,13 +31,11 @@ App học tiếng Nhật offline, dùng cho PM/BrSE ngành IT làm việc với 
 │   │   └── _last_build_report.txt ← (gitignore) báo cáo chất lượng dữ liệu lần build gần nhất
 │   └── _feature_requests/
 │       ├── TEMPLATE.md            ← Copy file này ra để viết yêu cầu tính năng mới
-│       ├── FR_006, FR_007         ← Đã chốt yêu cầu, chưa code (để lại đợt sau)
-│       └── done/                  ← FR đã hoàn thành (FR_002..FR_005, FR_008..FR_012 + _PHASE2_GOI_CAI_MOT_LAN.md) — lịch sử tham khảo
+│       └── done/                  ← FR đã hoàn thành (FR_002..FR_012 + _PHASE2_GOI_CAI_MOT_LAN.md) — lịch sử tham khảo
 ├── 02_IT_Gyoumuhen/                ← Nguồn dữ liệu module IT業務編 (hội thoại công việc IT)
 │   ├── IT_Gyoumuhen.pdf                    ← Sách scan, chỉ tham khảo
 │   ├── IT_Gyoumuhen_AudioCD_Transcript.xlsx ← Transcript 38 track
-│   ├── AudioCD/                             ← 38 file mp3 — NGUỒN AUDIO DUY NHẤT của cả dự án
-│   └── reading_segments/                    ← 213 đoạn cắt nhỏ + segments_data.json (FR_007, chưa dùng)
+│   └── AudioCD/                             ← 38 file mp3 — NGUỒN AUDIO DUY NHẤT của cả dự án
 ├── 03_Android_App/                 ← Project Capacitor — đóng gói HTML thành APK Android
 │   ├── package.json, capacitor.config.json
 │   ├── assets/icon.png            ← Nguồn app icon (copy từ 04_Image/Logo_Tanpopo.png)
@@ -158,6 +156,10 @@ Thêm icon thứ 5 cho mode mới sẽ làm **mọi Bộ người dùng đã ho�
 home() → [chọn 1 trong 2 module] → dashboard riêng của module → mode học → back → home
 ```
 
+IT専門 (`homeDashboard()`) tự động chọn sẵn **Bộ nhỏ nhất chưa hoàn thành đủ 4 mode** mỗi lần vào (FR_006, `autoFocusDeckIndex()`) — xem quy tắc #8 cho định nghĩa "hoàn thành". Chọn thủ công 1 Bộ khác trong phiên vẫn được, nhưng bị tính lại từ đầu khi rời màn hình rồi vào lại.
+
+IT業務編 (`gyoumuDashboard()`) vào thẳng **`gyoumuUnitScreen(chapter,unit)`** — 1 màn hình gộp (FR_007, bản rút gọn) thay cho luồng List→Detail cũ: phần trên "🎧 Luyện nghe" là accordion (mở đúng 1 track tại 1 thời điểm), phần dưới "🎤 Luyện đọc câu" là tab chọn track có transcript, luyện đọc từng câu (TTS mẫu + nút nghe nguyên track thật `gyoumuTrackAudioSrc()` + mic chấm điểm). 2 phần render/bind độc lập (`renderListen()`/`renderRead()`, không dùng chung 1 hàm render) để không làm gián đoạn audio đang phát của phần kia.
+
 ### 2 Module (Menu chính — registry `MENU_MODULES`, thêm module mới chỉ cần thêm 1 phần tử)
 | Module | Trạng thái | Dashboard |
 |---|---|---|
@@ -179,6 +181,8 @@ Main menu (`home()`) có 1 khối thống kê tổng hợp đầu trang: Streak 
 
 IT専門 chia thành các **Bộ cố định đúng 25 từ, bắt đầu từ #1** (667 từ = 26 Bộ×25 + 1 Bộ 17 từ cuối, hàm `splitDecksStrict()`), không còn lọc theo "Chủ đề" (漢字/外来語/その他).
 
+**Header + tag hiển thị đồng bộ ở cả 6 mode (2026-09-12)**: mọi mode (Flashcard/Quiz/Cloze/Luyện nghe/Luyện nói/Phản xạ) đều hiện `curDeckRangeLabel()` ("Bộ N (start-end)") ở đầu subtitle header khi đang học theo 1 Bộ cụ thể (rỗng nếu học "Tất cả", không đổi hành vi cũ), và mọi từ đều có `<span class="tag">v.c · #v.id</span>` hiện category + STT từ điển ngay trên thẻ/câu hỏi — Flashcard/Favorites đã có sẵn từ trước, giờ thêm cho Quiz/Cloze/Luyện nghe/Luyện nói/Phản xạ (riêng Phản xạ chỉ hiện tag ở pha 2 - pha hiện đáp án, không hiện ở pha 1 để không lộ gợi ý trước khi đoán).
+
 ### SRS — điểm cần biết
 `reviewCard(id, quality)` nhận 4 mức (0 lùi 1 box, 1 giữ nguyên, 2 lên 1 box, 3 lên 2 box), **nhưng UI chỉ phơi ra mức 2**. Mức 1 và 3 hiện không có đường nào gọi tới — code chết. Hệ quả: mọi từ lên bậc với cùng một tốc độ, không phân biệt dễ khó. Đây là điểm làm giảm hiệu quả của giãn cách, cân nhắc mở FR riêng để thêm lại nút "Khó".
 
@@ -198,36 +202,33 @@ IT専門 chia thành các **Bộ cố định đúng 25 từ, bắt đầu từ 
 - Settings: speed (0.5-1.5), pitch (0.5-2.0), gender (male/female), voice picker.
 
 ### UI
-- Color scheme: Blue (`--brand:#2563eb`, header gradient `#1e40af→#3b82f6`)
-- Bộ đang chọn: nền xanh dương nhạt (`#dbeafe`) để phân biệt với Bộ chưa chọn
-- Flashcard 4 nút: Chi tiết (xanh lá) / Yêu thích (vàng) / Đã nhớ (cam) / Tiếp theo (xanh dương đậm), đều có border màu đậm hơn nền
+- **Color scheme: tông "giấy washi" ấm** (đổi 2026-09-12, PM đã duyệt áp dụng cho **toàn app**, thay hẳn tông xanh dương Bootstrap cũ) — `--brand:#1F5673`, `--brand2:#2E7194`, `--bg:#F5F6F1`, `--warn:#9C6B12`, `--bad:#B7412C`, `--good`/`--accent:#4B7A4E`, `--soft:#E7EEF0`, header gradient `#153F55→#1F5673`. Toàn app dùng chung 1 bộ biến `:root` này (không tách riêng theo màn hình) — đổi 1 chỗ là mọi màn hình (Quiz, mic, header, Bộ đang chọn...) đổi theo. Font vẫn hệ thống (không tải Google Fonts) — chỉ lấy bảng màu/bố cục từ demo khảo sát, không lấy font.
+  - **4 chỗ dùng màu cứng (hex) bị bản redesign gốc bỏ sót đã fix thêm (2026-09-12)** — không theo biến `:root` nên không tự đổi theo: `.backbtn` (nút "← 戻る"), `.settings-btn` (nút "⚙️ Cài đặt") — 2 nút này xuất hiện ở **mọi màn hình**; `.mic-banner` (banner xin quyền mic); `.tts-ok` + `.topic-card.active .tc-badge` (chấm trạng thái TTS + badge "✅ Sẵn sàng"). Cả 4 đều đổi sang cặp `var(--soft)`/`var(--brand)`, `var(--warn)`, hoặc `var(--good)` tương ứng — không tự bịa hex mới, tái dùng đúng token đã có trong `:root`.
+- Bộ đang chọn: nền `var(--soft)` để phân biệt với Bộ chưa chọn (trước là `#dbeafe` xanh dương nhạt, nay đổi theo bảng màu mới)
+- Flashcard 4 nút: Chi tiết (xanh lá) / Yêu thích (vàng) / Đã nhớ (cam) / Tiếp theo, đều có border màu đậm hơn nền — 4 màu này **không** nằm trong phạm vi redesign, giữ nguyên như cũ
+- **Trang chủ (`home()`) viết lại thành "hero card"** (thay khối `.stats`/`.stats-block` phẳng cũ): số thẻ IT専門 đến hạn ôn hôm nay (`dueCount(VOCAB)`) hiện to, tô đỏ nếu >0 + nút CTA "Bắt đầu ôn tập ngay →" (vào thẳng `flashMode(VOCAB)` ưu tiên thẻ đến hạn); due=0 thì hiện 🎉 + nút "Luyện thêm từ vựng" (mở `homeDashboard()`). Bên dưới là lưới 3 ô Streak/Từ đã thuộc/Track đã nghe + link "Xem thống kê chi tiết ›", cả 2 đều mở `statsScreen()` (FR_012, không đổi hành vi, chỉ đổi giao diện).
 - Mobile-first, max-width 560px
 - App icon + favicon: dùng `04_Image/Logo_Tanpopo.png` (xem `03_Android_App/assets/icon.png` + `npx capacitor-assets generate`)
 
 ## Feature Requests
 
-Xem folder `01_Build_App/_feature_requests/`. Format: `FR_<số>_<tên>.md` theo `TEMPLATE.md`. FR đã hoàn thành nằm trong `done/`.
+Xem folder `01_Build_App/_feature_requests/`. Format: `FR_<số>_<tên>.md` theo `TEMPLATE.md`. FR đã hoàn thành nằm trong `done/`. **Hiện không có FR nào pending.**
 
-### Gói Phase 2 — đã code + test qua trình duyệt xong, CHƯA build APK
+### Gói Phase 2 + FR_006/007 — đã code + test qua trình duyệt xong, CHƯA build APK
 
 Đọc `done/_PHASE2_GOI_CAI_MOT_LAN.md` để biết thứ tự triển khai và các ràng buộc xuyên suốt đã áp dụng.
 
 | FR | Nội dung | Trạng thái |
 |---|---|---|
+| FR_006 | IT専門: tự động focus vào Bộ nhỏ nhất chưa hoàn thành | ✅ Xong — test qua Browser pane |
+| FR_007 | IT業務編: màn hình Unit gộp Luyện nghe + Luyện đọc câu | ✅ Xong — **bản rút gọn**, đọc câu dùng nguyên audio track thật thay vì đoạn cắt sẵn (dữ liệu cắt không có trong repo, xem ghi chú đầu `done/FR_007_reading_real_audio_segments.md`) |
 | FR_008 | Bỏ module Kaiwa và Luyện đọc câu | ✅ Xong — menu chính còn đúng 2 thẻ |
 | FR_011 | Xuất / Nhập tiến độ, cỡ chữ, thời gian phản xạ | ✅ Xong — đã test round-trip xuất/nhập |
 | FR_009 | Chế độ mới: Điền từ vào câu (穴埋め) | ✅ Xong — phủ 629/667 từ (94,3%) |
 | FR_010 | Chế độ mới: Phản xạ 3 giây (瞬間作文) | ✅ Xong |
 | FR_012 | Màn hình Thống kê + fix lỗi streak | ✅ Xong |
 
-**Trước khi build APK**: chạy đủ 6 bước nghiệm thu ở `done/_PHASE2_GOI_CAI_MOT_LAN.md` mục "Nghiệm thu trước khi build APK" (đã chạy qua trình duyệt desktop trong phiên code; còn cần tự kiểm tra lại trên thiết bị/khổ máy thật trước khi build).
-
-### Để lại đợt sau (đã chốt yêu cầu từ 2026-07-26, chưa code)
-
-| FR | Nội dung |
-|---|---|
-| FR_006 | IT専門: tự động focus vào Bộ nhỏ nhất chưa hoàn thành |
-| FR_007 | IT業務編: luyện đọc bằng 213 đoạn audio thật đã cắt sẵn |
+**Trước khi build APK**: chạy đủ 6 bước nghiệm thu ở `done/_PHASE2_GOI_CAI_MOT_LAN.md` mục "Nghiệm thu trước khi build APK" (đã chạy qua trình duyệt desktop trong phiên code; còn cần tự kiểm tra lại trên thiết bị/khổ máy thật trước khi build) — cộng thêm tự test tay 3 việc mới: IT専門 auto-focus Bộ (FR_006), màn hình Unit IT業務編 (FR_007), và bảng màu mới hiển thị đúng trên khổ máy thật (mic banner, toast, Quiz đúng/sai — những chỗ có màu cứng hex không đổi theo biến, xem mục UI).
 
 ## Ngôn ngữ & Convention
 

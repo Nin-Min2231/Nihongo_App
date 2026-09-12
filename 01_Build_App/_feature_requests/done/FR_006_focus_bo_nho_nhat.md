@@ -1,6 +1,6 @@
 # FR_006 — Tự động focus vào Bộ nhỏ nhất chưa hoàn thành (IT専門)
 
-> Trạng thái: **Đã chốt yêu cầu — sẵn sàng triển khai** (chưa code). Toàn bộ điểm rà soát ở mục 9 đã được PM xác nhận.
+> Trạng thái: **Đã triển khai 2026-09-12** (`autoFocusDeckIndex()` + `homeDashboard(keepDeck)` trong `app_template.html`). Đã test tay qua Browser pane: auto-focus đúng Bộ nhỏ nhất chưa xong, giữ lựa chọn thủ công trong phiên, reset khi vào lại từ Home, `deckPage` tự nhảy đúng trang, focus Bộ cuối khi xong hết. Toàn bộ điểm rà soát ở mục 9 đã được PM xác nhận trước khi code.
 
 ---
 
