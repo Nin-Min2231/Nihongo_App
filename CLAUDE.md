@@ -127,6 +127,8 @@ Android WebView (nơi Capacitor chạy) **không hề implement Web Speech API**
 ### 6. Xuất tiến độ trên native dùng `@capacitor/filesystem` + `@capacitor/share`, KHÔNG dùng `<a download>`
 `<a download>`/`Blob` không hoạt động trong WebView đóng gói (giống lý do TTS/mic ở quy tắc #4/#5). Native: `Filesystem.writeFile()` ghi ra `Directory.Cache` (không cần xin quyền lưu trữ) rồi `Share.share()` mở hộp thoại Chia sẻ hệ thống để người dùng chọn nơi lưu. Web vẫn dùng `Blob`+`<a download>` như cũ. Xem `nativeFilesystem()`/`nativeShare()` trong `app_template.html` và FR_011 mục 0/4.1 (đổi 2026-09-12 sau khi PM test bản đầu thấy copy/dán thủ công tốn công — bản đầu KHÔNG dùng 2 plugin này, chỉ textarea+clipboard). Nhập tiến độ dùng `<input type="file">` cho cả web lẫn native (Capacitor Android hỗ trợ sẵn, không cần plugin riêng); textarea dán tay vẫn giữ làm đường lùi cho cả xuất lẫn nhập.
 
+**Đổi giao diện 2026-09-13 (không đổi logic xuất/nhập):** khối "💾 Tiến độ học" trong `openSettings()` chuyển lên **đầu panel** (trước "Nguồn giọng đọc"), theo yêu cầu PM vì đây là mục hay dùng nhất. Panel cũng tách thành `.settings-head` (title + nút ✕, `position:sticky;top:0` — không cuộn theo nội dung) + `.settings-body` (phần còn lại, cuộn bên trong `.settings-panel`) — trước đó cả panel cuộn chung 1 khối nên tiêu đề/nút đóng bị trôi mất khi cuộn xuống.
+
 ### 7. `_id_lock.json` — KHÔNG xóa, KHÔNG sửa tay
 Tiến độ học trong `localStorage` khóa theo `id` (`store.cards[id]`, `store.favorites[id]`).
 
@@ -140,14 +142,16 @@ Bản build cũ lấy `id` = STT cột B. Xóa hoặc chèn một dòng giữa f
 
 Hệ quả: **số `#id` hiển thị trên thẻ không còn khớp STT trong Excel** — đây là đánh đổi có chủ ý, giữ tiến độ quan trọng hơn giữ con số hiển thị.
 
+**Lưu ý hay bị hiểu nhầm là bug (đã kiểm tra thật 2026-09-13):** nhãn header "Bộ N (start-end)" (`curDeckRangeLabel()`) hiển thị **vị trí/STT** của từ trong mảng `VOCAB` hiện tại (thứ tự Excel), còn tag "`#id`" trên mỗi từ là **id cố định** theo `_id_lock.json` — 2 con số này KHÔNG bắt buộc trùng nhau, và lệch nhau là bình thường (VD Bộ 9 hiển thị "(201-225)" nhưng có thể chứa từ tag "#228" — đã verify bằng cách đọc thẳng `VOCAB` trong `Kokoro_Nihongo.html`: dữ liệu bên trong 1 Bộ vẫn đúng 100% theo vị trí, chỉ là con số `#id` tự nhiên trôi theo lịch sử sửa từ điển). KHÔNG "sửa" `deckPool()`/`splitDecksStrict()` để cố ép 2 số này khớp nhau — sẽ phá vỡ toàn bộ thiết kế giữ tiến độ ở quy tắc này.
+
 Xóa `_id_lock.json` = mất ánh xạ = build lại sẽ đánh số từ đầu = tiến độ trong app gắn sai hết. File này **phải commit vào git**.
 
-### 8. Lưới chọn Bộ giữ đúng 4 icon
-`deckGridHTML()` tô thẻ Bộ thành xanh lá khi **tất cả** icon truyền vào đều đã xong. Hiện có 4 icon 🗂️✍️🎧🎤 ứng với 4 mode `flash`/`quiz`/`listen`/`speak`.
+### 8. Lưới chọn Bộ — nay đủ 6 icon, cả 6 đều tính vào "hoàn thành"
+`deckGridHTML()` tô thẻ Bộ thành xanh lá khi **tất cả** icon truyền vào đều đã xong. **Đổi 2026-09-13 (theo yêu cầu PM):** trước đây cố tình chỉ truyền 4 icon 🗂️✍️🎧🎤 (`flash`/`quiz`/`listen`/`speak`) dù `cloze`/`reflex` đã ghi cờ vào `deckDone` từ FR_009/FR_010, để tránh làm mất màu xanh của các Bộ đã hoàn thành trước đó. PM đã xác nhận chấp nhận đánh đổi này — nay `homeDashboard()` truyền đủ **6 icon** 🗂️✍️🧩🎧🎤⚡ (`flash`/`quiz`/`cloze`/`listen`/`speak`/`reflex`) vào `deckGridHTML()`, và `autoFocusDeckIndex()` (FR_006) cũng đòi đủ 6 mode mới coi 1 Bộ là xong.
 
-Thêm icon thứ 5 cho mode mới sẽ làm **mọi Bộ người dùng đã hoàn thành lập tức mất màu xanh**, nhìn như mất tiến độ. Mode mới vẫn được ghi cờ vào `deckDone` để dành sau này, nhưng **không hiển thị icon và không tính vào điều kiện Bộ đã xong**. Điều kiện "hoàn thành 1 Bộ" của FR_006 cũng giữ nguyên đúng 4 mode cũ.
+**Hệ quả đã biết (chấp nhận được, không phải bug):** mọi Bộ từng hoàn thành trước bản cập nhật này (kể cả tiến độ thật trên điện thoại PM) sẽ **tạm mất màu xanh** cho tới khi học lại Điền từ + Phản xạ cho từng Bộ đó — dữ liệu `deckDone` cũ không mất, chỉ là điều kiện xét lại nghiêm hơn.
 
-`cloze` (FR_009) và `reflex` (FR_010) tuân theo đúng quy tắc này: cả 2 đều gọi `markDeckDone()` nhưng `homeDashboard()` chỉ truyền đúng 4 icon cũ vào `deckGridHTML()` — không thêm icon thứ 5/6.
+Nếu sau này thêm mode thứ 7 mà muốn tránh lặp lại việc này: theo đúng mẫu cũ — vẫn gọi `markDeckDone()` nhưng không thêm icon vào mảng truyền cho `deckGridHTML()`, và không thêm điều kiện vào `autoFocusDeckIndex()`.
 
 ## Kiến trúc App (app_template.html)
 
@@ -168,10 +172,10 @@ IT業務編 (`gyoumuDashboard()`) vào thẳng **`gyoumuUnitScreen(chapter,unit)
 
 > **FR_008 đã gỡ bỏ** module Luyện đọc (`readingLibrary()`) và Kaiwa (`kaiwaLibrary()`) — không dùng nữa, PM xác nhận trùng mục đích với Luyện nói / nội dung ghép giả. Dữ liệu `deckDone._reading` / `deckDone._kaiwa` cũ vẫn còn trong `localStorage` của user cũ nhưng không dùng tới nữa.
 
-Main menu (`home()`) có 1 khối thống kê tổng hợp đầu trang: Streak / Từ đã thuộc (IT専門) / Track đã nghe (IT業務編) — **bấm được** (mũi tên `›`), mở màn hình `statsScreen()` (FR_012, xem mục riêng bên dưới).
+Main menu (`home()`) có 1 khối thống kê tổng hợp đầu trang: Từ đã thuộc (IT専門) / Cần ôn hôm nay (IT専門) / Track đã nghe (IT業務編) — **bấm được** (mũi tên `›`), mở màn hình `statsScreen()` (FR_012, xem mục riêng bên dưới). Số liệu chính của hero (số lớn phía trên) là **số ngày học liên tục**, không phải số liệu này — xem mục UI bên dưới.
 
 ### 7 Mode học của IT専門
-- **Flashcard + SRS**: Leitner system (box 0-6, intervals [0,1,2,4,7,15,30]). 4 nút: Chi tiết/Yêu thích/Đã nhớ/Tiếp theo — bấm "Đã nhớ" tính 1 lượt SRS mức "Được" (`reviewCard(id,2)`), không còn hàng nút Quên/Khó/Được/Dễ riêng.
+- **Flashcard + SRS**: Leitner system (box 0-6, intervals [0,1,2,4,7,15,30]). 4 nút: Chi tiết/Yêu thích/Đã nhớ/Tiếp theo — bấm "Đã nhớ" tính 1 lượt SRS mức "Được" (`reviewCard(id,2)`), không còn hàng nút Quên/Khó/Được/Dễ riêng. Checkbox **"Học từ đã nhớ"** phía trên thẻ (`flashIncludeMastered`, biến toàn cục, KHÔNG lưu localStorage — luôn mặc định tắt mỗi lần vào lại) cho học lại cả từ đã đánh dấu "Đã nhớ"; khi bật, nút "Đã nhớ" của từ đã thuộc tự hiện sẵn trạng thái ✅ (tái dùng logic `isMastered()` có sẵn, không phải code mới) — bấm lại để bỏ đánh dấu.
 - **Quiz**: Trắc nghiệm JP↔VI
 - **🧩 Điền từ** (`cloze`, FR_009): che 1 đoạn trong câu ví dụ bằng `＿＿＿`, chọn lại từ đúng trong 4 phương án. Thuật toán dò ô trống `findCloze()`/`clozeCandidates()` (đặt cạnh `allWithEx()`) phủ được 629/667 từ (94,3%) — **không sửa lại logic** nếu không đo lại tỉ lệ phủ. Có nút Gợi ý 3 bậc (nghĩa → ký tự đầu → cách đọc), không thu lại được.
 - **Luyện nghe**: Nghe TTS → chọn nghĩa
@@ -205,8 +209,8 @@ IT専門 chia thành các **Bộ cố định đúng 25 từ, bắt đầu từ 
 - **Color scheme: tông "giấy washi" ấm** (đổi 2026-09-12, PM đã duyệt áp dụng cho **toàn app**, thay hẳn tông xanh dương Bootstrap cũ) — `--brand:#1F5673`, `--brand2:#2E7194`, `--bg:#F5F6F1`, `--warn:#9C6B12`, `--bad:#B7412C`, `--good`/`--accent:#4B7A4E`, `--soft:#E7EEF0`, header gradient `#153F55→#1F5673`. Toàn app dùng chung 1 bộ biến `:root` này (không tách riêng theo màn hình) — đổi 1 chỗ là mọi màn hình (Quiz, mic, header, Bộ đang chọn...) đổi theo. Font vẫn hệ thống (không tải Google Fonts) — chỉ lấy bảng màu/bố cục từ demo khảo sát, không lấy font.
   - **4 chỗ dùng màu cứng (hex) bị bản redesign gốc bỏ sót đã fix thêm (2026-09-12)** — không theo biến `:root` nên không tự đổi theo: `.backbtn` (nút "← 戻る"), `.settings-btn` (nút "⚙️ Cài đặt") — 2 nút này xuất hiện ở **mọi màn hình**; `.mic-banner` (banner xin quyền mic); `.tts-ok` + `.topic-card.active .tc-badge` (chấm trạng thái TTS + badge "✅ Sẵn sàng"). Cả 4 đều đổi sang cặp `var(--soft)`/`var(--brand)`, `var(--warn)`, hoặc `var(--good)` tương ứng — không tự bịa hex mới, tái dùng đúng token đã có trong `:root`.
 - Bộ đang chọn: nền `var(--soft)` để phân biệt với Bộ chưa chọn (trước là `#dbeafe` xanh dương nhạt, nay đổi theo bảng màu mới)
-- Flashcard 4 nút: Chi tiết (xanh lá) / Yêu thích (vàng) / Đã nhớ (cam) / Tiếp theo, đều có border màu đậm hơn nền — 4 màu này **không** nằm trong phạm vi redesign, giữ nguyên như cũ
-- **Trang chủ (`home()`) viết lại thành "hero card"** (thay khối `.stats`/`.stats-block` phẳng cũ): số thẻ IT専門 đến hạn ôn hôm nay (`dueCount(VOCAB)`) hiện to, tô đỏ nếu >0 + nút CTA "Bắt đầu ôn tập ngay →" (vào thẳng `flashMode(VOCAB)` ưu tiên thẻ đến hạn); due=0 thì hiện 🎉 + nút "Luyện thêm từ vựng" (mở `homeDashboard()`). Bên dưới là lưới 3 ô Streak/Từ đã thuộc/Track đã nghe + link "Xem thống kê chi tiết ›", cả 2 đều mở `statsScreen()` (FR_012, không đổi hành vi, chỉ đổi giao diện).
+- Flashcard 4 nút: Chi tiết (xanh lá) / Yêu thích (vàng) / Đã nhớ (cam) / Tiếp theo, đều có border màu đậm hơn nền — 4 màu này **không** nằm trong phạm vi redesign, giữ nguyên như cũ. `.card` (khung thẻ) giảm `min-height` 230→186px (2026-09-13) để chừa chỗ cho checkbox "Học từ đã nhớ" phía trên mà không đẩy nút xuống quá xa.
+- **Trang chủ (`home()`) — hero đổi lại số chính (2026-09-13, theo yêu cầu PM):** số lớn của hero giờ là **số ngày học liên tục** (`store.stats.streak`, không phải số thẻ đến hạn nữa). Nếu có khoảng đứt quãng trước hôm nay (`streakGapDays()` — số ngày giữa `stats.lastDay` và hôm nay, trừ 2 đầu mút), số hiển thị về 0 kèm dòng cảnh báo màu `--warn` "Bạn đã bỏ lỡ N ngày..." thay cho dòng phụ bình thường (không đợi `bumpStreak()` chạy lại mới cập nhật — tính trực tiếp lúc render `home()`). Nút CTA **"Bắt đầu ôn tập ngay →"** không còn phân nhánh theo due>0/=0 nữa — luôn tính `autoFocusDeckIndex()` (Bộ đang học dở/Bộ tiếp theo, dùng chung logic FR_006) rồi vào thẳng `flashMode(deckPool())` của đúng Bộ đó (trước đây vào `flashMode(VOCAB)` học due-toàn-bộ, không theo Bộ cụ thể). Lưới 3 ô bên dưới đổi thành Từ đã thuộc/Cần ôn hôm nay/Track đã nghe (bỏ ô Streak trùng lặp với số hero) + link "Xem thống kê chi tiết ›" vẫn mở `statsScreen()` như cũ (FR_012).
 - Mobile-first, max-width 560px
 - App icon + favicon: dùng `04_Image/Logo_Tanpopo.png` (xem `03_Android_App/assets/icon.png` + `npx capacitor-assets generate`)
 
