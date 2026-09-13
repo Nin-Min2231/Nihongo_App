@@ -3,7 +3,7 @@
 > **Mục đích tài liệu:** Ghi lại toàn bộ bản chất vấn đề & quy trình — từ **từ điển Excel** → **build app HTML** → **đóng gói APK Android** → **push GitHub**. Đọc file này là 1 chat Claude mới hiểu ngay context, không cần giải thích lại.
 > **Đối tượng đọc:** Claude (chat mới) hoặc chính người dùng.
 > **Người dùng:** NguyenNC — PM/BrSE ngành IT (cầu nối VN ⇄ Nhật).
-> **Cập nhật lần cuối:** 2026-09-12 (khuya) — **mọi thứ đã commit vào `main`, push lên GitHub, và build xong 1 bản APK debug mới**, xem mục 4.11 + 4.12. Trạng thái hiện tại: từ điển **663 từ** (PM tự dọn lại trong Excel — bỏ 1 mục nháp + gọn 4 chú thích ngoặc, xem mục 4.11), đủ Phase 2 (FR_008→FR_012) + FR_006 (auto-focus Bộ) + FR_007 (Unit gộp, bản rút gọn) + redesign dashboard (bảng màu "giấy washi", PM đã duyệt toàn app) — xem mục 4.10. Repo git giờ chỉ còn **1 nguồn duy nhất** (`main` trong chính thư mục project, không còn worktree/nhánh nào khác chứa việc chưa merge, xem mục 4.13) — xem mục 6. Trước đó nữa, dự án đã trải qua "Phase 1" (2026-09-11): viết lại tầng đọc `build_app.py` (v2, hỗ trợ cả 3 kiểu ô OOXML) sau khi từ điển đổi cách lưu làm build chết, thêm sổ khóa `_id_lock.json`. Đọc kỹ mục 4.9 và `CLAUDE.md` quy tắc #6 nếu thấy nhắc `_id_lock.json`.
+> **Cập nhật lần cuối:** 2026-09-13 — **4 yêu cầu mới của PM đã code xong, test qua trình duyệt, commit + fast-forward vào `main`, và build lại 1 bản APK debug mới** (commit `f95d252`) — xem mục 4.14. Trạng thái hiện tại: từ điển vẫn **663 từ** (không đổi từ 2026-09-12), đủ Phase 2 (FR_008→FR_012) + FR_006/FR_007 + redesign dashboard (như bản 2026-09-12) **cộng thêm**: checkbox "Học từ đã nhớ" ở Flashcard, lưới Bộ đủ 6 icon (Điền từ/Phản xạ giờ tính vào "hoàn thành"), trang chủ đổi số hero thành streak + cảnh báo đứt mạch, panel Cài đặt sticky header + đổi thứ tự — xem mục 4.14 để biết đầy đủ + các đánh đổi đã được PM xác nhận. Repo git chỉ còn **`main` + 1 worktree đang hoạt động** (worktree của phiên chat hiện tại, `handover-file-review-9bd2f7` — PM sẽ tự xóa tay sau khi đóng phiên này, xem mục 4.14) — xem mục 6. `main` local **CHƯA push lên GitHub** (ahead 1 commit so với `origin/main`). Trước đó nữa, dự án đã trải qua "Phase 1" (2026-09-11): viết lại tầng đọc `build_app.py` (v2, hỗ trợ cả 3 kiểu ô OOXML) sau khi từ điển đổi cách lưu làm build chết, thêm sổ khóa `_id_lock.json`. Đọc kỹ mục 4.9 và `CLAUDE.md` quy tắc #6 nếu thấy nhắc `_id_lock.json`.
 
 ---
 
@@ -21,7 +21,7 @@ Kokoro_Nihongo.apk  ← app Android thật, cài trực tiếp lên điện tho�
 
 **Môi trường làm việc hiện tại:** Windows, chạy trực tiếp qua Bash/PowerShell (KHÔNG phải Cowork sandbox kiểu `/sessions/<tên>/mnt/` như tài liệu handover bản cũ từng mô tả — nếu thấy nhắc tới path đó, đó là thông tin CŨ, bỏ qua). Path project cố định: `D:\01_NguyenNC\10_Claude\100_日本語\`.
 
-**Repo GitHub:** https://github.com/Nin-Min2231/Nihongo_App (đổi tên 2026-09-12 từ `Lading_page-VS` cũ — khớp đúng tên dự án, xem mục 4.12; URL cũ vẫn redirect được). Nhánh `main`, commit gốc `70e1fab`, mới nhất `c69b48b`, đã push đầy đủ.
+**Repo GitHub:** https://github.com/Nin-Min2231/Nihongo_App (đổi tên 2026-09-12 từ `Lading_page-VS` cũ — khớp đúng tên dự án, xem mục 4.12; URL cũ vẫn redirect được). Nhánh `main`, commit gốc `70e1fab`, local mới nhất `f95d252` (mục 4.14) — **CHƯA push**, `origin/main` trên GitHub vẫn đang dừng ở `71b266d`.
 
 ---
 
@@ -276,6 +276,24 @@ Dự án từng có tới 3 worktree cùng lúc (`read-handover-file-d24408`, `j
 
 **Bài học ghi lại rõ để tránh lặp lại:** trước khi tin bất kỳ mô tả "trạng thái hiện tại" nào (kể cả ảnh chụp màn hình, hay tài liệu handover khác), luôn chạy `git worktree list` — dự án này đã 3 lần trong 1 ngày có việc thật, có giá trị (dữ liệu FR_007, bản redesign PM duyệt, bản sửa từ điển) nằm âm thầm ở 1 nơi không phải chỗ đang được kiểm tra.
 
+### 4.14. 4 yêu cầu mới của PM (2026-09-13) — Flashcard, Điền từ/Phản xạ, trang chủ, Cài đặt
+
+Phiên chat này chạy trong 1 worktree mới (`handover-file-review-9bd2f7`, nhánh `claude/handover-file-review-9bd2f7`), tách biệt với worktree `read-handover-file-d7c3c0` nhắc ở mục 4.13 — 2 worktree khác nhau, đừng nhầm. PM đưa trực tiếp trong chat 4 yêu cầu (không viết file FR), đều sửa trong `app_template.html`:
+
+1. **Flashcard — checkbox "Học từ đã nhớ"**: thêm ngay trên khung thẻ, mặc định tắt. Bật lên thì các từ đã đánh dấu "Đã nhớ" quay lại vào lượt học (nút "Đã nhớ" của chúng tự hiện sẵn trạng thái ✅ — tái dùng `isMastered()` có sẵn, không phải logic mới). Biến `flashIncludeMastered` (module-level, không lưu `localStorage`) — **bug nhỏ bắt được lúc tự kiểm tra lại**: ban đầu quên reset biến này về `false` mỗi khi vào lại Flashcard từ đầu (qua nút mode hoặc CTA trang chủ), nên bật 1 lần là dính luôn suốt phiên trình duyệt dù thoát ra vào lại — đã fix bằng cách reset ở đúng 2 điểm "bắt đầu phiên mới" (`startMode('flash')` và CTA `dashStart` ở `home()`), còn các đường "tiếp tục phiên đang chạy" (tự bật/tắt checkbox, hoặc xem "Từ đã thuộc" rồi quay lại) thì vẫn giữ nguyên trạng thái, không bị reset. `.card` giảm `min-height` 230→186px để chừa chỗ.
+2. **Điền từ / Phản xạ — hỏi về việc "dữ liệu sai Bộ"**: PM chỉ ra ví dụ thẻ tag `#228` xuất hiện trong khi header ghi "Bộ 9 (201-225)", nghi ngờ là bug lấy sai dữ liệu theo Bộ. **Đã verify bằng cách đọc thẳng `VOCAB` trong `Kokoro_Nihongo.html`: không phải bug** — dữ liệu bên trong 1 Bộ vẫn đúng 100% theo vị trí/STT, chỉ là nhãn header hiển thị vị trí còn tag hiển thị `#id` cố định theo `_id_lock.json` (2 hệ số khác nhau, xem `CLAUDE.md` quy tắc #7 — đã bổ sung thêm đoạn giải thích đúng ví dụ `#228` này vào đó để không ai hiểu nhầm lại). Không đụng gì vào `deckPool()`/`splitDecksStrict()`.
+3. **Điền từ / Phản xạ — thêm icon vào lưới Bộ**: PM xác nhận (qua `AskUserQuestion`, chọn phương án "thêm icon + tính vào hoàn thành") chấp nhận đánh đổi mà `CLAUDE.md` quy tắc #8 (bản cũ) từng cố tình tránh — lưới Bộ giờ đủ **6 icon** 🗂️✍️🧩🎧🎤⚡, và 1 Bộ chỉ xanh lá khi đủ cả 6 mode (trước là 4). `autoFocusDeckIndex()` (FR_006) cũng cập nhật theo. **Hệ quả đã báo trước và PM đồng ý**: mọi Bộ đã hoàn thành trước đây (kể cả tiến độ thật PM có trên điện thoại từ bản APK 2026-09-12) sẽ tạm mất màu xanh cho tới khi học lại Điền từ + Phản xạ cho từng Bộ — dữ liệu `deckDone` cũ không mất, chỉ là điều kiện xét lại nghiêm hơn.
+4. **Trang chủ — hero đổi số chính + CTA**: số lớn ở hero chuyển từ "số thẻ đến hạn hôm nay" sang **số ngày học liên tục** (`store.stats.streak`). Thêm hàm `streakGapDays()` — nếu có khoảng đứt quãng trước hôm nay (dựa `stats.lastDay` so với hôm nay), số hiển thị về 0 kèm cảnh báo "Bạn đã bỏ lỡ N ngày..." (tính trực tiếp lúc render, không cần đợi học lại mới cập nhật). Nút CTA "Bắt đầu ôn tập ngay" bỏ nhánh due>0/=0 cũ, giờ luôn tính `autoFocusDeckIndex()` rồi vào thẳng `flashMode(deckPool())` của đúng Bộ đang học dở/tiếp theo (trước đó vào `flashMode(VOCAB)` học due-toàn-bộ không theo Bộ nào). Lưới 3 ô phụ đổi thành Từ đã thuộc/Cần ôn hôm nay/Track đã nghe (bỏ ô Streak trùng với số hero).
+5. **Cài đặt — sticky header + đổi thứ tự**: tách `.settings-panel` thành `.settings-head` (title+✕, `position:sticky`) và `.settings-body` (phần còn lại, cuộn bên trong panel) — trước đó cuộn xuống là mất luôn tiêu đề/nút đóng. Khối "💾 Tiến độ học" chuyển lên đầu panel theo yêu cầu PM.
+
+**Verify đã chạy**: `node --check` pass, đếm đúng 663 từ, không lỗi console; test tay qua `python3 -m http.server` + Browser pane cho cả 5 việc trên bằng cách gọi thẳng hàm JS (nhanh hơn click tay) — bao gồm chạy thật cả 6 mode học cho 1 Bộ để xác nhận lưới Bộ chuyển xanh lá đúng lúc đủ 6 icon, và test riêng việc reset checkbox giữa các lần vào Flashcard.
+
+**Đã commit + fast-forward `main`**: commit `f95d252` trong worktree `handover-file-review-9bd2f7`, sau đó `git merge --ff-only` từ chính thư mục project (`main` đang sạch nên fast-forward không conflict). `main` local giờ ở `f95d252`, **chưa push lên GitHub** (`origin/main` vẫn ở `71b266d`).
+
+**Đã build lại APK debug** theo đúng quy trình mục 5.2 (copy HTML mới vào `www/index.html`, audio đã đủ 38 file từ trước không cần copy lại, `npx cap sync android` xác nhận đủ 4 plugin, `gradlew assembleDebug` — BUILD SUCCESSFUL). Verify bằng cách đọc thẳng file trong APK (`zipfile` + `aapt dump permissions`/`badging`): 663 từ, 38 audio, 4 class plugin (`TextToSpeechPlugin`/`FilesystemPlugin`/`SharePlugin`/speech-recognition) có trong `.dex`, quyền `RECORD_AUDIO` có khai báo, `versionCode 1`/`versionName "1.0"` (chưa bump). APK ở `03_Android_App/Kokoro_Nihongo.apk`. **CHƯA cài/test trên điện thoại thật.**
+
+**Dọn worktree tiếp** (nối mục 4.13): PM tự tay xóa được worktree thừa `read-handover-file-d7c3c0` (git đã gỡ đăng ký trước đó trong phiên này, nhưng bản thân folder trên ổ đĩa bị 1 tiến trình khác khóa không xóa được qua Bash/PowerShell — không xác định được tiến trình nào vì máy không có sẵn `handle.exe`; PM đóng cửa sổ liên quan rồi tự xóa được). **Worktree đang hoạt động của phiên này** (`handover-file-review-9bd2f7`) đã fully merge vào `main`, không còn gì rời rạc — PM sẽ tự xóa tay sau khi đóng phiên chat này (không xóa giữa chừng vì đây chính là thư mục làm việc của phiên đang chạy).
+
 ---
 
 ## 5. GIAI ĐOẠN ③ — Đóng gói APK Android (Capacitor)
@@ -336,10 +354,10 @@ Máy chạy Claude **không có thiết bị/emulator Android kết nối** — 
 
 - Repo local đã `git init` tại `100_日本語/` (không phải trong `03_Android_App/` hay thư mục con nào) — đây là nơi git thật nằm, `.claude/worktrees/<tên>/` chỉ là bản checkout tạm của 1 phiên chat, share chung `.git` với thư mục này.
 - Git identity **local-only** (không phải global): `user.name=NguyenNC`, `user.email=nguyennc@vi-mash.com`.
-- Remote: `origin` → https://github.com/Nin-Min2231/Nihongo_App.git (đổi tên 2026-09-12, xem mục 4.12 — URL cũ `Lading_page-VS` vẫn redirect được), nhánh `main`, đã push đầy đủ tới `c69b48b`.
+- Remote: `origin` → https://github.com/Nin-Min2231/Nihongo_App.git (đổi tên 2026-09-12, xem mục 4.12 — URL cũ `Lading_page-VS` vẫn redirect được), nhánh `main`. Local đã đi tới `f95d252` (mục 4.14) nhưng **push mới tới `71b266d`** — local đang ahead 1 commit, chưa push commit `f95d252`.
 - `.gitignore` loại trừ: `node_modules/`, audio trùng lặp (chỉ giữ `02_IT_Gyoumuhen/AudioCD/` làm nguồn duy nhất, bỏ 2 bản copy ở `01_Build_App/audio/` và `03_Android_App/www/`), `02_IT_Gyoumuhen/reading_segments/audio/` (~37MB, giữ `segments_data.json`), `05_json/` (bản xuất tiến độ cá nhân), APK, Gradle/Android build artifacts, `local.properties` (machine-specific), `.claude/settings.local.json`.
 - Muốn commit thay đổi mới: `git add -A && git commit -m "..."` rồi `git push` như bình thường — không có gì đặc biệt cần nhớ ngoài việc **không commit các thư mục đã gitignore** (nếu thấy chúng xuất hiện trong `git status`, kiểm tra lại `.gitignore` trước khi add).
-- **Chỉ còn `main` + đúng 1 nhánh/worktree đang hoạt động** (nhánh của phiên chat hiện tại, nếu có) kể từ 2026-09-12 — mọi nhánh/worktree cũ đã dọn sạch (mục 4.13). **Trước khi tin bất kỳ mô tả "trạng thái hiện tại" nào, chạy `git worktree list` và `git branch -a -v`** — dự án này từng có nhiều phiên làm việc song song không biết tới nhau, gây hiểu nhầm thật nhiều lần trong 1 ngày.
+- **Chỉ còn `main` + đúng 1 nhánh/worktree đang hoạt động** (`handover-file-review-9bd2f7`, nhánh `claude/handover-file-review-9bd2f7`, đã fully merge vào `main` — mục 4.14) — mọi nhánh/worktree cũ khác đã dọn sạch (mục 4.13, 4.14). **Trước khi tin bất kỳ mô tả "trạng thái hiện tại" nào, chạy `git worktree list` và `git branch -a -v`** — dự án này từng có nhiều phiên làm việc song song không biết tới nhau, gây hiểu nhầm thật nhiều lần trong 1 ngày.
 
 ---
 
@@ -365,7 +383,7 @@ Folder `01_Build_App/_feature_requests/`: `TEMPLATE.md` để copy, đặt tên 
 
 ## 9. Backlog / ý tưởng nâng cấp tiếp
 
-- Bump version APK lên "0.1" chính thức (chờ người dùng xác nhận test ổn trên điện thoại thật — bản 2026-09-12 vẫn `versionCode 1`/`"1.0"`).
+- Bump version APK lên "0.1" chính thức (chờ người dùng xác nhận test ổn trên điện thoại thật — bản 2026-09-13 (mục 4.14) vẫn `versionCode 1`/`"1.0"`).
 - Quiz nội dung + trích từ vựng riêng cho IT業務編 (đã note rõ ngoài phạm vi FR_004, để FR riêng).
 - Đồng bộ tiến độ đa thiết bị **kiểu gộp thông minh** (FR_011 mới làm ghi đè một chiều, chưa gộp theo nguyên tắc "bậc cao hơn thắng" — PM đã đồng ý tạm thời, mở FR mới nếu cần).
 - Chế độ viết kanji, ghép câu, nghe chép chính tả.
