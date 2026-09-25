@@ -53,6 +53,9 @@ TEMPLATE = os.path.join(HERE,    'app_template.html')
 GYOUMU_XLSX = os.path.join(BASE, '02_IT_Gyoumuhen', 'IT_Gyoumuhen_AudioCD_Transcript.xlsx')
 AUDIO_SRC   = os.path.join(BASE, '02_IT_Gyoumuhen', 'AudioCD')
 AUDIO_DST   = os.path.join(APP_DIR, 'audio')
+SHADOW_JSON      = os.path.join(BASE, '06_ Shadowing_Jokyu', 'Shadowing_Data.json')
+SHADOW_AUDIO_SRC = os.path.join(BASE, '06_ Shadowing_Jokyu', 'AudioMP3')
+SHADOW_AUDIO_DST = os.path.join(AUDIO_DST, 'shadowing')
 ID_LOCK     = os.path.join(HERE,    '_id_lock.json')          # sổ khóa: từ vựng → id cố định
 REPORT      = os.path.join(HERE,    '_last_build_report.txt')
 
@@ -580,23 +583,46 @@ def extract_gyoumu(xlsx_path):
     return tracks
 
 
-# ─── Copy audio (AudioCD/ ngoài 01_Build_App → audio/ cạnh HTML output) ────────
-def sync_audio():
-    if not os.path.isdir(AUDIO_SRC):
-        say("⚠ Audio source folder not found: %s — bỏ qua copy audio." % AUDIO_SRC)
-        return
-    os.makedirs(AUDIO_DST, exist_ok=True)
+# ═══════════════════════════════════════════════════════════════════════════
+#  Trích dữ liệu Shadowing (FR_013) — đọc thẳng JSON đã đúng schema, không parse xlsx
+# ═══════════════════════════════════════════════════════════════════════════
+def extract_shadow():
+    if not os.path.isfile(SHADOW_JSON):
+        say("⚠ Không tìm thấy dữ liệu Shadowing: %s — build tiếp với 0 đoạn." % SHADOW_JSON)
+        return []
+    try:
+        with open(SHADOW_JSON, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data.get('units', [])
+    except Exception as e:
+        say("⚠ Không đọc được dữ liệu Shadowing (%s) — build tiếp với 0 đoạn." % e)
+        return []
+
+
+# ─── Copy audio (AudioCD/, AudioMP3/ → audio/ cạnh HTML output) ────────
+def _copy_audio_dir(src, dst, label):
+    if not os.path.isdir(src):
+        say("⚠ %s audio source folder not found: %s — bỏ qua copy audio." % (label, src))
+        return 0
+    os.makedirs(dst, exist_ok=True)
     copied = 0
-    for fname in os.listdir(AUDIO_SRC):
+    for fname in os.listdir(src):
         if not fname.lower().endswith('.mp3'):
             continue
-        src = os.path.join(AUDIO_SRC, fname)
-        dst = os.path.join(AUDIO_DST, fname)
-        if os.path.exists(dst) and os.path.getsize(dst) == os.path.getsize(src):
+        s = os.path.join(src, fname)
+        d = os.path.join(dst, fname)
+        if os.path.exists(d) and os.path.getsize(d) == os.path.getsize(s):
             continue
-        shutil.copy2(src, dst)
+        shutil.copy2(s, d)
         copied += 1
-    say("✓ Audio synced: %d file(s) copied to %s" % (copied, AUDIO_DST))
+    return copied
+
+
+def sync_audio():
+    n1 = _copy_audio_dir(AUDIO_SRC, AUDIO_DST, "IT業務編")
+    say("✓ Audio synced: %d file(s) copied to %s" % (n1, AUDIO_DST))
+    n2 = _copy_audio_dir(SHADOW_AUDIO_SRC, SHADOW_AUDIO_DST, "Shadowing")
+    say("✓ Shadowing audio synced: %d file(s) copied to %s" % (n2, SHADOW_AUDIO_DST))
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -680,6 +706,9 @@ def main():
         say("⚠ Không đọc được transcript IT業務編 (%s) — build tiếp với 0 track." % e)
         gyoumu = []
 
+    shadow = extract_shadow()
+    shadow_segcount = sum(len(t['segments']) for u in shadow for s in u['sections'] for t in s['tracks'])
+
     sync_audio()
 
     if not os.path.isfile(TEMPLATE):
@@ -690,11 +719,12 @@ def main():
     gen_date  = datetime.date.today().isoformat()
     data_js   = json.dumps(vocab,  ensure_ascii=False)
     gyoumu_js = json.dumps(gyoumu, ensure_ascii=False)
+    shadow_js = json.dumps(shadow, ensure_ascii=False)
 
     with open(TEMPLATE, 'r', encoding='utf-8') as f:
         tpl = f.read()
 
-    for ph in ('/*__VOCAB__*/[]', '/*__GYOUMU__*/[]', '__GEN_DATE__', '__COUNT__'):
+    for ph in ('/*__VOCAB__*/[]', '/*__GYOUMU__*/[]', '/*__SHADOW__*/[]', '__GEN_DATE__', '__COUNT__'):
         if ph not in tpl:
             say("❌ Template thiếu placeholder %s — app_template.html có bị sửa nhầm không?" % ph)
             _write_report()
@@ -702,6 +732,7 @@ def main():
 
     out = tpl.replace('/*__VOCAB__*/[]',  '/*__VOCAB__*/'  + data_js)
     out = out.replace('/*__GYOUMU__*/[]', '/*__GYOUMU__*/' + gyoumu_js)
+    out = out.replace('/*__SHADOW__*/[]', '/*__SHADOW__*/' + shadow_js)
     out = out.replace('__GEN_DATE__', gen_date)
     out = out.replace('__COUNT__', str(len(vocab)))
 
@@ -710,7 +741,8 @@ def main():
 
     save_lock(lock)
     say("")
-    say("✓ Built app with %d words + %d IT業務編 tracks → %s" % (len(vocab), len(gyoumu), OUT))
+    say("✓ Built app with %d words + %d IT業務編 tracks + %d shadowing segments → %s"
+        % (len(vocab), len(gyoumu), shadow_segcount, OUT))
     _write_report()
 
 

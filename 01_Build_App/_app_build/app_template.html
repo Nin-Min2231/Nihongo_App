@@ -46,26 +46,26 @@ main{flex:1;padding:16px;overflow-y:auto}
 
 /* dashboard chính (home) — đổi 2026-09-12 theo bản demo khảo sát: số liệu "hero" nổi bật + CTA hành động ngay,
    thay cho khối 3 ô thống kê phẳng cũ. */
-.dash-hero{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 20px;
-  margin-bottom:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.dash-hero{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 18px;
+  margin-bottom:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .dash-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;
   background:radial-gradient(circle,var(--soft),transparent 72%);pointer-events:none}
 .dash-eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);position:relative}
-.dash-num{font-size:52px;font-weight:800;line-height:.95;letter-spacing:-.02em;color:var(--ink);
-  font-variant-numeric:tabular-nums;margin-top:8px;position:relative}
+.dash-num{font-size:40px;font-weight:800;line-height:.95;letter-spacing:-.02em;color:var(--ink);
+  font-variant-numeric:tabular-nums;margin-top:4px;position:relative}
 .dash-num.due{color:var(--bad)}
-.dash-numlbl{font-size:14.5px;font-weight:700;margin-top:2px;position:relative}
-.dash-numsub{font-size:12.5px;color:var(--sub);margin-top:3px;line-height:1.45;position:relative}
-.dash-cta{margin-top:16px}
-.dash-warn{font-size:12.5px;color:var(--warn);margin-top:6px;line-height:1.5;font-weight:600;position:relative}
-.dash-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:16px;cursor:pointer;position:relative}
+.dash-numlbl{font-size:14px;font-weight:700;margin-top:2px;position:relative}
+.dash-numsub{font-size:12.5px;color:var(--sub);margin-top:3px;line-height:1.4;position:relative}
+.dash-cta{margin-top:10px}
+.dash-warn{font-size:12.5px;color:var(--warn);margin-top:6px;line-height:1.4;font-weight:600;position:relative}
+.dash-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:10px;cursor:pointer;position:relative}
 .dash-metrics:active{opacity:.85}
-.dash-metric{background:var(--card);padding:11px 6px;text-align:center}
-.dash-metric b{display:block;font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
-.dash-metric span{font-size:10.5px;color:var(--sub);margin-top:2px;display:block}
+.dash-metric{background:var(--card);padding:8px 6px;text-align:center}
+.dash-metric b{display:block;font-size:18px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.dash-metric span{font-size:10.5px;color:var(--sub);margin-top:1px;display:block}
 .dash-metrics-link{display:block;text-align:center;font-size:12px;color:var(--brand);font-weight:600;
-  margin-top:10px;cursor:pointer;position:relative}
+  margin-top:6px;cursor:pointer;position:relative}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;box-shadow:var(--shadow)}
 .stat .n{font-size:22px;font-weight:800;color:var(--brand)}
@@ -294,6 +294,27 @@ footer{text-align:center;font-size:11px;color:var(--sub);padding:14px}
 .topic-card.soon:active{transform:none}
 .topic-card.soon .tc-badge{background:var(--soft);color:var(--sub)}
 
+/* IT業務編 + シャドウイング — 3 màu nền theo tiến độ (dashboard: theo % đã nghe của Unit; trong Unit:
+   theo % đã luyện nói/đọc của từng Track/Đoạn) — hex tint pha nhẹ từ --warn/--good, không thêm biến
+   :root mới. Đặt TRƯỚC .gy-track-row để rule .gy-track-row.open (định nghĩa sau) luôn thắng khi 1
+   dòng vừa mở vừa có tint. Dùng chung cho cả 2 module (đặt tên trung lập, không theo module cụ thể). */
+.topic-card.tint-partial{background:#F6ECD9;border-color:var(--warn)}
+.topic-card.tint-done{background:#E3EEE4;border-color:var(--good)}
+.unit-iconwrap{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0}
+.unit-progress{font-size:10px;font-weight:700;color:var(--sub);text-align:center;white-space:nowrap}
+/* Layout gọn hơn cho màn Unit gộp nghe+luyện nói (IT業務編/シャドウイング) — nhiều dòng/1 màn hình điện thoại hơn */
+.gy-track-row.compact-row{padding:12px 14px}
+.compact-body{margin:8px 0 10px}
+.compact-body .gy-read-tabs{margin-bottom:10px}
+.compact-body .btn{padding:10px 14px}
+.compact-body .player-card{padding:16px;margin-bottom:8px}
+.compact-body .player-card .play-btn{margin-top:8px;width:60px;height:60px;font-size:24px}
+.compact-body .player-card .progress-row{margin-top:10px}
+.compact-body .player-card .player-controls{margin-top:10px}
+.compact-body .sent-card{padding:16px;margin-bottom:8px}
+.compact-body .sent-card .sent-controls{margin-top:8px}
+.compact-body .transcript-panel{margin-top:8px;padding:12px}
+
 /* IT業務編 — audio player + transcript */
 .player-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
   padding:22px 20px;text-align:center;margin-bottom:14px}
@@ -337,6 +358,12 @@ footer{text-align:center;font-size:11px;color:var(--sub);padding:14px}
 /* ═══════════════ DATA ═══════════════ */
 const VOCAB = /*__VOCAB__*/[];
 const GYOUMU = /*__GYOUMU__*/[];
+const SHADOW = /*__SHADOW__*/[];
+const SHADOW_SEGCOUNT = SHADOW.reduce(function(sum,u){
+  return sum + u.sections.reduce(function(s2,s){
+    return s2 + s.tracks.reduce(function(s3,t){ return s3 + t.segments.length; }, 0);
+  }, 0);
+}, 0);
 const GEN_DATE = "__GEN_DATE__";
 
 /* ═══════════════ STORAGE / SRS ═══════════════ */
@@ -456,11 +483,22 @@ function loadGyoumu(){
 function defaultGyoumuStore(){ return {listened:{}, read:{}}; }
 function saveGyoumu(){ localStorage.setItem(GY_LS_KEY, JSON.stringify(gyStore)); }
 
+/* ═══════════════ SHADOWING STORAGE (riêng biệt, không đụng jp_learn_v1/kokoro_gyoumu_v1 — FR_013) ═══════════════ */
+const SD_LS_KEY = "kokoro_shadow_v1";
+let sdStore = loadShadow();
+function loadShadow(){
+  try{ return JSON.parse(localStorage.getItem(SD_LS_KEY)) || defaultShadowStore(); }
+  catch(e){ return defaultShadowStore(); }
+}
+function defaultShadowStore(){ return {listened:{}, spoken:{}}; }
+function saveShadow(){ localStorage.setItem(SD_LS_KEY, JSON.stringify(sdStore)); }
+
 /* ═══════════════ SPEECH (Google Translate TTS + Device fallback) ═══════════════ */
 let allJaVoices=[];
 let jaVoice=null;
 let currentAudio=null;
 let currentGyoumuAudio=null;
+let currentShadowAudio=null;
 
 function loadJaVoices(){
   if(!('speechSynthesis' in window)) return;
@@ -494,6 +532,7 @@ if('speechSynthesis' in window){
 function stopSpeech(){
   if(currentAudio){ try{currentAudio.pause();currentAudio.currentTime=0;}catch(e){} currentAudio=null; }
   if(currentGyoumuAudio){ try{currentGyoumuAudio.pause();}catch(e){} }
+  if(currentShadowAudio){ try{currentShadowAudio.pause();}catch(e){} }
   if('speechSynthesis' in window) speechSynthesis.cancel();
   if(isNativeApp() && nativeTTS()){ try{ nativeTTS().stop(); }catch(e){} }
 }
@@ -858,6 +897,7 @@ function buildExportPayload(){
     data:{
       jp_learn_v1:localStorage.getItem('jp_learn_v1'),
       kokoro_gyoumu_v1:localStorage.getItem('kokoro_gyoumu_v1'),
+      kokoro_shadow_v1:localStorage.getItem('kokoro_shadow_v1'),
       kokoro_tts_settings:localStorage.getItem('kokoro_tts_settings'),
       kokoro_ui_settings:localStorage.getItem('kokoro_ui_settings')
     }
@@ -990,7 +1030,7 @@ function showImportCompare(parsed){
   document.getElementById('importResult').innerHTML=html;
   document.getElementById('cancelImport').onclick=function(){ document.getElementById('importResult').innerHTML=''; };
   document.getElementById('confirmImport').onclick=function(){
-    ['jp_learn_v1','kokoro_gyoumu_v1','kokoro_tts_settings','kokoro_ui_settings'].forEach(function(k){
+    ['jp_learn_v1','kokoro_gyoumu_v1','kokoro_shadow_v1','kokoro_tts_settings','kokoro_ui_settings'].forEach(function(k){
       var v=parsed.data[k];
       if(v!==undefined) localStorage.setItem(k, v);
     });
@@ -1277,6 +1317,10 @@ function setHeader(title,sub,showBack){
   hTitle.textContent=title; if(sub!==null) hSub.innerHTML=sub;
   backBtn.classList.toggle('hidden',!showBack);
   headerLogo.classList.toggle('hidden',showBack);
+  /* Mọi lần đổi màn hình đều gọi setHeader() đầu tiên — reset scroll về đầu trang tại đây thay vì
+     rải rác ở từng hàm, để không mang theo vị trí cuộn của màn trước (rõ nhất ở các màn dài như
+     シャドウイング/IT業務編 — PM báo cáo 2026-09-23). */
+  window.scrollTo(0,0);
 }
 
 /* ═══════════════ TOPIC SELECTION (màn hình chính) ═══════════════ */
@@ -1286,6 +1330,7 @@ function setHeader(title,sub,showBack){
 const MENU_MODULES = [
   {id:'it_senmon', icon:'💻', title:'IT専門', sub:function(){return 'Từ vựng IT chuyên ngành · '+VOCAB.length+' từ';}, open:homeDashboard},
   {id:'it_gyoumu', icon:'🏢', title:'IT業務編', sub:function(){return 'Hội thoại thực tế công việc IT · '+GYOUMU.length+' track';}, open:gyoumuDashboard},
+  {id:'shadowing', icon:'🗣️', title:'シャドウイング', sub:function(){return 'Shadowing hội thoại đời sống · '+SHADOW_SEGCOUNT+' đoạn';}, open:shadowDashboard},
 ];
 
 function home(){
@@ -1293,27 +1338,29 @@ function home(){
   setHeader('ココロ日本語', 'Kokoro Nihongo · Chọn chủ đề', false);
   var learned=learnedCount();
   var gyListened=Object.keys(gyStore.listened).length;
+  var sdListened=Object.keys(sdStore.listened).length;
   var gap=streakGapDays();
   var streak=gap>0? 0 : (store.stats.streak||0);
   var due=dueCount(VOCAB);
 
   var heroHtml=
     '<div class="dash-hero">'+
-      '<div class="dash-eyebrow">今日の学習 · Hôm nay</div>'+
+      '<div class="dash-eyebrow">今日の学習</div>'+
       '<div class="dash-num">'+streak+'</div>'+
-      '<div class="dash-numlbl">ngày học liên tục</div>'+
+      '<div class="dash-numlbl">日連続学習中</div>'+
       (gap>0?
-        '<div class="dash-warn">⚠️ Bạn đã bỏ lỡ <b>'+gap+'</b> ngày chưa học liên tiếp — học lại hôm nay để bắt đầu chuỗi mới!</div>'
+        '<div class="dash-warn">⚠️ 直近'+gap+'日間、学習していません。今日からまた連続記録を始めましょう！</div>'
       :
-        '<div class="dash-numsub">'+(due>0? due+' thẻ IT専門 cần ôn hôm nay · đừng để đứt mạch':'Đã ôn hết thẻ đến hạn hôm nay 🎉')+'</div>'
+        '<div class="dash-numsub">'+(due>0? 'IT専門 復習カード '+due+'枚 · 継続を切らさずに':'今日の復習はすべて完了しました 🎉')+'</div>'
       )+
-      '<button class="btn btn-primary dash-cta" id="dashStart">Bắt đầu ôn tập ngay →</button>'+
+      '<button class="btn btn-primary dash-cta" id="dashStart">今すぐ復習を始める →</button>'+
       '<div class="dash-metrics" id="dashMetrics">'+
-        '<div class="dash-metric"><b>'+learned+'</b><span>Từ đã thuộc</span></div>'+
-        '<div class="dash-metric"><b>'+due+'</b><span>Cần ôn hôm nay</span></div>'+
-        '<div class="dash-metric"><b>'+gyListened+'</b><span>Track đã nghe</span></div>'+
+        '<div class="dash-metric"><b>'+learned+'</b><span>習得済み単語</span></div>'+
+        '<div class="dash-metric"><b>'+due+'</b><span>今日の復習</span></div>'+
+        '<div class="dash-metric"><b>'+gyListened+'</b><span>聴取済みTrack</span></div>'+
+        '<div class="dash-metric"><b>'+sdListened+'</b><span>聴取済み段落</span></div>'+
       '</div>'+
-      '<div class="dash-metrics-link" id="dashStatsLink">Xem thống kê chi tiết ›</div>'+
+      '<div class="dash-metrics-link" id="dashStatsLink">詳しい統計を見る ›</div>'+
     '</div>';
 
   main.innerHTML=
@@ -1482,6 +1529,27 @@ function gyoumuUnits(){
   return units;
 }
 
+/* Điểm của 1 câu = điểm LẦN GHI ÂM GẦN NHẤT (không phải cao nhất) — cùng quy tắc シャドウイング (FR_013 redesign) */
+function gyoumuReadQueue(t){ return t.lines.filter(function(l){return l.t && l.t.trim().length>0;}); }
+function gyoumuLineScore(t, i){
+  var rec=gyStore.read[t.track];
+  var ls=rec && rec.lines && rec.lines[i];
+  return ls? ls.score : null;
+}
+function gyoumuTrackStats(t){
+  var queue=gyoumuReadQueue(t);
+  var scores=[];
+  queue.forEach(function(l,i){ var s=gyoumuLineScore(t,i); if(s!=null) scores.push(s); });
+  var total=queue.length, done=scores.length;
+  var avg=done? Math.round(scores.reduce(function(a,b){return a+b;},0)/done) : 0;
+  return {done:done, total:total, avg:avg};
+}
+function gyoumuUnitListenedCount(u){
+  var n=0;
+  u.tracks.forEach(function(t){ if(gyStore.listened[t.track]) n++; });
+  return n;
+}
+
 function gyoumuDashboard(){
   onBack=home;
   var units=gyoumuUnits();
@@ -1491,18 +1559,23 @@ function gyoumuDashboard(){
     '<div class="stats">'+
       '<div class="stat"><div class="n">'+units.length+'</div><div class="l">Unit</div></div>'+
       '<div class="stat"><div class="n">'+GYOUMU.length+'</div><div class="l">Track</div></div>'+
-      '<div class="stat"><div class="n">'+listenedCount+'</div><div class="l">Đã nghe</div></div>'+
+      '<div class="stat"><div class="n">'+listenedCount+'</div><div class="l">聴取済み</div></div>'+
     '</div>';
   var curChapter=null;
   units.forEach(function(u){
     if(u.chapter!==curChapter){
       if(curChapter!==null) html+='</div>';
       curChapter=u.chapter;
-      html+='<div class="sectitle">Chương '+curChapter+'</div><div class="topics">';
+      html+='<div class="sectitle">第'+curChapter+'章</div><div class="topics">';
     }
+    var ln=gyoumuUnitListenedCount(u);
+    var tier = ln<=0? '' : (ln>=u.tracks.length? ' tint-done':' tint-partial');
     html+=
-      '<div class="topic-card active" data-chapter="'+u.chapter+'" data-unit="'+u.unit+'">'+
-        '<div class="tc-icon">📗</div>'+
+      '<div class="topic-card active'+tier+'" data-chapter="'+u.chapter+'" data-unit="'+u.unit+'">'+
+        '<div class="unit-iconwrap">'+
+          '<div class="tc-icon">📗</div>'+
+          '<div class="unit-progress">'+ln+'/'+u.tracks.length+' 聴取済み</div>'+
+        '</div>'+
         '<div class="tc-body">'+
           '<div class="tc-title">Unit '+u.unit+' · '+esc(u.unitJp)+'</div>'+
           '<div class="tc-sub">'+esc(u.unitVi)+' · '+u.tracks.length+' track</div>'+
@@ -1528,48 +1601,83 @@ function gyoumuFmtTime(s){
   var m=Math.floor(s/60), sec=Math.floor(s%60);
   return m+':'+(sec<10?'0':'')+sec;
 }
+/* t.type/t.chars trong GYOUMU_DATA là 1 chuỗi gộp "tiếng Nhật (chú thích tiếng Việt hoặc romaji tên riêng)"
+   ngay từ cột Excel gốc — không tách riêng field JP/VI như unitJp/unitVi. Bỏ đúng phần tiếng Việt (nhận
+   diện bằng dấu tiếng Việt), GIỮ LẠI romaji tên riêng không dấu (VD "(Taguchi)", "(Li)") vì đó là phiên âm
+   đọc tên, không phải bản dịch — không phải "text tiếng Việt" cần đổi. */
+var VI_DIACRITIC_RE=/[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i;
+function stripViGloss(s){
+  if(!s) return s;
+  s=s.replace(/\s*[（(]([^）)]*)[）)]/g, function(whole,inner){ return VI_DIACRITIC_RE.test(inner)?'':whole; });
+  s=s.replace(/\s*-\s*([^-]+)$/, function(whole,tail){ return VI_DIACRITIC_RE.test(tail)?'':whole; });
+  return s.replace(/\s{2,}/g,' ').trim();
+}
 
-/* Màn hình Unit gộp (FR_007, bản rút gọn — không cắt đoạn audio theo lượt thoại, dữ liệu cắt sẵn
-   segments_data.json không có trong repo nên phần "Luyện đọc câu" dùng nguyên file track thật thay
-   vì đoạn đã cắt): 🎧 Luyện nghe (accordion, mở 1 track tại 1 thời điểm) + 🎤 Luyện đọc câu (tab
-   chọn track có transcript, luyện đọc từng câu như cũ nhưng có thêm nút nghe nguyên track thật). */
+/* Màn hình Unit — mỗi Track là 1 accordion, mở ra có đúng 2 tab con 🎧 Luyện nghe / 🎤 Luyện đọc lồng
+   chung 1 chỗ (redesign theo mẫu シャドウイング/FR_013, thay cho bản FR_007 tách 2 khối rời nhau).
+   Chỉ 1 track mở + 1 tab hiện + 1 nguồn audio phát tại 1 thời điểm — đổi track/đổi tab đều
+   stopAllGyoumuAudio() trước khi vẽ lại. Track không có transcript (9, 21) vẫn nghe được, chỉ tab
+   Luyện đọc bị khoá (disabled). */
 function gyoumuUnitScreen(chapter,unit){
   var tracks=GYOUMU.filter(function(t){return t.chapter===chapter && t.unit===unit;});
   if(!tracks.length){ gyoumuDashboard(); return; }
   onBack=gyoumuDashboard;
   setHeader('Unit '+unit+' · '+esc(tracks[0].unitJp), esc(tracks[0].unitVi), true);
 
-  var openTrack=null;                       // track đang mở player nghe (accordion), null = đóng hết
-  var readTracks=tracks.filter(function(t){return t.hasTranscript;});
-  var curRead=readTracks[0]||null;          // track đang chọn ở tab Luyện đọc câu
-  var readI=0, readTotal=0, readSum=0, readSlow=false;
+  var openTrack=null;      // track number đang mở (chỉ 1 tại 1 thời điểm)
+  var openTab='listen';    // 'listen' | 'read'
+  var readI=0, readSlow=false;
 
-  function readQueue(){ return curRead? curRead.lines.filter(function(l){return l.t && l.t.trim().length>0;}) : []; }
+  function findTrack(trackNum){ return tracks.find(function(t){return t.track===trackNum;}); }
 
-  function listenSectionHTML(){
-    var html='<div class="sectitle">🎧 Luyện nghe</div>';
+  function trackRowTier(t){
+    var st=gyoumuTrackStats(t);
+    if(st.total>0 && st.done>=st.total) return ' tint-done';
+    if(st.done>0) return ' tint-partial';
+    return '';
+  }
+
+  function trackListHTML(){
+    var html='';
     tracks.forEach(function(t){
       var isOpen=openTrack===t.track;
       var ico=t.type.indexOf('聞き取り')===0?'🎧':'💬';
-      html+='<div class="topic-card active gy-track-row'+(isOpen?' open':'')+'" data-track="'+t.track+'">'+
+      var st=gyoumuTrackStats(t);
+      var statTag = st.total>0 && st.done>0?
+        ' <span style="font-weight:400;font-size:12.5px;color:'+scoreColorTier(st.avg)+'">('+st.done+'/'+st.total+' · '+st.avg+'点)</span>' : '';
+      html+='<div class="topic-card active gy-track-row compact-row'+(isOpen?' open':'')+trackRowTier(t)+'" data-track="'+t.track+'">'+
           '<div class="tc-icon">'+ico+'</div>'+
           '<div class="tc-body">'+
-            '<div class="tc-title">Track '+t.track+' · '+esc(t.type)+'</div>'+
-            '<div class="tc-sub">'+(t.chars?esc(t.chars):'')+(t.hasTranscript?'':' · ⚠ Không có transcript')+'</div>'+
+            '<div class="tc-title">Track '+t.track+' · '+esc(stripViGloss(t.type))+statTag+'</div>'+
+            '<div class="tc-sub">'+(t.chars?esc(stripViGloss(t.chars)):'')+(t.hasTranscript?'':' · ⚠ スクリプトなし')+'</div>'+
           '</div>'+
-          (gyStore.listened[t.track]?'<span class="tc-badge">✅ Đã nghe</span>':'')+
+          (gyStore.listened[t.track]?'<span class="tc-badge">✅</span>':'')+
         '</div>';
-      if(isOpen) html+='<div class="gy-track-body" id="gyPlayerBody">'+listenPlayerHTML(t)+'</div>';
+      if(isOpen) html+='<div class="gy-track-body compact-body" id="gySegBody">'+trackBodyHTML(t)+'</div>';
     });
     return html;
   }
 
-  function listenPlayerHTML(t){
+  function trackBodyHTML(t){
+    var counterHtml='';
+    if(openTab==='read'){
+      var queue=gyoumuReadQueue(t);
+      if(readI<queue.length) counterHtml='<span style="margin-left:auto;align-self:center;font-size:13px;color:var(--sub)">'+(readI+1)+' / '+queue.length+'</span>';
+    }
+    return '<div class="gy-read-tabs">'+
+        '<button class="speed-btn gy-read-tab'+(openTab==='listen'?' on':'')+'" data-tab="listen">🎧 聞き取り</button>'+
+        '<button class="speed-btn gy-read-tab'+(openTab==='read'?' on':'')+'" data-tab="read"'+(t.hasTranscript?'':' disabled')+'>🎤 音読練習</button>'+
+        counterHtml+
+      '</div>'+
+      (openTab==='listen'? listenPaneHTML(t) : readPaneHTML(t));
+  }
+
+  function listenPaneHTML(t){
     var transcriptHtml = t.hasTranscript ?
       t.lines.map(function(l){ return '<div class="transcript-line">'+(l.spk?'<b>'+esc(l.spk)+'：</b>':'')+esc(l.t)+'</div>'; }).join('') : '';
     return '<div class="player-card">'+
-        '<span class="tag">'+esc(t.type)+'</span>'+
-        (t.chars?'<div style="font-size:13px;color:var(--sub);margin-top:6px">'+esc(t.chars)+'</div>':'')+
+        '<span class="tag">'+esc(stripViGloss(t.type))+'</span>'+
+        (t.chars?'<div style="font-size:13px;color:var(--sub);margin-top:6px">'+esc(stripViGloss(t.chars))+'</div>':'')+
         '<div><button class="play-btn" id="gyPlayBtn">▶️</button></div>'+
         '<div class="progress-row">'+
           '<span class="ptime" id="gyCurT">0:00</span>'+
@@ -1580,101 +1688,102 @@ function gyoumuUnitScreen(chapter,unit){
           '<button class="speed-btn" data-rate="0.75">0.75x</button>'+
           '<button class="speed-btn on" data-rate="1">1x</button>'+
           '<button class="speed-btn" data-rate="1.25">1.25x</button>'+
-          '<button class="btn btn-ghost" id="gyReplayBtn" style="padding:8px 12px;font-size:13px;width:auto">↺ Nghe lại</button>'+
+          '<button class="btn btn-ghost" id="gyReplayBtn" style="padding:8px 12px;font-size:13px;width:auto">↺ もう一度再生</button>'+
         '</div>'+
       '</div>'+
-      '<button class="btn btn-ghost" id="gyToggleTranscript" style="width:100%"'+(t.hasTranscript?'':' disabled')+'>'+
-        (t.hasTranscript ? '🔒 Hiện transcript' : '🔒 Transcript không khả dụng') +
-      '</button>'+
       (t.hasTranscript ?
+        '<button class="btn btn-ghost" id="gyToggleTranscript" style="width:100%">👁 スクリプトを表示</button>'+
         '<div class="transcript-panel hidden" id="gyTranscriptPanel">'+transcriptHtml+'</div>'
-        : '<div class="note">Transcript không khả dụng cho track này (thiếu trang trong bản scan gốc). Bạn vẫn có thể nghe audio bình thường.</div>')+
+        : '<div class="note">このTrackはスクリプトがありません（元のスキャンにページが欠けているため）。音声は通常通り聞けます。</div>')+
       '<audio id="gaEl2" preload="none"></audio>';
   }
 
-  function readSectionHTML(){
-    var html='<div class="sectitle" style="margin-top:22px">🎤 Luyện đọc câu</div>';
-    if(!readTracks.length){
-      return html+'<div class="note">Không có track nào ở Unit này có transcript để luyện đọc.</div>';
-    }
-    if(readTracks.length>1){
-      html+='<div class="gy-read-tabs">'+
-        readTracks.map(function(t){
-          return '<button class="speed-btn gy-read-tab'+(curRead===t?' on':'')+'" data-track="'+t.track+'">Track '+t.track+'</button>';
-        }).join('')+
-      '</div>';
-    }
-    html+='<div id="gyReadBody">'+readBodyHTML()+'</div>';
-    return html;
-  }
-
-  function readBodyHTML(){
-    var queue=readQueue();
-    if(!queue.length) return '<div class="note">Track này không có dòng hội thoại để luyện đọc.</div>';
+  function readPaneHTML(t){
+    if(!t.hasTranscript) return '<div class="note">このTrackには音読練習用のスクリプトがありません。</div>';
+    var queue=gyoumuReadQueue(t);
+    if(!queue.length) return '<div class="note">このTrackには練習できるセリフがありません。</div>';
     if(readI>=queue.length){
-      var avg=readTotal?Math.round(readSum/readTotal):0;
-      var bestAvg=(gyStore.read[curRead.track]||{}).bestAvg||0;
+      var st=gyoumuTrackStats(t);
       return '<div class="done" style="padding:10px 0">'+
           '<div class="big">📖</div>'+
-          '<h3 style="margin:8px 0 4px">Xong buổi đọc!</h3>'+
-          '<p style="color:var(--sub);font-size:13.5px">Điểm trung bình: <b>'+avg+'</b>/100 · Tốt nhất: '+bestAvg+'/100</p>'+
-          '<button class="btn btn-ghost" id="gyReadAgain" style="margin-top:10px">Đọc lại</button>'+
+          '<h3 style="margin:8px 0 4px">終了！</h3>'+
+          '<p style="color:var(--sub);font-size:13.5px">平均点：<b style="color:'+scoreColorTier(st.avg)+'">'+st.avg+'</b>/100（'+st.done+'/'+st.total+'）</p>'+
+          '<button class="btn btn-ghost" id="gyReadAgain" style="margin-top:10px">もう一度練習</button>'+
         '</div>';
     }
     var l=queue[readI];
+    var lineScore=gyoumuLineScore(t, readI);
     var micSupport=hasSR() && micPermission!=='denied' && micPermission!=='unsupported';
-    return '<div class="counter">Câu '+(readI+1)+' / '+queue.length+'</div>'+
-      '<div class="sent-card">'+
-        (l.spk?'<div class="sent-word">🗣 '+esc(l.spk)+'</div>':'')+
+    return '<div class="sent-card">'+
+        '<div style="display:flex;justify-content:space-between;align-items:center">'+
+          (l.spk?'<div class="sent-word">🗣 '+esc(l.spk)+'</div>':'<span></span>')+
+          '<span class="tag" id="gyLineScoreTag" style="'+(lineScore!=null?'':'display:none;')+'color:'+(lineScore!=null?scoreColorTier(lineScore):'inherit')+'">'+(lineScore!=null?lineScore+'点':'')+'</span>'+
+        '</div>'+
         '<div class="sent-jp">'+esc(l.t)+'</div>'+
         '<div class="sent-controls">'+
           '<button class="speaker" id="gySpk" style="margin:0">🔊</button>'+
-          '<button class="speed-btn '+(readSlow?'on':'')+'" id="gySlowBtn">🐢 Chậm</button>'+
-          '<button class="btn btn-ghost" id="gyRealAudio" style="width:auto;padding:8px 12px;font-size:12.5px">🎧 Nghe cả đoạn hội thoại</button>'+
+          '<button class="speed-btn '+(readSlow?'on':'')+'" id="gySlowBtn">🐢 ゆっくり</button>'+
+          '<button class="btn btn-ghost" id="gyRealAudio" style="width:auto;padding:8px 12px;font-size:12.5px">🎧 会話全体を聞く</button>'+
         '</div>'+
       '</div>'+
       (micSupport?
         '<div style="text-align:center;margin-top:10px">'+
           '<button class="btn btn-primary" id="gyMicBtn" style="display:inline-flex;align-items:center;gap:8px;width:auto;padding:12px 24px;font-size:15px;border-radius:99px">'+
-            '<span style="font-size:20px">🎤</span> Luyện đọc'+
+            '<span style="font-size:20px">🎤</span> 発音練習'+
           '</button>'+
-          '<div class="qhint" id="gyMhint">Chạm để thu giọng và chấm phát âm</div>'+
+          '<div class="qhint" id="gyMhint">タップして録音・採点</div>'+
           '<div class="heard hidden" id="gyHeard"></div>'+
           '<div class="fb" id="gyFb"></div>'+
         '</div>'
       :'')+
       '<div style="margin-top:14px">'+
-        '<button class="btn btn-primary" id="gyReadNext">Câu tiếp theo →</button>'+
+        '<button class="btn btn-primary" id="gyReadNext">次へ →</button>'+
       '</div>';
   }
 
-  /* 2 khối render ĐỘC LẬP (không dùng chung 1 renderAll) — Player nghe (accordion) và Luyện đọc câu
-     phải giữ nguyên trạng thái/audio đang phát của nhau khi phần kia thay đổi (FR_007 mục 6) */
   function renderShell(){
-    main.innerHTML='<div id="gyListenWrap"></div><div id="gyReadWrap"></div>';
-    renderListen();
-    renderRead();
+    main.innerHTML='<div id="gyListWrap"></div>';
+    renderList();
   }
-  function renderListen(){
-    $('#gyListenWrap').innerHTML=listenSectionHTML();
-    bindListen();
-  }
-  function renderRead(){
-    $('#gyReadWrap').innerHTML=readSectionHTML();
-    bindRead();
+  function renderList(){ $('#gyListWrap').innerHTML=trackListHTML(); bindList(); }
+
+  function markTrackListened(t){
+    var was=!!gyStore.listened[t.track];
+    gyStore.listened[t.track]=true; saveGyoumu();
+    /* Tính vào streak/lịch sử (không tính vào store.stats.studied — đó là lượt ôn thẻ SRS riêng) — chỉ lần đầu nghe xong track này */
+    if(!was){ bumpStreak(); save(); }
   }
 
-  function bindListen(){
-    main.querySelectorAll('.gy-track-row').forEach(function(row){
+  function bindList(){
+    main.querySelectorAll('#gyListWrap .gy-track-row').forEach(function(row){
       row.onclick=function(){
         var tid=+row.dataset.track;
         stopAllGyoumuAudio();
-        openTrack = (openTrack===tid? null : tid);
-        renderListen();
+        if(openTrack===tid){ openTrack=null; }
+        else { openTrack=tid; openTab='listen'; readI=0; }
+        renderList();
       };
     });
     if(openTrack==null) return;
-    var t=tracks.find(function(x){return x.track===openTrack;});
+    var t=findTrack(openTrack);
+    if(!t){ openTrack=null; return; }
+
+    main.querySelectorAll('#gySegBody .gy-read-tab').forEach(function(b){
+      b.onclick=function(){
+        if(b.disabled) return;
+        var tab=b.dataset.tab;
+        if(tab===openTab) return;
+        stopAllGyoumuAudio();
+        openTab=tab; readI=0;
+        renderList();
+      };
+    });
+
+    if(openTab==='listen') bindListenPane(t);
+    else bindReadPane(t);
+  }
+
+  function bindListenPane(t){
     var audioEl=$('#gaEl2'), playBtn=$('#gyPlayBtn'), seek=$('#gySeek'), curT=$('#gyCurT'), durT=$('#gyDurT');
     audioEl.src=gyoumuTrackAudioSrc(t.track);
     var seeking=false;
@@ -1686,14 +1795,11 @@ function gyoumuUnitScreen(chapter,unit){
     });
     audioEl.addEventListener('ended',function(){
       playBtn.textContent='▶️';
-      var wasListened=!!gyStore.listened[t.track];
-      gyStore.listened[t.track]=true; saveGyoumu();
-      /* Tính vào streak/lịch sử (không tính vào store.stats.studied — đó là lượt ôn thẻ SRS riêng) — chỉ lần đầu nghe xong track này */
-      if(!wasListened){ bumpStreak(); save(); }
+      markTrackListened(t);
     });
     audioEl.addEventListener('error',function(){
-      $('#gyPlayerBody .player-card').insertAdjacentHTML('beforeend',
-        '<div class="note">Không tải được file audio. Kiểm tra thư mục audio/ có nằm cạnh file HTML không.</div>');
+      $('#gySegBody .player-card').insertAdjacentHTML('beforeend',
+        '<div class="note">音声ファイルを読み込めませんでした。audio/ フォルダを確認してください。</div>');
     });
     playBtn.onclick=function(){
       if(audioEl.paused){ stopAllGyoumuAudio(); currentGyoumuAudio=audioEl; audioEl.play(); playBtn.textContent='⏸'; }
@@ -1702,9 +1808,9 @@ function gyoumuUnitScreen(chapter,unit){
     seek.addEventListener('input',function(){ seeking=true; curT.textContent=gyoumuFmtTime(seek.value/1000*(audioEl.duration||0)); });
     seek.addEventListener('change',function(){ if(audioEl.duration) audioEl.currentTime=seek.value/1000*audioEl.duration; seeking=false; });
     $('#gyReplayBtn').onclick=function(){ stopAllGyoumuAudio(); currentGyoumuAudio=audioEl; audioEl.currentTime=0; audioEl.play(); playBtn.textContent='⏸'; };
-    $('#gyPlayerBody').querySelectorAll('.speed-btn[data-rate]').forEach(function(b){
+    $('#gySegBody').querySelectorAll('.speed-btn[data-rate]').forEach(function(b){
       b.onclick=function(){
-        $('#gyPlayerBody').querySelectorAll('.speed-btn[data-rate]').forEach(function(x){x.classList.remove('on');});
+        $('#gySegBody').querySelectorAll('.speed-btn[data-rate]').forEach(function(x){x.classList.remove('on');});
         b.classList.add('on');
         audioEl.playbackRate=parseFloat(b.dataset.rate);
       };
@@ -1713,26 +1819,18 @@ function gyoumuUnitScreen(chapter,unit){
       $('#gyToggleTranscript').onclick=function(){
         var panel=$('#gyTranscriptPanel'), show=panel.classList.contains('hidden');
         panel.classList.toggle('hidden',!show);
-        $('#gyToggleTranscript').textContent = show? '👁 Ẩn transcript' : '🔒 Hiện transcript';
+        $('#gyToggleTranscript').textContent = show? '👁 スクリプトを隠す' : '👁 スクリプトを表示';
       };
     }
   }
 
-  function bindRead(){
-    main.querySelectorAll('.gy-read-tab').forEach(function(b){
-      b.onclick=function(){
-        var t=readTracks.find(function(x){return String(x.track)===b.dataset.track;});
-        if(!t || t===curRead) return;
-        stopAllGyoumuAudio();
-        curRead=t; readI=0; readTotal=0; readSum=0;
-        renderRead();
-      };
-    });
-    var queue=readQueue();
+  function bindReadPane(t){
+    if(!t.hasTranscript) return;
+    var queue=gyoumuReadQueue(t);
     if(!queue.length) return;
     if(readI>=queue.length){
       var again=$('#gyReadAgain');
-      if(again) again.onclick=function(){ readI=0; readTotal=0; readSum=0; renderRead(); };
+      if(again) again.onclick=function(){ readI=0; renderList(); };
       return;
     }
     var l=queue[readI];
@@ -1744,21 +1842,10 @@ function gyoumuUnitScreen(chapter,unit){
     };
     $('#gyRealAudio').onclick=function(){
       stopAllGyoumuAudio();
-      var a=new Audio(gyoumuTrackAudioSrc(curRead.track));
+      var a=new Audio(gyoumuTrackAudioSrc(t.track));
       currentGyoumuAudio=a; a.play();
     };
-    $('#gyReadNext').onclick=function(){
-      readI++;
-      if(readI>=queue.length){
-        var avg=readTotal?Math.round(readSum/readTotal):0;
-        var prevBest=(gyStore.read[curRead.track]||{}).bestAvg||0;
-        gyStore.read[curRead.track]={bestAvg:Math.max(prevBest,avg), attempts:((gyStore.read[curRead.track]||{}).attempts||0)+1};
-        saveGyoumu();
-        /* Hoàn thành 1 lượt luyện đọc theo thoại cũng tính vào streak/lịch sử (không tính vào studied) */
-        bumpStreak(); save();
-      }
-      renderRead();
-    };
+    $('#gyReadNext').onclick=function(){ stopAllGyoumuAudio(); readI++; renderList(); };
     var micSupport=hasSR() && micPermission!=='denied' && micPermission!=='unsupported';
     if(micSupport && $('#gyMicBtn')){
       var micBtn=$('#gyMicBtn'), hint=$('#gyMhint'), heard=$('#gyHeard'), fb=$('#gyFb');
@@ -1767,24 +1854,466 @@ function gyoumuUnitScreen(chapter,unit){
         if(listening){ cancelRecognition(); return; }
         try{
           var ok=await ensureMicReady();
-          if(!ok){ hint.textContent='Mic bị từ chối.'; return; }
+          if(!ok){ hint.textContent='マイクが拒否されました。'; return; }
           listening=true;
           micBtn.style.background='var(--bad)';
-          micBtn.innerHTML='<span style="font-size:20px">⏹</span> Đang nghe...';
-          hint.textContent='Hãy đọc to câu này';
+          micBtn.innerHTML='<span style="font-size:20px">⏹</span> 録音中...';
+          hint.textContent='この文を声に出して読んでください';
           var alts=await recognizeOnce('ja-JP');
           var best=Math.max.apply(null,alts.map(function(a){return similarity(a,l.t);}));
-          heard.classList.remove('hidden'); heard.textContent='Bạn đọc: '+alts[0];
-          readTotal++; readSum+=best;
+          heard.classList.remove('hidden'); heard.textContent='認識結果：'+alts[0];
           playScoreSound(best);
-          fb.innerHTML = best>=90?'<span class="ok">🌟 Tuyệt! '+best+' điểm</span>'
-                       : best>=51?'<span class="ok">👍 Khá: '+best+' điểm</span>'
-                       : '<span class="no">💪 '+best+' điểm — thử lại</span>';
+          fb.innerHTML = best>90?'<span class="ok">🌟 素晴らしい！'+best+'点</span>'
+                       : best>=60?'<span class="ok">👍 まずまず：'+best+'点</span>'
+                       : '<span class="no">💪 '+best+'点 — もう一度</span>';
+          /* Lưu điểm LẦN GHI ÂM GẦN NHẤT cho đúng câu này (không phải điểm cao nhất) — cùng quy tắc シャドウイング */
+          var rec=gyStore.read[t.track]||{lines:{}};
+          if(!rec.lines) rec.lines={};
+          var prevLine=rec.lines[readI]||{attempts:0};
+          rec.lines[readI]={score:best, attempts:prevLine.attempts+1};
+          gyStore.read[t.track]=rec;
+          saveGyoumu();
+          bumpStreak(); save();
+          var tag=$('#gyLineScoreTag');
+          if(tag){ tag.style.display=''; tag.style.color=scoreColorTier(best); tag.textContent=best+'点'; }
         }catch(err){
-          hint.textContent='Lỗi: '+err;
+          hint.textContent='エラー：'+err;
           if(err==='not-allowed') micPermission='denied';
         }finally{
-          micBtn.style.background=''; micBtn.innerHTML='<span style="font-size:20px">🎤</span> Luyện đọc'; listening=false;
+          micBtn.style.background=''; micBtn.innerHTML='<span style="font-size:20px">🎤</span> 発音練習'; listening=false;
+        }
+      };
+    }
+  }
+
+  renderShell();
+}
+
+/* ═══════════════ シャドウイング — Shadowing 中〜上級編 (FR_013) ═══════════════ */
+/* Dừng mọi nguồn audio Shadowing đang phát (player nghe theo đoạn, audio nghe thật của đoạn, TTS còn sót)
+   trước khi phát nguồn mới — chỉ 1 nguồn phát tại 1 thời điểm, cùng nguyên tắc FR_007. */
+function stopAllShadowAudio(){ stopSpeech(); }
+function shadowTrackAudioSrc(t){ return encodeURI('audio/shadowing/'+t.audio); }
+
+function shadowSegsOfSection(sec){
+  var out=[];
+  sec.tracks.forEach(function(t){
+    t.segments.forEach(function(seg){ out.push({track:t, seg:seg}); });
+  });
+  return out;
+}
+function shadowUnitStats(u){
+  var trackCount=0, segCount=0;
+  u.sections.forEach(function(s){
+    trackCount+=s.tracks.length;
+    s.tracks.forEach(function(t){ segCount+=t.segments.length; });
+  });
+  return {trackCount:trackCount, segCount:segCount};
+}
+function shadowUnitListenedCount(u){
+  var n=0;
+  u.sections.forEach(function(s){
+    s.tracks.forEach(function(t){
+      t.segments.forEach(function(seg){ if(sdStore.listened[seg.id]) n++; });
+    });
+  });
+  return n;
+}
+/* Dòng ghi chú tình huống trong transcript (【…】/［…］/〈…〉, spk rỗng) — chỉ hiển thị, không luyện mic (mục 9.2) */
+function shadowIsNoteLine(l){ return !l.spk && /^[【［〈]/.test(l.jp); }
+function shadowSpeakQueue(seg){ return seg.lines.filter(function(l){ return !shadowIsNoteLine(l); }); }
+/* Điểm của 1 lượt thoại = điểm LẦN GHI ÂM GẦN NHẤT (không phải điểm cao nhất) — theo đúng yêu cầu PM */
+function shadowLineScore(seg, i){
+  var rec=sdStore.spoken[seg.id];
+  var ls=rec && rec.lines && rec.lines[i];
+  return ls? ls.score : null;
+}
+/* Thống kê 1 đoạn: bao nhiêu lượt đã ghi âm / tổng lượt, điểm trung bình = TB của điểm-gần-nhất từng lượt đã ghi */
+function shadowSegStats(seg){
+  var queue=shadowSpeakQueue(seg);
+  var scores=[];
+  queue.forEach(function(l,i){ var s=shadowLineScore(seg,i); if(s!=null) scores.push(s); });
+  var total=queue.length, done=scores.length;
+  var avg=done? Math.round(scores.reduce(function(a,b){return a+b;},0)/done) : 0;
+  return {done:done, total:total, avg:avg};
+}
+/* Ngưỡng màu điểm riêng cho Shadowing (khác ngưỡng chấm mic chung ≥90/≥51 của app — theo đúng số PM yêu cầu) */
+function scoreColorTier(score){
+  if(score>90) return 'var(--good)';
+  if(score>=60) return 'var(--warn)';
+  return 'var(--bad)';
+}
+
+function shadowDashboard(){
+  onBack=home;
+  var listened=Object.keys(sdStore.listened).length;
+  var trackTotal=0;
+  SHADOW.forEach(function(u){ u.sections.forEach(function(s){ trackTotal+=s.tracks.length; }); });
+  setHeader('シャドウイング', 'Shadowing 中〜上級編 · '+SHADOW.length+' Unit · '+trackTotal+' track', true);
+  var html='<div class="stats">'+
+      '<div class="stat"><div class="n">'+SHADOW.length+'</div><div class="l">Unit</div></div>'+
+      '<div class="stat"><div class="n">'+SHADOW_SEGCOUNT+'</div><div class="l">段落</div></div>'+
+      '<div class="stat"><div class="n">'+listened+'</div><div class="l">聴取済み</div></div>'+
+    '</div><div class="topics">';
+  SHADOW.forEach(function(u){
+    var st=shadowUnitStats(u), ln=shadowUnitListenedCount(u);
+    var tier = ln<=0? '' : (ln>=st.segCount? ' tint-done':' tint-partial');
+    html+=
+      '<div class="topic-card active'+tier+'" data-unit="'+u.unit+'">'+
+        '<div class="unit-iconwrap">'+
+          '<div class="tc-icon">🗣️</div>'+
+          '<div class="unit-progress">'+ln+'/'+st.segCount+' 聴取済み</div>'+
+        '</div>'+
+        '<div class="tc-body">'+
+          '<div class="tc-title">Unit '+u.unit+' · '+esc(u.titleJp)+'</div>'+
+          '<div class="tc-sub">'+esc(u.titleVi)+' · '+st.trackCount+' track · '+st.segCount+'段落</div>'+
+        '</div>'+
+      '</div>';
+  });
+  html+='</div>';
+  main.innerHTML=html;
+  main.querySelectorAll('[data-unit]').forEach(function(card){
+    card.onclick=function(){ shadowUnitScreen(+card.dataset.unit); };
+  });
+}
+
+/* Màn hình Unit — mỗi Đoạn là 1 accordion, mở ra có đúng 2 tab con 🎧 nghe / 🎤 luyện nói lồng chung
+   1 chỗ (đổi theo phản hồi PM sau khi test bản đầu tách 2 khối rời nhau, bất tiện trên điện thoại).
+   Chỉ 1 đoạn mở + 1 tab hiện + 1 nguồn audio phát tại 1 thời điểm — đổi Section/đổi tab/đổi đoạn đều
+   dừng audio trước (stopAllShadowAudio) rồi mới vẽ lại. UI trong màn này dùng tiếng Nhật (label/nút),
+   khác quy ước chung "UI tiếng Việt" của app — theo đúng yêu cầu PM cho riêng module luyện nói này. */
+function shadowUnitScreen(unit){
+  var u=SHADOW.find(function(x){return x.unit===unit;});
+  if(!u){ shadowDashboard(); return; }
+  onBack=shadowDashboard;
+  setHeader('Unit '+u.unit+' · '+esc(u.titleJp), esc(u.titleVi), true);
+
+  var curSection=u.sections[0];
+  var openSeg=null;        // id đoạn đang mở (chỉ 1 tại 1 thời điểm)
+  var openTab='listen';    // 'listen' | 'speak' — tab đang xem trong đoạn đang mở
+  var loopOn=false;
+  var spI=0, spSlow=false; // vị trí lượt thoại đang luyện trong tab Luyện nói của đoạn đang mở
+
+  function findSeg(segId){
+    var found=null;
+    shadowSegsOfSection(curSection).forEach(function(r){ if(r.seg.id===segId) found=r; });
+    return found;
+  }
+
+  function sectionTabsHTML(){
+    if(u.sections.length<2) return '';
+    return '<div class="gy-read-tabs">'+
+      u.sections.map(function(s){
+        return '<button class="speed-btn gy-read-tab'+(curSection===s?' on':'')+'" data-section="'+s.section+'">'+
+          'Section '+s.section+' ('+esc(s.level)+')'+
+        '</button>';
+      }).join('')+
+    '</div>';
+  }
+
+  function segRowTier(seg){
+    var st=shadowSegStats(seg);
+    if(st.total>0 && st.done>=st.total) return ' tint-done';
+    if(st.done>0) return ' tint-partial';
+    return '';
+  }
+
+  function segListHTML(){
+    var rows=shadowSegsOfSection(curSection);
+    if(!rows.length) return '<div class="note">このセクションには段落がありません。</div>';
+    var html='';
+    rows.forEach(function(r){
+      var seg=r.seg, t=r.track, isOpen=openSeg===seg.id;
+      var st=shadowSegStats(seg);
+      var statTag = st.done>0?
+        ' <span style="font-weight:400;font-size:12.5px;color:'+scoreColorTier(st.avg)+'">('+st.done+'/'+st.total+' · '+st.avg+'点)</span>' : '';
+      html+='<div class="topic-card active gy-track-row compact-row'+(isOpen?' open':'')+segRowTier(seg)+'" data-seg="'+seg.id+'">'+
+          '<div class="tc-icon">🎧</div>'+
+          '<div class="tc-body">'+
+            '<div class="tc-title">段落 '+seg.no+(seg.title?' · '+esc(seg.title):'')+statTag+'</div>'+
+            '<div class="tc-sub">'+gyoumuFmtTime(seg.dur)+' · Track '+t.track+'</div>'+
+          '</div>'+
+          (sdStore.listened[seg.id]?'<span class="tc-badge">✅</span>':'')+
+        '</div>';
+      if(isOpen) html+='<div class="gy-track-body compact-body" id="sdSegBody">'+segBodyHTML(t,seg)+'</div>';
+    });
+    return html;
+  }
+
+  function segBodyHTML(t, seg){
+    var counterHtml='';
+    if(openTab==='speak'){
+      var queue=shadowSpeakQueue(seg);
+      if(spI<queue.length) counterHtml='<span style="margin-left:auto;align-self:center;font-size:13px;color:var(--sub)">'+(spI+1)+' / '+queue.length+'</span>';
+    }
+    return '<div class="gy-read-tabs">'+
+        '<button class="speed-btn gy-read-tab'+(openTab==='listen'?' on':'')+'" data-tab="listen">🎧 聞き取り</button>'+
+        '<button class="speed-btn gy-read-tab'+(openTab==='speak'?' on':'')+'" data-tab="speak">🎤 シャドウイング</button>'+
+        counterHtml+
+      '</div>'+
+      (openTab==='listen'? listenPaneHTML(t,seg) : speakPaneHTML(t,seg));
+  }
+
+  function listenPaneHTML(t, seg){
+    var hasVi=seg.lines.some(function(l){return l.vi;});
+    var scriptHtml=seg.lines.map(function(l){
+      var note=shadowIsNoteLine(l);
+      return '<div class="transcript-line">'+
+          (note? '<i>'+esc(l.jp)+'</i>' : ((l.spk?'<b>'+esc(l.spk)+'：</b>':'')+esc(l.jp)))+
+          (l.vi?'<div class="sd-vi hidden" style="font-size:12.5px;color:var(--sub);margin-top:2px">'+esc(l.vi)+'</div>':'')+
+        '</div>';
+    }).join('');
+    return '<div class="player-card">'+
+        '<span class="tag">Track '+t.track+' · '+esc(t.level)+'</span>'+
+        '<div><button class="play-btn" id="sdPlayBtn">▶️</button></div>'+
+        '<div class="progress-row">'+
+          '<span class="ptime" id="sdCurT">0:00</span>'+
+          '<input type="range" id="sdSeek" min="0" max="1000" value="0">'+
+          '<span class="ptime" id="sdDurT">'+gyoumuFmtTime(seg.dur)+'</span>'+
+        '</div>'+
+        '<div class="player-controls">'+
+          '<button class="speed-btn" id="sdLoopBtn">🔁 リピート再生</button>'+
+        '</div>'+
+      '</div>'+
+      '<button class="btn btn-ghost" id="sdToggleScript" style="width:100%">👁 スクリプトを表示</button>'+
+      '<div class="transcript-panel hidden" id="sdScriptPanel">'+
+        (hasVi?'<button class="btn btn-ghost" id="sdToggleVi" style="width:100%;margin-bottom:8px">🇻🇳 訳を表示</button>':'')+
+        scriptHtml+
+      '</div>'+
+      '<audio id="sdListenEl" preload="none"></audio>';
+  }
+
+  function speakPaneHTML(t, seg){
+    var queue=shadowSpeakQueue(seg);
+    if(!queue.length) return '<div class="note">この段落には練習できるセリフがありません。</div>';
+    if(spI>=queue.length){
+      var st=shadowSegStats(seg);
+      return '<div class="done" style="padding:10px 0">'+
+          '<div class="big">🎤</div>'+
+          '<h3 style="margin:8px 0 4px">終了！</h3>'+
+          '<p style="color:var(--sub);font-size:13.5px">平均点：<b style="color:'+scoreColorTier(st.avg)+'">'+st.avg+'</b>/100（'+st.done+'/'+st.total+'）</p>'+
+          '<button class="btn btn-ghost" id="sdSpeakAgain" style="margin-top:10px">もう一度練習</button>'+
+        '</div>';
+    }
+    var l=queue[spI];
+    var lineScore=shadowLineScore(seg, spI);
+    var micSupport=hasSR() && micPermission!=='denied' && micPermission!=='unsupported';
+    var progHtml = queue.length>4?
+      '<div class="bar" style="margin-bottom:6px"><i style="width:'+Math.round(spI/queue.length*100)+'%;background:var(--brand)"></i></div>'
+      : '';
+    return progHtml+
+      '<div class="sent-card">'+
+        (seg.title?'<span class="tag">'+esc(seg.title)+'</span>':'')+
+        '<div style="display:flex;justify-content:space-between;align-items:center;'+(seg.title?'margin-top:8px':'')+'">'+
+          (l.spk?'<div class="sent-word">🗣 '+esc(l.spk)+'</div>':'<span></span>')+
+          '<span class="tag" id="sdLineScoreTag" style="'+(lineScore!=null?'':'display:none;')+'color:'+(lineScore!=null?scoreColorTier(lineScore):'inherit')+'">'+(lineScore!=null?lineScore+'点':'')+'</span>'+
+        '</div>'+
+        '<div class="sent-jp">'+esc(l.jp)+'</div>'+
+        (l.vi?'<div class="hint hidden" id="sdLineVi" style="margin-top:6px">'+esc(l.vi)+'</div>':'')+
+        (l.vi?'<button class="btn btn-ghost" id="sdToggleLineVi" style="width:auto;padding:6px 10px;font-size:12px;margin-top:6px">🇻🇳 訳を表示</button>':'')+
+        '<div class="sent-controls">'+
+          '<button class="speaker" id="sdSpk" style="margin:0">🔊</button>'+
+          '<button class="speed-btn '+(spSlow?'on':'')+'" id="sdSlowBtn">🐢 ゆっくり</button>'+
+          '<button class="btn btn-ghost" id="sdRealAudio" style="width:auto;padding:8px 12px;font-size:12.5px">🎧 実際の音声を聞く</button>'+
+        '</div>'+
+      '</div>'+
+      (micSupport?
+        '<div style="text-align:center;margin-top:10px">'+
+          '<button class="btn btn-primary" id="sdMicBtn" style="display:inline-flex;align-items:center;gap:8px;width:auto;padding:12px 24px;font-size:15px;border-radius:99px">'+
+            '<span style="font-size:20px">🎤</span> 発音練習'+
+          '</button>'+
+          '<div class="qhint" id="sdMhint">タップして録音・採点</div>'+
+          '<div class="heard hidden" id="sdHeard"></div>'+
+          '<div class="fb" id="sdFb"></div>'+
+        '</div>'
+      :'')+
+      '<div style="margin-top:14px">'+
+        '<button class="btn btn-primary" id="sdSpeakNext">次へ →</button>'+
+      '</div>';
+  }
+
+  function renderShell(){
+    main.innerHTML='<div id="sdTabWrap"></div><div id="sdListWrap"></div>';
+    renderSectionTabs();
+    renderList();
+  }
+  function renderSectionTabs(){
+    $('#sdTabWrap').innerHTML=sectionTabsHTML();
+    main.querySelectorAll('#sdTabWrap [data-section]').forEach(function(b){
+      b.onclick=function(){
+        var sec=u.sections.find(function(s){return String(s.section)===b.dataset.section;});
+        if(!sec || sec===curSection) return;
+        stopAllShadowAudio();
+        curSection=sec; openSeg=null; openTab='listen'; loopOn=false; spI=0;
+        renderSectionTabs(); renderList();
+      };
+    });
+  }
+  function renderList(){ $('#sdListWrap').innerHTML=segListHTML(); bindList(); }
+
+  function markSegListened(seg){
+    var was=!!sdStore.listened[seg.id];
+    sdStore.listened[seg.id]=Date.now();
+    saveShadow();
+    if(!was){ bumpStreak(); save(); }
+  }
+
+  function bindList(){
+    main.querySelectorAll('#sdListWrap .gy-track-row').forEach(function(row){
+      row.onclick=function(){
+        var sid=row.dataset.seg;
+        stopAllShadowAudio();
+        if(openSeg===sid){ openSeg=null; }
+        else { openSeg=sid; openTab='listen'; loopOn=false; spI=0; }
+        renderList();
+      };
+    });
+    if(openSeg==null) return;
+    var found=findSeg(openSeg);
+    if(!found){ openSeg=null; return; }
+    var t=found.track, seg=found.seg;
+
+    main.querySelectorAll('#sdSegBody .gy-read-tab').forEach(function(b){
+      b.onclick=function(){
+        var tab=b.dataset.tab;
+        if(tab===openTab) return;
+        stopAllShadowAudio();
+        openTab=tab; spI=0;
+        renderList();
+      };
+    });
+
+    if(openTab==='listen') bindListenPane(t,seg);
+    else bindSpeakPane(t,seg);
+  }
+
+  function bindListenPane(t, seg){
+    var audioEl=$('#sdListenEl'), playBtn=$('#sdPlayBtn'), seek=$('#sdSeek'), curT=$('#sdCurT'), durT=$('#sdDurT'), loopBtn=$('#sdLoopBtn');
+    audioEl.src=shadowTrackAudioSrc(t);
+    var seeking=false;
+
+    function seekToStart(){
+      if(audioEl.readyState>=1){ audioEl.currentTime=seg.start; }
+      else { audioEl.addEventListener('loadedmetadata', function once(){ audioEl.currentTime=seg.start; audioEl.removeEventListener('loadedmetadata',once); }); }
+    }
+    var doneOnce=false;
+    function finishSeg(){
+      if(doneOnce) return; doneOnce=true;
+      playBtn.textContent='▶️';
+      markSegListened(seg);
+    }
+    audioEl.addEventListener('loadedmetadata',function(){ durT.textContent=gyoumuFmtTime(seg.dur); });
+    audioEl.addEventListener('timeupdate',function(){
+      if(seeking) return;
+      var rel=Math.max(0, Math.min(seg.dur, audioEl.currentTime-seg.start));
+      curT.textContent=gyoumuFmtTime(rel);
+      if(seg.dur) seek.value=Math.round(rel/seg.dur*1000);
+      if(audioEl.currentTime>=seg.end){
+        if(loopOn){ doneOnce=false; audioEl.currentTime=seg.start; }
+        else { audioEl.pause(); finishSeg(); }
+      }
+    });
+    /* Đoạn cuối track: seg.end===dur, sự kiện 'ended' có thể bắn trước khi timeupdate kịp xử lý (mục 10 E4) */
+    audioEl.addEventListener('ended',finishSeg);
+    audioEl.addEventListener('error',function(){
+      $('#sdSegBody .player-card').insertAdjacentHTML('beforeend',
+        '<div class="note">音声ファイルを読み込めませんでした。audio/shadowing/ フォルダを確認してください。</div>');
+    });
+    playBtn.onclick=function(){
+      if(audioEl.paused){
+        stopAllShadowAudio(); currentShadowAudio=audioEl;
+        if(audioEl.currentTime<seg.start || audioEl.currentTime>=seg.end){ doneOnce=false; seekToStart(); }
+        audioEl.play(); playBtn.textContent='⏸';
+      } else { audioEl.pause(); playBtn.textContent='▶️'; }
+    };
+    seek.addEventListener('input',function(){ seeking=true; curT.textContent=gyoumuFmtTime(seek.value/1000*seg.dur); });
+    seek.addEventListener('change',function(){ audioEl.currentTime=seg.start+seek.value/1000*seg.dur; doneOnce=false; seeking=false; });
+    loopBtn.onclick=function(){ loopOn=!loopOn; loopBtn.classList.toggle('on',loopOn); };
+
+    $('#sdToggleScript').onclick=function(){
+      var panel=$('#sdScriptPanel'), show=panel.classList.contains('hidden');
+      panel.classList.toggle('hidden',!show);
+      $('#sdToggleScript').textContent = show? '👁 スクリプトを隠す':'👁 スクリプトを表示';
+    };
+    var viBtn=$('#sdToggleVi');
+    if(viBtn){
+      viBtn.onclick=function(){
+        var vis=main.querySelectorAll('#sdScriptPanel .sd-vi');
+        var show=vis.length>0 && vis[0].classList.contains('hidden');
+        vis.forEach(function(v){ v.classList.toggle('hidden',!show); });
+        viBtn.textContent = show? '🇻🇳 訳を隠す':'🇻🇳 訳を表示';
+      };
+    }
+  }
+
+  function bindSpeakPane(t, seg){
+    var queue=shadowSpeakQueue(seg);
+    if(!queue.length) return;
+    if(spI>=queue.length){
+      var again=$('#sdSpeakAgain');
+      if(again) again.onclick=function(){ spI=0; renderList(); };
+      return;
+    }
+    var l=queue[spI];
+    var viBtn=$('#sdToggleLineVi');
+    if(viBtn){
+      viBtn.onclick=function(){
+        var el=$('#sdLineVi'), show=el.classList.contains('hidden');
+        el.classList.toggle('hidden',!show);
+        viBtn.textContent = show? '🇻🇳 訳を隠す':'🇻🇳 訳を表示';
+      };
+    }
+    $('#sdSpk').onclick=function(){ stopAllShadowAudio(); speak(l.jp, spSlow?0.65:0.9); };
+    $('#sdSlowBtn').onclick=function(){
+      spSlow=!spSlow;
+      $('#sdSlowBtn').classList.toggle('on',spSlow);
+      stopAllShadowAudio(); speak(l.jp, spSlow?0.65:0.9);
+    };
+    $('#sdRealAudio').onclick=function(){
+      stopAllShadowAudio();
+      var a=new Audio(shadowTrackAudioSrc(t));
+      currentShadowAudio=a;
+      var onReady=function(){ a.currentTime=seg.start; a.play(); };
+      if(a.readyState>=1) onReady(); else a.addEventListener('loadedmetadata', onReady, {once:true});
+      a.addEventListener('timeupdate',function(){ if(a.currentTime>=seg.end) a.pause(); });
+    };
+    $('#sdSpeakNext').onclick=function(){ stopAllShadowAudio(); spI++; renderList(); };
+    var micSupport=hasSR() && micPermission!=='denied' && micPermission!=='unsupported';
+    if(micSupport && $('#sdMicBtn')){
+      var micBtn=$('#sdMicBtn'), hint=$('#sdMhint'), heard=$('#sdHeard'), fb=$('#sdFb');
+      var listening=false;
+      micBtn.onclick=async function(){
+        if(listening){ cancelRecognition(); return; }
+        try{
+          var ok=await ensureMicReady();
+          if(!ok){ hint.textContent='マイクが拒否されました。'; return; }
+          listening=true;
+          micBtn.style.background='var(--bad)';
+          micBtn.innerHTML='<span style="font-size:20px">⏹</span> 録音中...';
+          hint.textContent='この文を声に出して読んでください';
+          var alts=await recognizeOnce('ja-JP');
+          var best=Math.max.apply(null,alts.map(function(a){return similarity(a,l.jp);}));
+          heard.classList.remove('hidden'); heard.textContent='認識結果：'+alts[0];
+          playScoreSound(best);
+          fb.innerHTML = best>90?'<span class="ok">🌟 素晴らしい！'+best+'点</span>'
+                       : best>=60?'<span class="ok">👍 まずまず：'+best+'点</span>'
+                       : '<span class="no">💪 '+best+'点 — もう一度</span>';
+          /* Lưu điểm LẦN GHI ÂM GẦN NHẤT cho đúng lượt thoại này (không phải điểm cao nhất) */
+          var rec=sdStore.spoken[seg.id]||{lines:{}};
+          if(!rec.lines) rec.lines={};
+          var prevLine=rec.lines[spI]||{attempts:0};
+          rec.lines[spI]={score:best, attempts:prevLine.attempts+1};
+          sdStore.spoken[seg.id]=rec;
+          saveShadow();
+          bumpStreak(); save();
+          /* Cập nhật ngay badge điểm cạnh câu, không rebuild cả pane để không mất thông báo vừa chấm */
+          var tag=$('#sdLineScoreTag');
+          if(tag){ tag.style.display=''; tag.style.color=scoreColorTier(best); tag.textContent=best+'点'; }
+        }catch(err){
+          hint.textContent='エラー：'+err;
+          if(err==='not-allowed') micPermission='denied';
+        }finally{
+          micBtn.style.background=''; micBtn.innerHTML='<span style="font-size:20px">🎤</span> 発音練習'; listening=false;
         }
       };
     }
