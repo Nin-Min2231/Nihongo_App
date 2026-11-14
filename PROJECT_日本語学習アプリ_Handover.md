@@ -3,7 +3,7 @@
 > **Mục đích tài liệu:** Ghi lại toàn bộ bản chất vấn đề & quy trình — từ **từ điển Excel** → **build app HTML** → **đóng gói APK Android** → **push GitHub**. Đọc file này là 1 chat Claude mới hiểu ngay context, không cần giải thích lại.
 > **Đối tượng đọc:** Claude (chat mới) hoặc chính người dùng.
 > **Người dùng:** NguyenNC — PM/BrSE ngành IT (cầu nối VN ⇄ Nhật).
-> **Cập nhật lần cuối:** 2026-09-25 — **App giờ có đủ 3 module (IT専門/IT業務編/シャドウイング), tất cả đã code + test qua Browser pane + PM tự test trên máy thật, PUSH LÊN GITHUB XONG.**
+> **Cập nhật lần cuối:** 2026-11-14 — **Luyện nghe IT専門 chỉ đọc từ vựng + build lại với từ điển 778 từ + APK `versionCode 5` (mục 4.22; đã commit trên nhánh `claude/listening-vocab-updates-01a910`, chưa push, chưa cài lên điện thoại).** Mốc trước đó 2026-09-25 — app có đủ 3 module (IT専門/IT業務編/シャドウイング), đã test trên máy thật và push lên GitHub xong.
 >
 > **Tóm tắt nhanh cho 1 phiên chat mới:** Module thứ 3 **シャドウイング** (Shadowing 中〜上級編, FR_013, mục 4.15) được thêm 2026-09-22, sau đó trải qua nhiều vòng PM test bản PC + góp ý UI (mục 4.16→4.19): gộp 🎧 nghe + 🎤 luyện nói vào **1 accordion mỗi Đoạn/Track** (2 tab con trong cùng 1 thẻ), 3 màu nền theo tiến độ (`.tint-partial`/`.tint-done`), điểm mỗi câu/lượt thoại = **điểm lần ghi âm gần nhất** (không phải cao nhất), UI riêng 2 màn nghe/luyện nói chuyển sang **tiếng Nhật** (ngoại lệ so với quy ước UI tiếng Việt chung của app). Cùng đợt, **IT業務編 được redesign lại theo đúng mẫu シャドウイング** (mục 4.18/4.19) — dùng chung hạ tầng màu/điểm/layout gọn (`scoreColorTier()`, `.compact-row`/`.compact-body`), và trang chủ (`home()`) được gọn lại + Nhật hoá + thêm ô số liệu シャドウイング (mục 4.18). **PM đã cài bản APK `versionCode 4`/`versionName "0.1"` lên điện thoại thật và xác nhận OK (2026-09-25).** Toàn bộ (trừ dữ liệu シャドウイング) đã commit + push — `main` tại `origin/main` giờ ở commit `6fe8245` (push thẳng từ worktree bằng `git push origin <branch>:main`, không qua thư mục project chính — xem mục 6). Đọc chi tiết đầy đủ ở mục 4.15 → 4.20 theo đúng thứ tự thời gian.
 >
@@ -16,7 +16,7 @@
 ## 1. Tổng quan mục tiêu (Big picture)
 
 ```
-日本語の辞書.xlsx  (từ điển gốc, 663 từ)
+日本語の辞書.xlsx  (từ điển gốc, 778 từ)
         │  build_app.py
         ▼
 Kokoro_Nihongo.html  ← app học, mở trực tiếp bằng trình duyệt (máy tính/điện thoại), KHÔNG cần cài đặt
@@ -390,6 +390,26 @@ PM cài `versionCode 4`/`versionName "0.1"` (mục 4.20) lên điện thoại th
 **Push — khác quy trình các phiên trước:** phiên này chạy trong worktree, và system prompt của chính phiên **cấm `cd` vào thư mục gốc của repo** (khác các phiên trước, vốn được fast-forward local `main` từ thư mục project chính rồi mới push — mục 4.13/4.14). Giải quyết bằng cách push **thẳng từ branch của worktree lên `origin/main`**: `git push origin claude/read-handover-file-b582d2:main` — vì `origin/main` trước đó đang đứng đúng ở commit gốc mà worktree này rẽ nhánh ra (`aace5f8`, đã `git fetch` xác nhận trước khi push), nên đây là 1 fast-forward sạch, không có gì phức tạp. Verify lại bằng `git fetch` + `git log origin/main -1` sau khi push: đúng `6fe8245`. **Hệ quả cần biết:** local `main` (ở thư mục project chính `100_日本語/`, ngoài mọi worktree) **vẫn đứng ở `aace5f8`, chưa được fast-forward theo** — khác các lần trước. Phiên sau hoặc chính PM, khi làm việc trực tiếp ở thư mục project chính, chỉ cần `git pull` 1 lần là đồng bộ, không có gì rủi ro (không có commit nào khác ở local `main` cần giữ).
 
 Đã viết lại banner đầu file này (mục "Cập nhật lần cuối") gộp toàn bộ mục 4.15→4.21 thành 1 bản tóm tắt mạch lạc cho phiên chat mới đọc nhanh, và cập nhật mục 6 (Git & GitHub) cho khớp cách push mới + nhắc lại rõ quy tắc không commit `06_ Shadowing_Jokyu/`.
+
+### 4.22. Luyện nghe chỉ đọc từ vựng + build lại với từ điển 778 từ (2026-11-14)
+
+PM yêu cầu 2 việc: (1) **IT専門 → Luyện nghe** chỉ đọc **từ vựng tiếng Nhật**, 4 đáp án là **tiếng Việt** (bản cũ ngẫu nhiên 50% câu hỏi đọc câu ví dụ); (2) build app mới với từ vựng mới nhất trong Excel.
+
+**Sửa code (`listenMode()` trong `app_template.html`):** bỏ nhánh `useEx` (`Math.random()<0.5` chọn `v.ex`), luôn `speak(v.w, 0.85)`; chữ gợi ý dưới nút loa đổi thành "Chạm để nghe lại từ". Đáp án vốn đã là `v.vi` (nghĩa tiếng Việt của từ đang nghe + 3 từ gây nhiễu cùng Bộ) nên không phải đổi. Test qua Browser pane (đè `window.speak` để ghi lại chuỗi được đọc, rồi giả lập click hết các câu): Bộ 1 (25 câu), Bộ 27 (25 câu, chứa từ mới), chế độ "Tất cả" (15 câu) → **0 câu đọc câu ví dụ**, mọi chuỗi đọc = đúng `w` của từ đang hỏi, mọi đáp án là `vi` hợp lệ và luôn chứa đáp án đúng, màn kết quả hiện đúng.
+
+**"Lấy source mới nhất" — 2 phát hiện quan trọng:**
+- Git đã mới nhất (`origin/main` = `6afb460`), nhưng **`日本語の辞書.xlsx` ở thư mục project chính đang modified CHƯA commit** (91.127 byte, sửa 2026-11-09, **778 từ**), còn bản trong git/worktree chỉ 84.352 byte, 663 từ. Bản PM thực sự dùng là bản chưa commit này → đã copy từ thư mục chính vào worktree (chỉ đọc bên thư mục chính, không sửa gì ở đó).
+- Worktree mới checkout **không có `06_ Shadowing_Jokyu/`** (untracked, PM không cho commit) → build trong worktree sẽ ra app thiếu module シャドウイング. Đã copy riêng `Shadowing_Data.json` + `AudioMP3/` (62 mp3, 46MB) vào worktree (bỏ `01_document/`, `02_Claude outputs/` — bản scan hơn 300MB, không cần để build) và **không `git add`** thư mục này.
+
+**Từ điển 778 từ so với bản 663 từ trước đó** (so `VOCAB` của `Kokoro_Nihongo.html` ở HEAD với bản mới): `build_app.py` giữ nguyên id 658 từ, cấp id mới 120 từ (671→790, nằm cuối Excel, vị trí 659-778); id 556 quay lại Excel (từng bị xoá ở bản 663). **6 từ bị bỏ khỏi Excel** so với app PM đang cài: `巫山戯` (id 307), `に対して` (559), `逆` (606), `カード` (636), `以下` (652), `台` (655) — tiến độ của 6 từ này nằm lại trong `localStorage` nhưng không dùng tới, id không bao giờ cấp lại; **chưa xác nhận với PM đây là chủ ý hay lỡ tay xoá**. 1 từ đổi cách đọc (`別添`, id 327). `_id_lock.json` đã cập nhật (120 id mới) — **phải commit** (quy tắc #7).
+
+**Lưu ý — Bộ 32 chỉ có 3 từ:** 778 = 31×25 + 3, mà `startMode()` chặn mọi mode nếu Bộ <4 từ (`alert('Bộ này cần ít nhất 4 từ.')`) → 3 từ cuối chưa học được cho tới khi PM thêm ≥1 từ nữa. Chưa sửa vì đó là quyết định thiết kế (Bộ cố định 25 từ) — nếu PM muốn thì gộp phần dư <4 từ vào Bộ trước (đổi `splitDecksStrict()`).
+
+**Build APK:** `versionCode 4→5` (giữ `versionName "0.1"`). Quy trình mục 5.2 chạy được nhưng có **3 bẫy mới khi build trong worktree**: (1) `gradlew.bat` báo `Unable to access jarfile ...\100_???\...` (cả từ Git Bash lẫn PowerShell — `cmd.exe` làm hỏng ký tự 日本語 trong `%~dp0`) → chạy thẳng `java -jar gradle/wrapper/gradle-wrapper.jar assembleDebug` với `JAVA_HOME=D:/Android/jdk21`, `GRADLE_USER_HOME=D:/Android/gradle-home`, đường dẫn jar **tương đối** (không chứa tiếng Nhật); (2) worktree mới thiếu 2 thứ gitignored: `03_Android_App/node_modules/` (copy từ thư mục chính, 171MB) và `android/local.properties` (`sdk.dir=D:/Android/Sdk` — dùng dấu `/`, tránh bẫy escape `\` của file `.properties`); (3) `www/audio/` phải copy cả cây `01_Build_App/audio/` (114MB, gồm `shadowing/`), không chỉ `*.mp3` ngoài cùng như README mục 4.3 còn ghi.
+
+**Kết quả build + verify:** `npx cap sync android` liệt kê đủ 4 plugin; `BUILD SUCCESSFUL in 1m 45s`. APK `03_Android_App/Kokoro_Nihongo.apk` = 125.319.556 byte (~125MB, gần bằng bản `versionCode 4`). `aapt dump badging`: `versionCode='5' versionName='0.1'`, có `RECORD_AUDIO`. Đọc thẳng APK (zip): `index.html` giống hệt `Kokoro_Nihongo.html` vừa build, 778 từ `VOCAB`, đúng logic nghe mới (`speak(audio, 0.85)`, không còn `useEx`), 38 audio IT業務編 + 62 audio shadowing, đủ 4 class plugin trong `.dex`. Chữ ký (`apksigner verify --print-certs`) **trùng** bản `versionCode 4` đang cài trên điện thoại (SHA-256 `e7d151e6…d388973`, debug keystore của máy) → cài đè được, không bị `App not installed`. **CHƯA cài lên điện thoại thật.** Nhắc lại quy tắc: cài đè, không gỡ app; cài xong mở ⚙️ Cài đặt → 📤 Xuất tiến độ để có bản sao lưu. Toàn bộ thay đổi mục này (code, `Kokoro_Nihongo.html`, `_id_lock.json`, `日本語の辞書.xlsx`, `build.gradle`, 2 file tài liệu) nằm trong **1 commit** trên nhánh `claude/listening-vocab-updates-01a910` (add từng file, không gồm `06_ Shadowing_Jokyu/`), **chưa push** lên `origin/main`.
+
+**Lưu ý khi đồng bộ commit này về thư mục project chính:** `日本語の辞書.xlsx` ở đó đang ở trạng thái modified (cùng nội dung với bản trong commit, md5 `2a3a4cbe…ca3c`) nên `git pull`/`merge` sẽ báo "local changes would be overwritten". Nếu `md5sum` hai bản vẫn trùng nhau thì chạy `git checkout -- 日本語の辞書.xlsx` (không mất gì, bản trong commit giống hệt) rồi pull lại; nếu PM đã sửa Excel tiếp sau 2026-11-14 thì **đừng checkout đè** — copy bản mới ra chỗ khác trước, pull, rồi chép lại và build lại.
 
 ---
 

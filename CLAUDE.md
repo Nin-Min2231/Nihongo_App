@@ -12,6 +12,8 @@ App học tiếng Nhật offline, dùng cho PM/BrSE ngành IT làm việc với 
 
 > **Trạng thái hiện tại (2026-09-25): app có đủ 3 module (IT専門/IT業務編/シャドウイング), bản APK mới nhất (`versionCode 4`/`versionName "0.1"`) đã được PM cài trên điện thoại thật và xác nhận OK, code đã commit + push lên GitHub (`origin/main` @ `6fe8245`).** Đọc chi tiết đầy đủ ở handover mục 4.14 → 4.21 theo đúng thứ tự thời gian; tóm tắt nhanh bên dưới.
 >
+> **Cập nhật 2026-11-14:** (1) IT専門 **Luyện nghe chỉ đọc TỪ VỰNG tiếng Nhật** (`v.w`), không còn đọc câu ví dụ; 4 đáp án luôn là nghĩa tiếng Việt (`v.vi`). (2) Build lại với từ điển mới nhất của PM: **778 từ** (121 từ thêm / 6 từ bị bỏ so với bản 663 từ trước đó — chi tiết + 1 lưu ý về Bộ cuối chỉ 3 từ ở handover mục 4.22), APK `versionCode 5`/`versionName "0.1"`. **Cảnh báo:** file `日本語の辞書.xlsx` mới (778 từ) từng chỉ nằm ở thư mục project chính ở trạng thái modified CHƯA commit, nay đã commit ở nhánh `claude/listening-vocab-updates-01a910` (chưa push). Nếu PM sửa Excel tiếp mà chưa commit thì worktree mới checkout vẫn chỉ thấy bản trong git — luôn `md5sum` so với thư mục chính trước khi build, và luôn copy riêng `06_ Shadowing_Jokyu/` (không bao giờ có trong git) vào worktree (xem mục 4.22).
+>
 > **Lịch sử tóm lược:** Phase 2 (FR_008→FR_012) + FR_006/FR_007 + redesign dashboard "giấy washi" xong 2026-09-12 → 4 việc UI mục 4.14 (checkbox "Học từ đã nhớ", lưới Bộ 6 icon, hero streak, Cài đặt sticky header) xong 2026-09-13, PM confirm OK trên điện thoại thật 2026-09-22 (`versionCode 2`/`"0.1"`, mốc ổn định đầu tiên) → thêm module thứ 3 **シャドウイング** (FR_013) 2026-09-22, qua nhiều vòng PM test bản PC góp ý UI (mục 4.16-4.19): gộp 🎧 nghe + 🎤 luyện nói vào **1 accordion mỗi Đoạn/Track** (2 tab con), 3 màu nền theo tiến độ (`.tint-partial`/`.tint-done`), điểm mỗi câu/lượt = **điểm lần ghi âm gần nhất** (không phải cao nhất), UI riêng 2 màn này chuyển tiếng Nhật (ngoại lệ so với quy ước UI tiếng Việt chung) → **IT業務編 được redesign lại theo đúng mẫu シャドウイング** (dùng chung `scoreColorTier()`/`.compact-row`/`.compact-body`) + trang chủ gọn lại/Nhật hoá/thêm số liệu シャドウイング + scroll-to-top toàn app (mục 4.18/4.19) → build `versionCode 4` (mục 4.20) → **PM xác nhận OK, đã commit + push** (mục 4.21).
 >
 > **2 điều quan trọng cần biết ngay:** (1) Dữ liệu `06_ Shadowing_Jokyu/` (JSON+xlsx+46MB audio) **PM yêu cầu KHÔNG commit** (bản quyền giáo trình) — không dùng `git add -A`, phải add rõ từng file. Máy nào checkout lại repo từ đầu mà thiếu thư mục này thì build ra app thiếu hẳn module シャドウイング (không lỗi, `build_app.py` tự bỏ qua). (2) Do system prompt của worktree cấm `cd` vào thư mục gốc repo, lần push 2026-09-25 dùng `git push origin <branch>:main` thẳng từ worktree — **local `main` ở thư mục project chính chưa fast-forward theo**, cần `git pull` khi làm việc ở đó (xem mục 6 handover).
@@ -20,7 +22,7 @@ App học tiếng Nhật offline, dùng cho PM/BrSE ngành IT làm việc với 
 
 ```
 100_日本語/
-├── 日本語の辞書.xlsx              ← Từ điển gốc (667 từ, chỉ đọc, KHÔNG dùng openpyxl.save())
+├── 日本語の辞書.xlsx              ← Từ điển gốc (778 từ tính đến 2026-11-14, chỉ đọc, KHÔNG dùng openpyxl.save())
 ├── CLAUDE.md                      ← File này
 ├── PROJECT_日本語学習アプリ_Handover.md  ← Tài liệu handover chi tiết (lịch sử, kiến trúc sâu)
 ├── README.md                      ← Hướng dẫn build/chạy từng bước
@@ -181,7 +183,7 @@ IT業務編 (`gyoumuDashboard()`) vào thẳng **`gyoumuUnitScreen(chapter,unit)
 ### 3 Module (Menu chính — registry `MENU_MODULES`, thêm module mới chỉ cần thêm 1 phần tử)
 | Module | Trạng thái | Dashboard |
 |---|---|---|
-| IT専門 (từ vựng IT, 663 từ) | ✅ Active | `homeDashboard()` |
+| IT専門 (từ vựng IT, 778 từ) | ✅ Active | `homeDashboard()` |
 | IT業務編 (hội thoại công việc IT, 38 track) | ✅ Active | `gyoumuDashboard()` |
 | シャドウイング (Shadowing 中〜上級編, 62 track/240 đoạn, FR_013) | ✅ Active | `shadowDashboard()` |
 
@@ -197,12 +199,12 @@ Main menu (`home()`) có 1 khối thống kê tổng hợp đầu trang: Từ đ
 - **Flashcard + SRS**: Leitner system (box 0-6, intervals [0,1,2,4,7,15,30]). 4 nút: Chi tiết/Yêu thích/Đã nhớ/Tiếp theo — bấm "Đã nhớ" tính 1 lượt SRS mức "Được" (`reviewCard(id,2)`), không còn hàng nút Quên/Khó/Được/Dễ riêng. Checkbox **"Học từ đã nhớ"** phía trên thẻ (`flashIncludeMastered`, biến toàn cục, KHÔNG lưu localStorage — luôn mặc định tắt mỗi lần vào lại) cho học lại cả từ đã đánh dấu "Đã nhớ"; khi bật, nút "Đã nhớ" của từ đã thuộc tự hiện sẵn trạng thái ✅ (tái dùng logic `isMastered()` có sẵn, không phải code mới) — bấm lại để bỏ đánh dấu.
 - **Quiz**: Trắc nghiệm JP↔VI
 - **🧩 Điền từ** (`cloze`, FR_009): che 1 đoạn trong câu ví dụ bằng `＿＿＿`, chọn lại từ đúng trong 4 phương án. Thuật toán dò ô trống `findCloze()`/`clozeCandidates()` (đặt cạnh `allWithEx()`) phủ được 629/667 từ (94,3%) — **không sửa lại logic** nếu không đo lại tỉ lệ phủ. Có nút Gợi ý 3 bậc (nghĩa → ký tự đầu → cách đọc), không thu lại được.
-- **Luyện nghe**: Nghe TTS → chọn nghĩa
+- **Luyện nghe**: Nghe TTS **từ vựng tiếng Nhật** (`v.w`, tốc độ 0.85) → chọn nghĩa **tiếng Việt** trong 4 đáp án (`v.vi` của từ đang nghe + 3 từ gây nhiễu cùng Bộ). **Không đọc câu ví dụ** (đổi 2026-11-14 theo yêu cầu PM — bản cũ ngẫu nhiên 50% số câu đọc `v.ex`). Cần ≥4 từ chưa thuộc trong Bộ.
 - **Luyện nói**: Đọc theo → nhận diện giọng → chấm điểm (LCS ratio, ngưỡng ≥90 xuất sắc/≥51 khá/<51 luyện lại) + âm thanh phản hồi (`playScoreSound()`)
 - **⚡ Phản xạ Ns** (`reflex`, FR_010): hiện nghĩa tiếng Việt, vòng đếm ngược SVG (mặc định 3s, chỉnh được 3/5/8s trong Cài đặt qua `uiSettings.reflexSec`), người học tự chấm "Bật ra được / Chưa bật ra được". **Không dùng mic** (cố ý — nhận giọng mất 1-2s khởi động, phá hỏng phép đo phản xạ). `setInterval` phải `clearInterval` ở mọi lối thoát — mỗi nhịp tự kiểm tra phần tử SVG còn trong DOM không.
 - **⭐ Yêu thích**: xem lại từ đã đánh dấu yêu thích
 
-IT専門 chia thành các **Bộ cố định đúng 25 từ, bắt đầu từ #1** (667 từ = 26 Bộ×25 + 1 Bộ 17 từ cuối, hàm `splitDecksStrict()`), không còn lọc theo "Chủ đề" (漢字/外来語/その他).
+IT専門 chia thành các **Bộ cố định đúng 25 từ, bắt đầu từ #1** (hiện 778 từ = 31 Bộ×25 + 1 Bộ 3 từ cuối, hàm `splitDecksStrict()`), không còn lọc theo "Chủ đề" (漢字/外来語/その他). **Lưu ý:** `startMode()` chặn mọi mode nếu Bộ có <4 từ (`alert('Bộ này cần ít nhất 4 từ.')`) — với 778 từ thì Bộ 32 (3 từ cuối) chưa học được cho tới khi Excel có thêm từ (mục 4.22 handover).
 
 **Header + tag hiển thị đồng bộ ở cả 6 mode (2026-09-12)**: mọi mode (Flashcard/Quiz/Cloze/Luyện nghe/Luyện nói/Phản xạ) đều hiện `curDeckRangeLabel()` ("Bộ N (start-end)") ở đầu subtitle header khi đang học theo 1 Bộ cụ thể (rỗng nếu học "Tất cả", không đổi hành vi cũ), và mọi từ đều có `<span class="tag">v.c · #v.id</span>` hiện category + STT từ điển ngay trên thẻ/câu hỏi — Flashcard/Favorites đã có sẵn từ trước, giờ thêm cho Quiz/Cloze/Luyện nghe/Luyện nói/Phản xạ (riêng Phản xạ chỉ hiện tag ở pha 2 - pha hiện đáp án, không hiện ở pha 1 để không lộ gợi ý trước khi đoán).
 

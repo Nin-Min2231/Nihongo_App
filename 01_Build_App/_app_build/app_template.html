@@ -2716,8 +2716,9 @@ function listenMode(list){
     if(i>=queue.length) return finish('listen',queue.length,score);
     var v=queue[i];
     setHeader('Luyện nghe',(deckLabel?deckLabel+' · ':'')+(i+1)+' / '+queue.length+' · '+score+'đ',true);
-    var useEx = v.ex && v.ex.length>4 && Math.random()<0.5;
-    var audio = useEx? v.ex : v.w;
+    /* Luyện nghe chỉ đọc TỪ VỰNG tiếng Nhật (v.w) — KHÔNG đọc câu ví dụ nữa (PM yêu cầu 2026-11-14).
+       4 phương án đáp án luôn là nghĩa tiếng Việt (v.vi) của từ đang nghe và của 3 từ gây nhiễu. */
+    var audio = v.w;
     var correct=v.vi;
     var distract=sample(list,3,v).map(function(x){return x.vi;});
     var opts=shuffle([correct].concat(distract));
@@ -2726,11 +2727,11 @@ function listenMode(list){
       '<div class="card" style="min-height:130px">'+
         '<span class="tag">'+v.c+' · #'+v.id+'</span>'+
         '<button class="mic" id="play" style="animation:none;background:var(--brand)">🔊</button>'+
-        '<div class="qhint">Chạm để nghe lại '+(useEx?'(câu ví dụ)':'(từ)')+'</div>'+
+        '<div class="qhint">Chạm để nghe lại từ</div>'+
       '</div>'+
       '<div class="opts">'+opts.map(function(o,k){return '<button class="opt" data-k="'+k+'">'+esc(o)+'</button>';}).join('')+'</div>'+
       '<div class="fb" id="fb"></div>';
-    var playFn=function(){speak(audio, useEx?0.95:0.85);};
+    var playFn=function(){speak(audio, 0.85);};
     $('#play').onclick=playFn; setTimeout(playFn,400);
     main.querySelectorAll('.opt').forEach(function(btn){btn.onclick=function(){
       var chosen=opts[+btn.dataset.k], ok=chosen===correct;
