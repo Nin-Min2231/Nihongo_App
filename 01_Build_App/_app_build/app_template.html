@@ -41,31 +41,40 @@ header .sub{font-size:11.5px;opacity:.85;margin-top:2px;white-space:nowrap;overf
   padding:7px 12px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .header-logo{width:36px;height:36px;border-radius:50%;flex-shrink:0;object-fit:cover;
   box-shadow:0 0 0 2px rgba(255,255,255,.5)}
-main{flex:1;padding:16px;overflow-y:auto}
+main{flex:1;padding:16px;overflow-y:auto;overflow-x:hidden}  /* overflow-x:hidden: thẻ đang bay ra khi vuốt không được làm main xuất hiện thanh cuộn ngang */
 .hidden{display:none!important}
 
 /* dashboard chính (home) — đổi 2026-09-12 theo bản demo khảo sát: số liệu "hero" nổi bật + CTA hành động ngay,
    thay cho khối 3 ô thống kê phẳng cũ. */
-.dash-hero{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 18px;
-  margin-bottom:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.dash-hero{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:13px 16px;
+  margin-bottom:10px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .dash-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;
   background:radial-gradient(circle,var(--soft),transparent 72%);pointer-events:none}
+/* 2026-10-07 (PM): nhãn "今日の学習" + số ngày liên tục + "日連続学習中" gộp trên 1 hàng (trước là 3 hàng xếp dọc)
+   để trang chủ không phải cuộn. Hàng này canh theo đường cơ sở chữ nên số lớn và nhãn nhỏ thẳng hàng. */
+.dash-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px 10px;position:relative}
+.dash-streak{display:flex;align-items:baseline;gap:5px}
 .dash-eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);position:relative}
-.dash-num{font-size:40px;font-weight:800;line-height:.95;letter-spacing:-.02em;color:var(--ink);
-  font-variant-numeric:tabular-nums;margin-top:4px;position:relative}
+.dash-num{font-size:34px;font-weight:800;line-height:1;letter-spacing:-.02em;color:var(--ink);
+  font-variant-numeric:tabular-nums;position:relative}
 .dash-num.due{color:var(--bad)}
-.dash-numlbl{font-size:14px;font-weight:700;margin-top:2px;position:relative}
-.dash-numsub{font-size:12.5px;color:var(--sub);margin-top:3px;line-height:1.4;position:relative}
-.dash-cta{margin-top:10px}
-.dash-warn{font-size:12.5px;color:var(--warn);margin-top:6px;line-height:1.4;font-weight:600;position:relative}
+.dash-numlbl{font-size:14px;font-weight:700;position:relative}
+.dash-numsub{font-size:12.5px;color:var(--sub);margin-top:2px;line-height:1.4;position:relative}
+/* .btn.dash-cta (2 class): .btn khai báo SAU nên 1 class .dash-cta sẽ bị .btn đè padding.
+   position:relative: để nút nằm TRÊN vệt tròn trang trí .dash-hero::before (nút giờ nằm cao hơn nên bị vệt đó đè lên) */
+.btn.dash-cta{margin-top:8px;padding:11px 16px;position:relative}
+.dash-warn{font-size:12.5px;color:var(--warn);margin-top:4px;line-height:1.4;font-weight:600;position:relative}
 .dash-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:10px;cursor:pointer;position:relative}
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:8px;cursor:pointer;position:relative}
 .dash-metrics:active{opacity:.85}
-.dash-metric{background:var(--card);padding:8px 6px;text-align:center}
-.dash-metric b{display:block;font-size:18px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.dash-metric{background:var(--card);padding:6px 6px;text-align:center}
+.dash-metric b{display:block;font-size:18px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.3}
 .dash-metric span{font-size:10.5px;color:var(--sub);margin-top:1px;display:block}
 .dash-metrics-link{display:block;text-align:center;font-size:12px;color:var(--brand);font-weight:600;
-  margin-top:6px;cursor:pointer;position:relative}
+  margin-top:4px;cursor:pointer;position:relative}
+/* khoảng cách chặt hơn CHỈ ở trang chủ (.sectitle/.topics dùng chung nhiều màn khác nên không sửa trực tiếp) */
+.sectitle.home-sec{margin:2px 2px 7px}
+.topics.home-topics{gap:10px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;box-shadow:var(--shadow)}
 .stat .n{font-size:22px;font-weight:800;color:var(--brand)}
@@ -138,8 +147,19 @@ main{flex:1;padding:16px;overflow-y:auto}
   background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px;margin-bottom:10px;
   cursor:pointer;user-select:none}
 .flash-check-row input{width:17px;height:17px;accent-color:var(--brand);cursor:pointer;flex-shrink:0}
+/* vuốt ngang trên thẻ để chuyển thẻ (Flashcard/Yêu thích) — xem attachSwipe().
+   touch-action:pan-y: vuốt DỌC vẫn là cuộn trang, chỉ vuốt NGANG mới vào JS. */
+.card.swipeable{touch-action:pan-y;user-select:none;-webkit-user-select:none}
+@keyframes cardInR{from{transform:translateX(44px);opacity:0}to{transform:none;opacity:1}}
+@keyframes cardInL{from{transform:translateX(-44px);opacity:0}to{transform:none;opacity:1}}
+.card.in-r{animation:cardInR .2s ease-out}
+.card.in-l{animation:cardInL .2s ease-out}
+@media (prefers-reduced-motion:reduce){.card.in-r,.card.in-l{animation:none}}
 .jp{font-size:40px;font-weight:800;letter-spacing:1px;line-height:1.25}
 .reading{font-size:17px;color:var(--brand2);margin-top:8px;font-weight:600}
+.hv{font-size:calc(15px * var(--fs-scale,1));font-weight:700;color:var(--warn);margin-top:6px;line-height:1.5}
+.hv-tag{display:inline-block;font-size:10px;font-weight:700;border:1px solid currentColor;border-radius:99px;
+  padding:0 7px;margin-right:6px;vertical-align:1px;line-height:1.6}
 .mean{font-size:19px;margin-top:14px;font-weight:600}
 .en{font-size:14px;color:var(--sub);margin-top:4px;font-style:italic}
 .ex{font-size:calc(15px * var(--fs-scale,1));color:var(--ink);margin-top:16px;background:var(--soft);border-radius:12px;
@@ -690,6 +710,20 @@ async function speakAsync(text, rateOverride){
     return;
   }
   if(!(await deviceSpeakAsync(text, speed))) showToast('Không phát được âm thanh, kiểm tra kết nối mạng');
+}
+
+/* Văn bản đưa vào TTS khi đọc 1 TỪ VỰNG — lấy theo cột 読み方 (v.r, kana) chứ không phải chữ gốc v.w:
+   engine TTS tự đoán âm của kanji nên hay đọc sai (VD 根本 bị đọc khác, đúng là こんぽん).
+   Ô 読み方 đôi khi ghi nhiều cách đọc ("ちょうかい/ききとり") hoặc chú thích trong ngoặc ("しゅうじゅく(みしゅうじゅく)"):
+   bỏ phần ngoặc, đọc lần lượt các biến thể khác nhau, nối bằng "、" để TTS ngắt nghỉ giữa các biến thể.
+   Ô trống / không còn gì đọc được → rơi về v.w như cũ. Câu ví dụ (v.ex) không có cột 読み方 nên vẫn đọc nguyên văn. */
+function wordAudioText(v){
+  var seen={}, parts=[];
+  String(v.r||'').replace(/[（(][^）)]*[）)]/g,'').split(/[\/／=＝>＞、,，;；]+/).forEach(function(p){
+    p=p.trim();
+    if(p && !seen[p]){ seen[p]=1; parts.push(p); }
+  });
+  return parts.length ? parts.join('、') : v.w;
 }
 
 /* ═══════════════ SETTINGS PANEL ═══════════════ */
@@ -1345,9 +1379,10 @@ function home(){
 
   var heroHtml=
     '<div class="dash-hero">'+
-      '<div class="dash-eyebrow">今日の学習</div>'+
-      '<div class="dash-num">'+streak+'</div>'+
-      '<div class="dash-numlbl">日連続学習中</div>'+
+      '<div class="dash-top">'+
+        '<span class="dash-eyebrow">今日の学習</span>'+
+        '<span class="dash-streak"><span class="dash-num">'+streak+'</span><span class="dash-numlbl">日連続学習中</span></span>'+
+      '</div>'+
       (gap>0?
         '<div class="dash-warn">⚠️ 直近'+gap+'日間、学習していません。今日からまた連続記録を始めましょう！</div>'
       :
@@ -1365,8 +1400,8 @@ function home(){
 
   main.innerHTML=
     heroHtml+
-    '<div class="sectitle">Chọn chủ đề bạn muốn học</div>'+
-    '<div class="topics">'+
+    '<div class="sectitle home-sec">Chọn chủ đề bạn muốn học</div>'+
+    '<div class="topics home-topics">'+
       MENU_MODULES.map(function(m){
         return '<div class="topic-card '+(m.soon?'soon':'active')+'" data-topic="'+m.id+'">'+
           '<div class="tc-icon">'+m.icon+'</div>'+
@@ -2413,6 +2448,75 @@ function startMode(m){
   else if(m==='reflex')reflexMode(list);
 }
 
+/* Dòng Hán Việt trên thẻ (cột "Hán Việt" của từ điển, VD "Thừa - Nhận"). Từ không có kanji thì không có dòng này. */
+function hanVietHTML(v){
+  return v.hv ? '<div class="hv"><span class="hv-tag">Hán Việt</span>'+esc(v.hv)+'</div>' : '';
+}
+
+/* Vuốt ngang trên thẻ để chuyển thẻ: vuốt sang TRÁI = thẻ tiếp theo, sang PHẢI = thẻ trước (Flashcard, Yêu thích).
+   Dùng Pointer Events (chuột + cảm ứng + bút) nên test được cả trên PC. KHÔNG dùng setPointerCapture: nó làm click của
+   nút 🔊 nằm trong thẻ bị chuyển sang chính thẻ. Vuốt dọc vẫn là cuộn trang (CSS .swipeable có touch-action:pan-y).
+   canPrev() trả false khi đang ở thẻ đầu → kéo sang phải bị "nặng" và thẻ tự nảy về chỗ cũ. */
+var swipedAt=0;   /* mốc vừa vuốt xong — để cú click đi kèm cú kéo chuột không bị tính là "chạm để lật thẻ" */
+function justSwiped(){ return Date.now()-swipedAt<400; }
+function attachSwipe(el, onNext, onPrev, canPrev){
+  var pid=null, sx=0, sy=0, st=0, dx=0, drag=false;
+  el.classList.add('swipeable');
+  function snapBack(){
+    el.style.transition='transform .18s ease-out, opacity .18s ease-out';
+    el.style.transform=''; el.style.opacity='';
+  }
+  function fly(dir, done){
+    el.style.transition='transform .16s ease-in, opacity .16s ease-in';
+    el.style.transform='translateX('+(dir*Math.max(window.innerWidth||0,360))+'px) rotate('+(dir*14)+'deg)';
+    el.style.opacity='0';
+    setTimeout(done, 150);
+  }
+  function stopTracking(){
+    pid=null;
+    document.removeEventListener('pointermove', onMove);
+    document.removeEventListener('pointerup', onUp);
+    document.removeEventListener('pointercancel', onCancel);
+  }
+  function onMove(e){
+    if(e.pointerId!==pid) return;
+    dx=e.clientX-sx;
+    var dy=e.clientY-sy;
+    if(!drag){
+      if(Math.abs(dx)<10 && Math.abs(dy)<10) return;
+      if(Math.abs(dy)>Math.abs(dx)){ stopTracking(); return; }   /* vuốt dọc: nhường cho cuộn trang */
+      drag=true; el.style.transition='none';
+    }
+    var d=(dx>0 && !canPrev()) ? dx/4 : dx;
+    el.style.transform='translateX('+d+'px) rotate('+(d/45)+'deg)';
+    el.style.opacity=String(1-Math.min(Math.abs(d)/420,0.45));
+  }
+  function onUp(e){
+    if(e.pointerId!==pid) return;
+    var wasDrag=drag, d=dx, dt=Date.now()-st;
+    stopTracking();
+    if(!wasDrag) return;                                          /* chạm bình thường: để click lật thẻ chạy */
+    swipedAt=Date.now();
+    var go = Math.abs(d)>=70 || (dt>0 && Math.abs(d)>=28 && Math.abs(d)/dt>0.45);   /* vút nhanh thì ngưỡng khoảng cách thấp hơn */
+    if(go && d<0) fly(-1, onNext);
+    else if(go && d>0 && canPrev()) fly(1, onPrev);
+    else snapBack();
+  }
+  function onCancel(e){
+    if(e.pointerId!==pid) return;
+    var was=drag; stopTracking();
+    if(was) snapBack();
+  }
+  el.addEventListener('pointerdown', function(e){
+    if(pid!==null) return;
+    if(e.pointerType==='mouse' && e.button!==0) return;
+    pid=e.pointerId; sx=e.clientX; sy=e.clientY; st=Date.now(); dx=0; drag=false;
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+    document.addEventListener('pointercancel', onCancel);
+  });
+}
+
 /* ═══════════════ FLASHCARD + SRS ═══════════════ */
 function flashMode(rawList){
   onBack=homeDashboard;
@@ -2420,7 +2524,7 @@ function flashMode(rawList){
   if(!list.length){ main.innerHTML='<div class="note">Bạn đã thuộc hết từ trong bộ này! 🎉</div>'; setHeader('Flashcard','',true); return; }
   const due=list.filter(function(v){return isDue(v.id);});
   const queue = curDeck==='ALL' ? (due.length?due:shuffle(list)).slice(0,20) : shuffle(list);
-  var i=0, flipped=false;
+  var i=0, flipped=false, enter='';   /* enter: 'r'/'l' = thẻ mới trượt vào từ phải/trái sau khi vuốt */
   setHeader('Flashcard','SRS · '+queue.length+' thẻ',true);
   function render(){
     if(i>=queue.length){ return finish('flash', queue.length); }
@@ -2436,6 +2540,7 @@ function flashMode(rawList){
         '<div class="jp">'+esc(v.w)+'</div>'+
         '<div id="answer" class="hidden">'+
           '<div class="reading">'+esc(v.r)+'</div>'+
+          hanVietHTML(v)+
           '<div class="mean">'+esc(v.vi)+'</div>'+
           '<div class="en">'+esc(v.en)+'</div>'+
           (v.ex?'<div class="ex">'+esc(v.ex)+'</div>':'')+
@@ -2453,10 +2558,14 @@ function flashMode(rawList){
       flipped=state;
       $('#answer').classList.toggle('hidden',!flipped);
       $('#toggleDetail').textContent = flipped?'🙈 Ẩn':'👁 Chi tiết';
-      if(flipped) speak(v.w);
+      if(flipped) speak(wordAudioText(v));
     }
-    $('#spk').onclick=function(e){e.stopPropagation();speak(v.w);};
-    $('#card').onclick=function(){ setFlipped(!flipped); };
+    $('#spk').onclick=function(e){e.stopPropagation();speak(wordAudioText(v));};
+    var cardEl=$('#card');
+    if(enter){ cardEl.classList.add(enter==='r'?'in-r':'in-l'); enter=''; }
+    cardEl.onclick=function(){ if(justSwiped()) return; setFlipped(!flipped); };
+    /* vuốt trái = thẻ tiếp theo (như nút "Tiếp theo"), vuốt phải = quay lại thẻ trước */
+    attachSwipe(cardEl, function(){ enter='r'; i++; render(); }, function(){ enter='l'; i--; render(); }, function(){ return i>0; });
     $('#toggleDetail').onclick=function(e){ e.stopPropagation(); setFlipped(!flipped); };
     $('#favBtn').onclick=function(e){
       e.stopPropagation();
@@ -2515,18 +2624,19 @@ function favoritesMode(){
     return;
   }
   var queue = shuffle(favList);
-  var i=0, flipped=false;
+  var i=0, flipped=false, enter='';
   function render(){
     if(i>=queue.length) return finishFavorites(queue.length);
     var v=queue[i]; flipped=false;
     setHeader('Yêu thích', (i+1)+' / '+queue.length, true);
     main.innerHTML=
-      '<div class="counter">Chạm thẻ để xem nghĩa</div>'+
+      '<div class="counter">Chạm thẻ để xem nghĩa · Vuốt để chuyển thẻ</div>'+
       '<div class="card" id="card">'+
         '<span class="tag">'+v.c+' · #'+v.id+'</span>'+
         '<div class="jp">'+esc(v.w)+'</div>'+
         '<div id="answer" class="hidden">'+
           '<div class="reading">'+esc(v.r)+'</div>'+
+          hanVietHTML(v)+
           '<div class="mean">'+esc(v.vi)+'</div>'+
           '<div class="en">'+esc(v.en)+'</div>'+
           (v.ex?'<div class="ex">'+esc(v.ex)+'</div>':'')+
@@ -2535,7 +2645,7 @@ function favoritesMode(){
       '</div>'+
       '<div class="card-actions">'+
         '<button class="btn btn-ghost" id="toggleDetail">👁 Xem chi tiết</button>'+
-        '<button class="btn btn-ghost" id="favBtn">❤️ Bỏ yêu thích</button>'+
+        '<button class="btn btn-ghost" id="favBtn">'+(isFavorite(v.id)?'❤️ Bỏ yêu thích':'🤍 Yêu thích lại')+'</button>'+
         '<button class="btn btn-ghost" id="masterBtn">'+(isMastered(v.id)?'✅ Đã thuộc':'☐ Đã nhớ')+'</button>'+
         '<button class="btn btn-ghost" id="nextBtn">Từ tiếp theo →</button>'+
       '</div>';
@@ -2544,15 +2654,20 @@ function favoritesMode(){
       flipped=state;
       $('#answer').classList.toggle('hidden',!flipped);
       $('#toggleDetail').textContent = flipped?'🙈 Ẩn chi tiết':'👁 Xem chi tiết';
-      if(flipped) speak(v.w);
+      if(flipped) speak(wordAudioText(v));
     }
-    $('#spk').onclick=function(e){e.stopPropagation();speak(v.w);};
-    $('#card').onclick=function(){ setFlipped(!flipped); };
+    $('#spk').onclick=function(e){e.stopPropagation();speak(wordAudioText(v));};
+    var cardEl=$('#card');
+    if(enter){ cardEl.classList.add(enter==='r'?'in-r':'in-l'); enter=''; }
+    cardEl.onclick=function(){ if(justSwiped()) return; setFlipped(!flipped); };
+    attachSwipe(cardEl, function(){ enter='r'; i++; render(); }, function(){ enter='l'; i--; render(); }, function(){ return i>0; });
     $('#toggleDetail').onclick=function(e){ e.stopPropagation(); setFlipped(!flipped); };
     $('#favBtn').onclick=function(e){
       e.stopPropagation();
-      toggleFavorite(v.id); // thẻ này chỉ chứa từ yêu thích nên bấm luôn là bỏ, chuyển thẻ tiếp
-      i++; render();
+      /* Thẻ trong hàng đợi vốn là từ yêu thích nên bấm thường là BỎ rồi chuyển thẻ tiếp. Riêng khi vuốt quay lại 1 thẻ đã bỏ
+         yêu thích trước đó thì nút hiện "Yêu thích lại": bấm là yêu thích lại và ở nguyên thẻ này. */
+      if(toggleFavorite(v.id)){ $('#favBtn').textContent='❤️ Bỏ yêu thích'; }
+      else { i++; render(); }
     };
     $('#masterBtn').onclick=function(e){
       e.stopPropagation();
@@ -2607,7 +2722,7 @@ function quizMode(list){
         opts.map(function(o,k){return '<button class="opt" data-k="'+k+'">'+esc(o)+'</button>';}).join('')+
       '</div>'+
       '<div class="fb" id="fb"></div>';
-    if(jp2vi&&$('#spk')){$('#spk').onclick=function(){speak(v.w);};speak(v.w);}
+    if(jp2vi&&$('#spk')){$('#spk').onclick=function(){speak(wordAudioText(v));};speak(wordAudioText(v));}
     main.querySelectorAll('.opt').forEach(function(btn){btn.onclick=function(){
       var chosen=opts[+btn.dataset.k];
       var ok=chosen===correct;
@@ -2716,9 +2831,10 @@ function listenMode(list){
     if(i>=queue.length) return finish('listen',queue.length,score);
     var v=queue[i];
     setHeader('Luyện nghe',(deckLabel?deckLabel+' · ':'')+(i+1)+' / '+queue.length+' · '+score+'đ',true);
-    /* Luyện nghe chỉ đọc TỪ VỰNG tiếng Nhật (v.w) — KHÔNG đọc câu ví dụ nữa (PM yêu cầu 2026-11-14).
-       4 phương án đáp án luôn là nghĩa tiếng Việt (v.vi) của từ đang nghe và của 3 từ gây nhiễu. */
-    var audio = v.w;
+    /* Luyện nghe chỉ đọc TỪ VỰNG tiếng Nhật — KHÔNG đọc câu ví dụ nữa (PM yêu cầu 2026-11-14). Văn bản đọc lấy theo 読み方
+       qua wordAudioText() như mọi chỗ phát âm từ khác. 4 phương án đáp án luôn là nghĩa tiếng Việt (v.vi) của từ đang nghe
+       và của 3 từ gây nhiễu. */
+    var audio = wordAudioText(v);
     var correct=v.vi;
     var distract=sample(list,3,v).map(function(x){return x.vi;});
     var opts=shuffle([correct].concat(distract));
@@ -2795,8 +2911,8 @@ function speakMode(list){
         '<div class="note">Microphone không khả dụng. Hãy nghe mẫu và đọc theo (shadowing).</div>'
       )+
       '<button class="btn btn-primary" id="next" style="margin-top:14px">Tiếp theo →</button>';
-    $('#spk').onclick=function(){speak(v.w);};
-    setTimeout(function(){speak(v.w);},300);
+    $('#spk').onclick=function(){speak(wordAudioText(v));};
+    setTimeout(function(){speak(wordAudioText(v));},300);
     $('#next').onclick=function(){ if(listening) cancelRecognition(); i++; render(); };
     if(!supported){ return; }
     var mic=$('#mic'), hint=$('#mhint'), heard=$('#heard'), fb=$('#fb');
@@ -2896,8 +3012,8 @@ function reflexMode(list){
         '<button class="btn btn-ghost" id="noBtn">Chưa bật ra được</button>'+
         '<button class="btn btn-primary" id="yesBtn">Bật ra được</button>'+
       '</div>';
-    $('#spk').onclick=function(){speak(v.w);};
-    setTimeout(function(){speak(v.w);},300);
+    $('#spk').onclick=function(){speak(wordAudioText(v));};
+    setTimeout(function(){speak(wordAudioText(v));},300);
     $('#noBtn').onclick=function(){ reviewCard(v.id,0); i++; render(); };
     $('#yesBtn').onclick=function(){ reviewCard(v.id,2); score++; i++; render(); };
   }

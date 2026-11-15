@@ -37,8 +37,9 @@ bỏ hẳn xl/sharedStrings.xml → build chết với KeyError. Bản v2 sửa 
      dù nó chuyển lên hay xuống bao nhiêu dòng trong Excel. Từ mới nhận id kế tiếp
      chưa ai dùng. Id của từ đã xóa không bao giờ được cấp lại cho từ khác.
 
-ĐẦU RA KHÔNG ĐỔI: vẫn là mảng JSON 7 khóa {id, w, r, vi, en, ex, c}.
-app_template.html không cần sửa một dòng nào.
+ĐẦU RA: mảng JSON {id, w, r, vi, en, ex, c} + khóa `hv` (Hán Việt, thêm 2026-10-06).
+`hv` là cột TÙY CHỌN: file Excel không có cột "Hán Việt" thì mọi từ có hv = "" và build vẫn chạy.
+Ô Hán Việt để trống là bình thường với từ không có kanji (katakana/hiragana thuần).
 """
 import zipfile, re, html, json, os, sys, datetime, shutil
 
@@ -167,6 +168,7 @@ HEADER_HINTS = {
     'vi': ['nghĩa tiếng việt', 'tiếng việt', 'nghĩa', 'nghia'],
     'en': ['tiếng anh', 'english', 'tieng anh'],
     'ex': ['câu hội thoại', 'câu ví dụ', '例文', '会話', 'câu'],
+    'hv': ['hán việt', 'han viet', 'hanviet', '漢越'],   # tùy chọn — không có cột này vẫn build được
 }
 LEGACY_COLS = {'id': 'B', 'w': 'C', 'r': 'D', 'vi': 'E', 'en': 'F', 'ex': 'G'}
 
@@ -213,6 +215,7 @@ def category(w):
 #  Trích từ vựng
 # ═══════════════════════════════════════════════════════════════════════════
 JP_CHARS = re.compile(r'[぀-ヿ一-龥]')
+HAS_KANJI = re.compile(r'[一-鿿々〆]')
 
 
 def extract_vocab(dict_path):
@@ -249,6 +252,7 @@ def extract_vocab(dict_path):
         'empty': {k: [] for k in ('r', 'vi', 'en', 'ex')},
         'dup_word': [], 'dup_id': [], 'bad_id': [],
         'ex_no_jp': [], 'ex_missing_word': [], 'skipped_rows': 0,
+        'hv_missing': [],   # từ có kanji nhưng ô Hán Việt trống (chỉ để báo, không chặn build)
     }
     seen_word, seen_id = {}, {}
 
@@ -277,11 +281,14 @@ def extract_vocab(dict_path):
             "en": cells.get(cols['en'], ''),
             "ex": cells.get(cols['ex'], ''),
             "c":  category(word),
+            "hv": cells.get(cols['hv'], '') if cols.get('hv') else '',
         }
 
         for k in ('r', 'vi', 'en', 'ex'):
             if not rec[k]:
                 issues['empty'][k].append((row_no, word))
+        if cols.get('hv') and not rec['hv'] and HAS_KANJI.search(word):
+            issues['hv_missing'].append((row_no, word))
         if word in seen_word:
             issues['dup_word'].append((word, seen_word[word], row_no))
         else:
@@ -338,6 +345,17 @@ def report_issues(vocab, issues, header_row, cols):
         if lst:
             say("  ⚠ Thiếu %s: %d dòng  (ví dụ: %s)"
                 % (label, len(lst), ", ".join("dòng %d %s" % (r, w) for r, w in lst[:3])))
+
+    if cols.get('hv'):
+        lst = issues['hv_missing']
+        have = sum(1 for v in vocab if v['hv'])
+        if lst:
+            say("  ℹ Hán Việt: có %d từ · còn thiếu %d từ có kanji  (ví dụ: %s)"
+                % (have, len(lst), ", ".join("dòng %d %s" % (r, w) for r, w in lst[:3])))
+        else:
+            say("  ✓ Hán Việt: có %d từ — đủ cho mọi từ có kanji" % have)
+    else:
+        say("  ℹ Không thấy cột \"Hán Việt\" trong file — app sẽ không hiện dòng Hán Việt.")
 
     if issues['ex_no_jp']:
         say("  ⚠ Câu ví dụ không có ký tự tiếng Nhật: %d  (bài nghe sẽ đọc sai)"
